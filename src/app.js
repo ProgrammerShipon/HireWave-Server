@@ -36,7 +36,7 @@ const rateLimiter = rateLimit({
 });
 
 // Root Route
-app.get("/", rateLimiter, (req, res) =>
+app.get("/", (req, res) =>
   res.status(200).send("Assalamualaikum")
 );
 
