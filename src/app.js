@@ -5,10 +5,12 @@ const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const userRouter = require("./routers/userRouter");
+const cors = require('cors')
 
 const app = express();
 
 // Application level middleware
+app.use(cors());
 app.use(morgan("dev"));
 app.use(xssClean());
 app.use(express.json());
