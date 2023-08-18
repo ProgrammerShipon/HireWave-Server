@@ -1,9 +1,9 @@
 
 const getAllJobController = async (req, res, next) => {
-try {
-      
-} catch (error) {
-   next(error)
-}
+   try {
+         
+   } catch (error) {
+      next(error)
+   }
 }
 

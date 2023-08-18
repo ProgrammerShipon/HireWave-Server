@@ -3,5 +3,4 @@ const allJobModel = require("../models/allJobModel");
 
 const allJobCollection = new mongoose.model('AllJob', allJobModel)
 
-
-module.exports = {allJobCollection}
+module.exports = { allJobCollection }
