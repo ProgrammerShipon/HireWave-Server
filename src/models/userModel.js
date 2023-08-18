@@ -32,25 +32,19 @@ const userSchema = new Schema(
       set: (v) => bcrypt.hashSync(v, bcrypt.genSaltSync(10)),
     },
     image: {
-      type: {
-        type: String,
-      },
+      type: String,
       default: defaultImagePath,
     },
     address: {
-      type: {
         type: String,
         required: [true, "User address is required"],
-      },
     },
     phone: {
-      type: {
         type: String,
         required: [true, "User Phone Number is required"],
-      },
     },
     roll: {
-      type: Boolean,
+      type: String,
       default: false,
     },
     isBanned: {

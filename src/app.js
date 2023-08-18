@@ -5,6 +5,7 @@ const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const userRouter = require("./routers/userRouter");
+const seedRouter = require("./routers/seedRouter");
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// -----------<  middleware Function  >-------------------
+// -------------<  middleware Function  >-------------------
 // Login status
 const isLogin = (req, res, next) => {
   const login = true;
@@ -41,8 +42,10 @@ app.get("/", rateLimiter, (req, res) =>
 /**
  * Route or apis
  * - api/users/
+ * - api/seed/
  */
 app.use('/api/users', userRouter)
+app.use('/api/seed', seedRouter)
 
 // client error handling
 app.use((req, res, next) => {
