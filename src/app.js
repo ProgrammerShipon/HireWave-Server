@@ -10,8 +10,14 @@ const allJobRoute = require("./routers/allJobRouter");
 
 const app = express();
 
+const opt = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
 // Application level middleware
-app.use(cors());
+app.use(cors(opt));
 app.use(morgan("dev"));
 app.use(xssClean());
 app.use(express.json());
