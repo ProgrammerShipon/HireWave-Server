@@ -1,11 +1,16 @@
+// terminal clear
+console.clear()
+
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
-const userRouter = require("./routers/userRouter");
-const seedRouter = require("./routers/seedRouter");
+
+// Router require
+// const userRouter = require("./routers/userRouter");
+const faqsRoute = require("./routers/faqsRoute");
 
 const app = express();
 
@@ -16,36 +21,22 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// -------------<  middleware Function  >-------------------
-// Login status
-const isLogin = (req, res, next) => {
-  const login = true;
-  if (login) {
-    next();
-  } else {
-    return res.status(401).send({ message: "please login" });
-  }
-};
-
-// Login Limit Set
-const rateLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000,
-  max: 5,
-  message: {message: "Too many requests from this IP. please try again later ."},
-});
-
 // Root Route
-app.get("/", rateLimiter, (req, res) =>
+app.get("/", (req, res) =>
   res.status(200).send("Assalamualaikum")
 );
 
 /**
  * Route or apis
  * - api/users/
- * - api/seed/
  */
-app.use('/api/users', userRouter)
-app.use('/api/seed', seedRouter)
+// app.use('/api/users', userRouter)
+
+/**
+ * Route or apis
+ * - faqs
+ */
+app.use('/faqs', faqsRoute)
 
 // client error handling
 app.use((req, res, next) => {
