@@ -54,7 +54,7 @@ const allJobModel = new Schema({
     require: true,
   },
   requirements: {
-    type: String,
+    type: Array,
     require: true,
   },
   skillsExperience: {
@@ -62,7 +62,7 @@ const allJobModel = new Schema({
     require: true,
   },
   benefits: {
-    type: String,
+    type: Array,
     require: true,
   },
   skills: {

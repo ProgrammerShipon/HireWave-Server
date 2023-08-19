@@ -1,3 +1,6 @@
+// terminal clear
+console.clear()
+
 const app = require("./src/app");
 const connectDB = require("./src/config/db");
 const { PORT } = require("./src/secret");

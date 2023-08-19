@@ -5,7 +5,8 @@ const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const userRouter = require("./routers/userRouter");
-const cors = require('cors')
+const cors = require('cors');
+const allJobRoute = require("./routers/allJobRouter");
 
 const app = express();
 
@@ -43,9 +44,10 @@ app.get("/", (req, res) =>
 /**
  * Route or apis
  * - api/users/
- * - api/seed/
+ * - all-jobs
  */
 app.use('/api/users', userRouter)
+app.use('/all-jobs', allJobRoute)
 
 // client error handling
 app.use((req, res, next) => {
