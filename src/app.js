@@ -44,9 +44,12 @@ app.get("/", (req, res) =>
 /**
  * Route or apis
  * - api/users/
- * - all-jobs
+ * - api/seed/
  */
+// user route
 app.use('/api/users', userRouter)
+
+// All Jobs Route
 app.use('/all-jobs', allJobRoute)
 
 // client error handling
