@@ -6,11 +6,13 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
-const rateLimit = require("express-rate-limit");
+// const rateLimit = require("express-rate-limit");
 
 // Router require
 // const userRouter = require("./routers/userRouter");
 const faqsRoute = require("./routers/faqsRoute");
+const learningRoute = require("./routers/learningRoute");
+const reviewsRoute = require("./routers/reviewsRoute");
 
 const app = express();
 
@@ -33,10 +35,22 @@ app.get("/", (req, res) =>
 // app.use('/api/users', userRouter)
 
 /**
- * Route or apis
- * - faqs
+ * FAQs Route
+ * - api/faqs
  */
-app.use('/faqs', faqsRoute)
+app.use('api/faqs', faqsRoute)
+
+/**
+ * reviews api
+ * - api/review
+ */
+app.use('api/review', reviewsRoute)
+
+/**
+ * learning api
+ * - api/learning
+ */
+app.use('api/learning', learningRoute)
 
 // client error handling
 app.use((req, res, next) => {

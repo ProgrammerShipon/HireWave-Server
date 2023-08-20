@@ -3,12 +3,25 @@ const { default: mongoose } = require("mongoose");
 // All Model or schema require
 const allJobModel = require("../models/allJobModel");
 const faqsModel = require("../models/faqsModel");
+const reviewModel = require("../models/reviewModel");
+const learningModel = require("../models/learningModel");
 
 // all jobs collection database
 const allJobCollection = new mongoose.model('AllJob', allJobModel)
 
 // FAQS Collection database
-const faqsCollection = new mongoose.model('faqs', faqsModel)
+const faqsCollection = new mongoose.model('FAQs', faqsModel)
+
+// Review Collection database
+const reviewCollection = new mongoose.model('Reviews', reviewModel)
+
+// Learning Collection database
+const learningCollection = new mongoose.model('Learning', learningModel)
 
 // export data base
-module.exports = { allJobCollection, faqsCollection }
+module.exports = {
+  allJobCollection,
+  faqsCollection,
+  reviewCollection,
+  learningCollection,
+};
