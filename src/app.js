@@ -8,6 +8,7 @@ const userRouter = require("./routers/userRouter");
 const cors = require('cors');
 const allJobRoute = require("./routers/allJobRouter");
 
+// make app
 const app = express();
 
 const opt = {
