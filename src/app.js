@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
-const cors = require('cors');
+const cors = require('cors'); 
 const jobLocationRoute = require("./routers/JobLocationRouter");
 const recruiterRoute = require("./routers/recruitersRoute");
 const allJobRoute = require("./routers/allJobRouter");
@@ -30,21 +30,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // -------------<  middleware Function  >-------------------
 // Login status
-const isLogin = (req, res, next) => {
-  const login = true;
-  if (login) {
-    next();
-  } else {
-    return res.status(401).send({ message: "please login" });
-  }
-};
+// const isLogin = (req, res, next) => {
+//   const login = true;
+//   if (login) {
+//     next();
+//   } else {
+//     return res.status(401).send({ message: "please login" });
+//   }
+// };
 
 // Login Limit Set
-const rateLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000,
-  max: 5,
-  message: { message: "Too many requests from this IP. please try again later ." },
-});
+// const rateLimiter = rateLimit({
+//   windowMs: 1 * 60 * 1000,
+//   max: 5,
+//   message: { message: "Too many requests from this IP. please try again later ." },
+// });
 
 // Root Route
 app.get("/", (req, res) =>
