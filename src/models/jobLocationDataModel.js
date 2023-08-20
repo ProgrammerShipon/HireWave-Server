@@ -5,7 +5,7 @@ const jobLocationDataModel=new mongoose.Schema({
         type: String,
         require: true,
     },
-    images: {
+    image: {
         type: String,
         require: true,
     },
@@ -14,7 +14,7 @@ const jobLocationDataModel=new mongoose.Schema({
         require: true,
     },
     vacancy: {
-        type: Number,
+        type: String,
         require: true,
     },
     companies: {

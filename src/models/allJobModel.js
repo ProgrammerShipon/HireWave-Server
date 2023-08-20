@@ -5,10 +5,6 @@ const allJobModel = new mongoose.Schema({
     type: String,
     require: true,
   },
-  postedDate: {
-    type: String, // todo: new Date.now()
-    require: true,
-  },
   companyName: {
     type: String,
     require: true,
@@ -54,7 +50,7 @@ const allJobModel = new mongoose.Schema({
     require: true,
   },
   requirements: {
-    type: String,
+    type: Array,
     require: true,
   },
   skillsExperience: {
@@ -62,13 +58,17 @@ const allJobModel = new mongoose.Schema({
     require: true,
   },
   benefits: {
-    type: String,
+    type: Array,
     require: true,
   },
   skills: {
     type: Array,
     require: true,
   },
+  postedDate: {
+    type: String, // todo: new Date.now()
+    default: Date.now
+  }
 });
 
 module.exports = allJobModel

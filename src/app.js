@@ -4,13 +4,24 @@ const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
-const userRouter = require("./routers/userRouter");
-const jobLocation = require("./routers/JobLocationRouter");
-const candidate = require("./routers/candidateRoute");
+const cors = require('cors');
+const jobLocationRoute = require("./routers/JobLocationRouter");
+const recruiterRoute = require("./routers/recruitersRoute");
+const allJobRoute = require("./routers/allJobRouter");
+
+// All Route import 
+
 
 const app = express();
 
+const opt = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
 // Application level middleware
+app.use(cors(opt));
 app.use(morgan("dev"));
 app.use(xssClean());
 app.use(express.json());
@@ -32,11 +43,11 @@ const isLogin = (req, res, next) => {
 const rateLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 5,
-  message: {message: "Too many requests from this IP. please try again later ."},
+  message: { message: "Too many requests from this IP. please try again later ." },
 });
 
 // Root Route
-app.get("/", rateLimiter, (req, res) =>
+app.get("/", (req, res) =>
   res.status(200).send("Assalamualaikum")
 );
 
@@ -45,9 +56,17 @@ app.get("/", rateLimiter, (req, res) =>
  * - api/users/
  * - api/seed/
  */
-app.use('/api/users', userRouter)
-app.use('/api/jobByLocation', jobLocation)
-app.use('/api/allcandidate', candidate)
+// user route
+// app.use('/api/users', userRouter)
+
+// All Jobs Route
+app.use('/alljobs', allJobRoute)
+
+// Job By Location Route  Complete **
+app.use('/jobByLocation', jobLocationRoute)
+
+// RECRUITERS  Route  Complete **
+app.use('/recruiters' , recruiterRoute)
 
 // client error handling
 app.use((req, res, next) => {
