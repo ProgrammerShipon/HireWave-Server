@@ -8,6 +8,7 @@ const cors = require('cors');
 const jobLocationRoute = require("./routers/JobLocationRouter");
 const recruiterRoute = require("./routers/recruitersRoute");
 const allJobRoute = require("./routers/allJobRouter");
+const candidateRoute = require("./routers/candidateRoute");
 
 // All Route import 
 
@@ -59,8 +60,11 @@ app.get("/", (req, res) =>
 // user route
 // app.use('/api/users', userRouter)
 
-// All Jobs Route
+// All Jobs Route Complete **
 app.use('/alljobs', allJobRoute)
+
+// All Candidates Route Complete **
+app.use('/allCandidates' , candidateRoute)
 
 // Job By Location Route  Complete **
 app.use('/jobByLocation', jobLocationRoute)

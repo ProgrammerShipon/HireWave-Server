@@ -1,6 +1,8 @@
 const { jobLocationCollection } = require("../collections/collection")
 const { ObjectId } = require('bson');
 
+
+// GET ALL JOBS LOCATION DETAILS 
 const getAllJobLocation = async (req, res) => {
     try {
         const allJobLocationPost = await jobLocationCollection.find();
@@ -9,7 +11,19 @@ const getAllJobLocation = async (req, res) => {
         res.status(404).send({ message: error.message })
     }
 }
-
+// GET A JOB LOCATION DETAILS BY :ID
+const getAJobLocation = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) }
+        const jobLocation = await jobLocationCollection.find(query);
+        // console.log(jobLocation)
+        res.status(200).send(jobLocation)
+    } catch (error) {
+        res.status(404).send({ message: error.message })
+    }
+}
+// POST A JOBS LOCATION DETAILS 
 const postJobLocation = async (req, res) => {
     try {
         // const newJobLocation = ({
