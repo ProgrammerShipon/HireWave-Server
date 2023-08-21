@@ -10,7 +10,7 @@ const {
 } = require("../controllers/learningController");
 
 // Learning insert data
-learningRoute.get("/insert", insertLearning);
+learningRoute.post("/insert", insertLearning);
 
 // Learning get api
 learningRoute.get("/", getLearning);

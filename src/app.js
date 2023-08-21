@@ -38,19 +38,19 @@ app.get("/", (req, res) =>
  * FAQs Route
  * - api/faqs
  */
-app.use('api/faqs', faqsRoute)
+app.use('/api/faqs', faqsRoute)
 
 /**
  * reviews api
- * - api/review
+ * - api/review/insert
  */
-app.use('api/review', reviewsRoute)
+app.use('/api/review', reviewsRoute)
 
 /**
  * learning api
  * - api/learning
  */
-app.use('api/learning', learningRoute)
+app.use('/api/learning', learningRoute)
 
 // client error handling
 app.use((req, res, next) => {
