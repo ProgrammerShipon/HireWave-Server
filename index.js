@@ -1,10 +1,11 @@
 // terminal clear
-console.clear()
+// console.clear()
+
+const app = require("./src/app");
 
 const connectDB = require("./src/config/db");
 connectDB();
 
-const app = require("./src/app");
 const { PORT } = require("./src/secret");
 
 // Running Server

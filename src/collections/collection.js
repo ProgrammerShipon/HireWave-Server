@@ -7,16 +7,16 @@ const reviewModel = require("../models/reviewModel");
 const learningModel = require("../models/learningModel");
 
 // all jobs collection database
-const allJobCollection = new mongoose.model('AllJob', allJobModel)
+const allJobCollection = new mongoose.model("All-Job", allJobModel);
 
 // FAQS Collection database
-const faqsCollection = new mongoose.model('FAQs', faqsModel)
+const faqsCollection = new mongoose.model("FAQs", faqsModel);
 
 // Review Collection database
-const reviewCollection = new mongoose.model('Reviews', reviewModel)
+const reviewCollection = new mongoose.model("Reviews", reviewModel);
 
 // Learning Collection database
-const learningCollection = new mongoose.model('Learning', learningModel)
+const learningCollection = new mongoose.model("Learning", learningModel);
 
 // export data base
 module.exports = {

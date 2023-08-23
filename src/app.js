@@ -9,7 +9,6 @@ const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const userRouter = require("./routers/userRouter");
 const cors = require('cors');
-const allJobRoute = require("./routers/allJobRouter");
 // const rateLimit = require("express-rate-limit");
 
 // Router require
@@ -17,17 +16,12 @@ const allJobRoute = require("./routers/allJobRouter");
 const faqsRoute = require("./routers/faqsRoute");
 const learningRoute = require("./routers/learningRoute");
 const reviewsRoute = require("./routers/reviewsRoute");
+const allJobRoute = require("./routers/allJobRouter");
 
 const app = express();
 
-const opt = {
-  origin: "*",
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-
 // Application level middleware
-app.use(cors(opt));
+app.use(cors());
 app.use(morgan("dev"));
 app.use(xssClean());
 app.use(express.json());
