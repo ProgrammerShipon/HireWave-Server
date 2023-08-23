@@ -1,17 +1,17 @@
 const express = require('express')
 const { insertAllJobController, getAllJobController } = require('../controllers/allJobController')
-const router = express.Router()
+const allJobRoute = express.Router()
 
 /**
  * any data insert or post mongoose
  * (root route)/all-jobs/insert-many
  */
-router.get('/insert-many', insertAllJobController)
+allJobRoute.get('/insert-many', insertAllJobController)
 
 /**
  * get all data
  * (root route)/all-jobs/
  */
-router.get('/allJobs', getAllJobController)
+allJobRoute.get('/', getAllJobController)
 
-module.exports = router
+module.exports = allJobRoute

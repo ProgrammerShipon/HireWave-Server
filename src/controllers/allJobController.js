@@ -107,10 +107,7 @@ const { allJobCollection } = require("../collections/collection")
 const insertAllJobController = async (req, res, next) => {
    try {
       // const insertionResult = await allJobCollection.insertMany(userData);
-      // res.status(200).send({
-      //    message: 'insert success',
-      //    data: insertionResult
-      // });
+      // res.status(200).json(insertionResult);
    } catch (error) {
       next(error)
    }
@@ -118,11 +115,8 @@ const insertAllJobController = async (req, res, next) => {
 
 const getAllJobController = async (req, res, next) => {
    try {
-      const Result = await allJobCollection.find();
-      res.status(200).send({
-         message: 'result successful',
-         data: Result
-      });
+      const Result = await allJobCollection.find({});
+      res.status(200).json(Result);
    } catch (error) {
       next(error)
    }

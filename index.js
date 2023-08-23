@@ -1,3 +1,6 @@
+// terminal clear
+console.clear()
+
 const connectDB = require("./src/config/db");
 connectDB();
 
@@ -8,4 +11,3 @@ const { PORT } = require("./src/secret");
 app.listen(PORT, async () => {
   console.log(`Server Running - http://localhost:${PORT}`);
 });
-
