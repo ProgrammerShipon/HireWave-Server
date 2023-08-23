@@ -54,6 +54,9 @@ app.use('/jobByLocation', jobLocationRoute)
 // RECRUITERS  Route  Complete **
 app.use('/recruiters' , recruiterRoute)
 
+app.get('/ba' , async(req , res)=>{
+  res.send('ikjbieqwbhiiib')
+})
 
 
 module.exports = app;

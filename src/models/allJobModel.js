@@ -9,6 +9,10 @@ const allJobModel = new mongoose.Schema({
     type: String,
     require: true,
   },
+  companyEmail: {
+    type: String,
+    require: true,
+  },
   companyLogo: {
     type: String,
     require: true,
@@ -65,10 +69,7 @@ const allJobModel = new mongoose.Schema({
     type: Array,
     require: true,
   },
-  postedDate: {
-    type: String, // todo: new Date.now()
-    default: Date.now
-  }
-});
+},
+  { timestamps: true });
 
 module.exports = allJobModel

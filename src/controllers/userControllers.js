@@ -10,4 +10,13 @@ const getUsers = (req, res, next) => {
    }
 }
 
+const postData = async (req, res, next) => {
+   try {
+      const data = req.body;
+      // const result = await user 
+   } catch (error) {
+      next(error.message)
+   }
+}
+
 module.exports = { getUsers };

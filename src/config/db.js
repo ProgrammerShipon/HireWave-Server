@@ -5,7 +5,7 @@ const connectDB = async (options = {}) => {
    try {
       await mongoose.connect(mongodbURL, options);
       console.log('Connection to DB is successfully established');
-      
+
 
       mongoose.connection.on('error', (error) => {
          console.error('DB connection error', error);

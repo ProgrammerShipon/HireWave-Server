@@ -1,16 +1,27 @@
-const mongoose = require("mongoose");
+const { default: mongoose } = require("mongoose");
 
-const jobLocationDataModel = require("../models/jobLocationDataModel");
-const candidateDataModel = require("../models/candidateDataModel");
-const recruitersDataModel = require("../models/recruitersDataModel");
+// All Model or schema require
 const allJobModel = require("../models/allJobModel");
+const faqsModel = require("../models/faqsModel");
+const reviewModel = require("../models/reviewModel");
+const learningModel = require("../models/learningModel");
 
-const allJobCollection = new mongoose.model('alljobs', allJobModel)
+// all jobs collection database
+const allJobCollection = new mongoose.model('AllJob', allJobModel)
 
-const allCandidatesCollection = new mongoose.model('allcandidates', candidateDataModel)
+// FAQS Collection database
+const faqsCollection = new mongoose.model('FAQs', faqsModel)
 
-const jobLocationCollection = new mongoose.model('joblocations', jobLocationDataModel)
+// Review Collection database
+const reviewCollection = new mongoose.model('Reviews', reviewModel)
 
-const recruitersCollection = new mongoose.model('recruiters', recruitersDataModel)
+// Learning Collection database
+const learningCollection = new mongoose.model('Learning', learningModel)
 
-module.exports = { allJobCollection, jobLocationCollection, recruitersCollection, allCandidatesCollection }
+// export data base
+module.exports = {
+  allJobCollection,
+  faqsCollection,
+  reviewCollection,
+  learningCollection,
+};

@@ -1,5 +1,5 @@
-const { allJobCollection } = require("../collections/collection")
 const { ObjectId } = require('bson');
+const { allJobCollection } = require('../collections/collection');
 
 
 // Post a Job
@@ -17,7 +17,7 @@ const postAllJob = async (req, res) => {
 const getAllJob = async (req, res) => {
    try {
       const Result = await allJobCollection.find();
-      res.status(200).send(Result);
+      res.status(200).send("ami baler server");
    } catch (error) {
       res.status(404).send({ message: error.message })
    }
