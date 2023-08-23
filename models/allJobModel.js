@@ -13,6 +13,10 @@ const allJobModel = new Schema({
     type: String,
     require: true,
   },
+  companyEmail: {
+    type: String,
+    require: true,
+  },
   companyLogo: {
     type: String,
     require: true,
@@ -69,6 +73,6 @@ const allJobModel = new Schema({
     type: Array,
     require: true,
   },
-});
+},{ timestamps: true });
 
 module.exports = allJobModel
