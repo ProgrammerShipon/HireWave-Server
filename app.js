@@ -7,10 +7,10 @@ const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 require('dotenv').config()
-const jobLocationRoute = require("./routers/JobLocationRouter");
-const recruiterRoute = require("./routers/recruitersRoute");
-const allJobRoute = require("./routers/allJobRouter");
-const candidateRoute = require("./routers/candidateRoute");
+const jobLocationRoute = require("./src/routers/JobLocationRouter");
+const recruiterRoute = require("./src/routers/recruitersRoute");
+const allJobRoute = require("./src/routers/allJobRouter");
+const candidateRoute = require("./src/routers/candidateRoute");
 
 // All Route import 
 
