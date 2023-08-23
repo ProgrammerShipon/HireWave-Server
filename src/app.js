@@ -38,7 +38,7 @@ app.get("/", (req, res) =>
  * FAQs Route
  * - api/faqs
  */
-app.use('/api/faqs', faqsRoute)
+app.use('/api/faqs', faqsRoute);
 
 /**
  * reviews api
