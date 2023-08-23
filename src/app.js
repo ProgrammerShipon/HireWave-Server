@@ -1,3 +1,6 @@
+// terminal clear
+console.clear()
+
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
@@ -7,6 +10,13 @@ const rateLimit = require("express-rate-limit");
 const userRouter = require("./routers/userRouter");
 const cors = require('cors');
 const allJobRoute = require("./routers/allJobRouter");
+// const rateLimit = require("express-rate-limit");
+
+// Router require
+// const userRouter = require("./routers/userRouter");
+const faqsRoute = require("./routers/faqsRoute");
+const learningRoute = require("./routers/learningRoute");
+const reviewsRoute = require("./routers/reviewsRoute");
 
 const app = express();
 
@@ -24,24 +34,6 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// -------------<  middleware Function  >-------------------
-// Login status
-const isLogin = (req, res, next) => {
-  const login = true;
-  if (login) {
-    next();
-  } else {
-    return res.status(401).send({ message: "please login" });
-  }
-};
-
-// Login Limit Set
-const rateLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000,
-  max: 5,
-  message: {message: "Too many requests from this IP. please try again later ."},
-});
-
 // Root Route
 app.get("/", (req, res) =>
   res.status(200).send("Assalamualaikum")
@@ -50,13 +42,26 @@ app.get("/", (req, res) =>
 /**
  * Route or apis
  * - api/users/
- * - api/seed/
  */
-// user route
-app.use('/api/users', userRouter)
+// app.use('/api/users', userRouter)
 
-// All Jobs Route
-app.use('/all-jobs', allJobRoute)
+/**
+ * FAQs Route
+ * - api/faqs
+ */
+app.use('/api/faqs', faqsRoute)
+
+/**
+ * reviews api
+ * - api/review/insert
+ */
+app.use('/api/review', reviewsRoute)
+
+/**
+ * learning api
+ * - api/learning
+ */
+app.use('/api/learning', learningRoute)
 
 // client error handling
 app.use((req, res, next) => {
