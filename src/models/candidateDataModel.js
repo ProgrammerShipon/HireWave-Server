@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const candidateDataModel =new mongoose.Schema({
+const candidateDataModel = new mongoose.Schema({
 
     name: {
         type: String,
@@ -14,19 +14,11 @@ const candidateDataModel =new mongoose.Schema({
         type: String,
         require: true,
     },
-    profession: {
-        type: String,
-        require: true,
-    },
-    experience: {
-        type: String,
-        require: true,
-    },
     about: {
         type: String,
         require: true,
     },
-    active: {
+    status: {
         type: String,
         require: true,
     },
@@ -38,27 +30,27 @@ const candidateDataModel =new mongoose.Schema({
         type: Array,
         require: true,
     },
-    age: {
-        type: String,
+    rating: {
+        type: Number,
         require: true,
     },
-    workRate: {
-        type: String,
+    languages: {
+        type: Array,
         require: true,
     },
-    currentJob: {
-        type: String,
+    recentReview: {
+        type: Array,
         require: true,
     },
-    currentSalary: {
-        type: String,
+    hourlyRate: {
+        type: Number,
         require: true,
     },
-    expectedSalary: {
-        type: String,
+    recommendations: {
+        type: Number,
         require: true,
     },
-    gender: {
+    salaryRange: {
         type: String,
         require: true,
     },
@@ -66,26 +58,18 @@ const candidateDataModel =new mongoose.Schema({
         type: Array,
         require: true,
     },
-    joinSince: {
-        type: String,
-        require: true,
-    },
-    educationalLevel: {
-        type: String,
-        require: true,
-    },
     education: {
         type: Array,
         require: true,
     },
-    workExperience: {
+    experience: {
         type: Array,
         require: true,
     },
-    awards: {
-        type: Array,
-        require: true,
-    },
+    joinDate: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 module.exports = candidateDataModel

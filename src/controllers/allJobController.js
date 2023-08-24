@@ -16,8 +16,8 @@ const postAllJob = async (req, res) => {
 // Get all Jobs Post
 const getAllJob = async (req, res) => {
    try {
-      const Result = await allJobCollection.find();
-      res.status(200).send("ami baler server");
+      const allJobs = await allJobCollection.find();
+      res.status(200).send(allJobs);
    } catch (error) {
       res.status(404).send({ message: error.message })
    }

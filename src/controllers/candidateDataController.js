@@ -3,8 +3,8 @@ const { allCandidatesCollection } = require('../collections/collection');
 
 const getAllCandidatesData = async (req, res) => {
     try {
-        const allJobCandidates = await allCandidatesCollection.find();
-        res.status(200).send(allJobCandidates)
+        const allCandidates = await allCandidatesCollection.find();
+        res.status(200).send(allCandidates)
     } catch (error) {
         res.status(404).send({ message: error.message })
     }
