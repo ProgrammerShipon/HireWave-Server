@@ -2,11 +2,12 @@ const express = require('express')
 const { getAllRecruiters, postNewRecruiter, getRecruiter, deleteRecruiter, postNewRecruiters } = require('../controllers/recruitersController')
 const recruiterRoute = express.Router()
 
-// Post One Recruiters Details
-recruiterRoute.post('/', postNewRecruiter)
 
 // Post Many Recruiters Details
 recruiterRoute.post('/many', postNewRecruiters)
+
+// Post One Recruiters Details
+recruiterRoute.post('/', postNewRecruiter)
 
 // Get All Recruiters Details
 recruiterRoute.get('/', getAllRecruiters)

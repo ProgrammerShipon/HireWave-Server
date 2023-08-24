@@ -6,7 +6,7 @@ const allCategoryRoute = express.Router()
 // Post many  Category
 allCategoryRoute.post('/many', postAllCategory)
 
-// Post one  Category
+// Post one Category
 allCategoryRoute.post('/', postOneCategoryData)
 
 // Get all Category Post

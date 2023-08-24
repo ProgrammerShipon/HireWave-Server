@@ -9,6 +9,13 @@ connectDB();
 const { PORT } = require("./src/secret");
 
 // Running Server
-app.listen(PORT, async () => {
-  console.log(`Server Running - http://localhost:${PORT}`);
-});
+try {
+  app.listen(PORT, async () => {
+    console.log(`Server Running - http://localhost:${PORT}`);
+  });
+
+} catch (error) {
+  console.log(error.message)
+}
+
+

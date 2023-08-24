@@ -1,10 +1,13 @@
 const express = require('express')
 
-const { getAllJob, postAllJob, getAJob, deleteAJobPost } = require('../controllers/allJobController')
+const { getAllJob, postAllJob, getAJob, deleteAJobPost, postOneJob } = require('../controllers/allJobController')
 const allJobRoute = express.Router()
 
 // Post a Job
-allJobRoute.post('/', postAllJob)
+allJobRoute.post('/many', postAllJob)
+
+// Post a Job
+allJobRoute.post('/', postOneJob)
 
 // Get all Jobs Post
 allJobRoute.get('/', getAllJob)
