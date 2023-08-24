@@ -1,15 +1,20 @@
 const express = require('express')
 const jobLocationRoute = express.Router()
-const { getAllJobLocation, postJobLocation, deleteJobLocationPost } = require('../controllers/jobLocationcontroller');
+const { getAllJobLocation, postJobLocation, deleteJobLocationPost, postManyJobLocation, getAJobLocation } = require('../controllers/jobLocationController');
 
-
-
-jobLocationRoute.get('/', getAllJobLocation)
-
+// Post A specific job Location post
 jobLocationRoute.post('/', postJobLocation)
 
-// jobLocationRoute.put('/', postJobLocation)
+// Post Many job Location post at a time 
+jobLocationRoute.post('/many', postManyJobLocation)
 
+// Get All job Location post
+jobLocationRoute.get('/', getAllJobLocation)
+
+// Get A specific job Location post
+jobLocationRoute.get('/:id', getAJobLocation)
+
+// Delete A specific job Location  post
 jobLocationRoute.delete('/:id', deleteJobLocationPost)
 
 module.exports = jobLocationRoute; 

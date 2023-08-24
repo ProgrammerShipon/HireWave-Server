@@ -16,6 +16,10 @@ const learningRoute = require("./routers/learningRoute");
 const reviewsRoute = require("./routers/reviewsRoute");
 const allJobRoute = require("./routers/allJobRouter");
 const candidateRoute = require("./routers/candidateRoute");
+const partnersRoute = require("./routers/partnersRoute");
+const allCategoryRoute = require("./routers/allCategoryRoute");
+const jobLocationRoute = require("./routers/JobLocationRouter");
+const recruiterRoute = require("./routers/recruitersRoute");
 
 const app = express();
 
@@ -57,11 +61,24 @@ app.use('/api/review', reviewsRoute)
 app.use('/api/learning', learningRoute)
 
 
-// All jobs Route
+// All jobs Route complete
 app.use('/api/allJobs', allJobRoute)
 
 // All jobs Route
-app.use('/api/jobCandidates' , candidateRoute)
+app.use('/api/jobCandidates', candidateRoute)
+
+// partners route Complete
+app.use('/api/partners', partnersRoute)
+
+// all Category route Complete
+app.use('/api/allCategory', allCategoryRoute)
+
+// all Category route Complete
+app.use('/api/jobLocation', jobLocationRoute)
+
+// all Category route Complete
+app.use('/api/recruiters', recruiterRoute)
+
 
 // client error handling
 app.use((req, res, next) => {

@@ -24,7 +24,7 @@ const postCandidateData = async (req, res) => {
     try {
         const allCandidates = req.body;
         console.log('allCandidates', allCandidates)
-        const result = await allCandidatesCollection.insertMany(allCandidates);
+        const result = await new allCandidatesCollection(allCandidates).save();
         res.status(200).send(result)
     } catch (error) {
         res.status(500).send({ message: error.message })

@@ -54,10 +54,6 @@ const candidateDataModel = new mongoose.Schema({
         type: String,
         require: true,
     },
-    language: {
-        type: Array,
-        require: true,
-    },
     education: {
         type: Array,
         require: true,
