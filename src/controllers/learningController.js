@@ -139,7 +139,7 @@ const insertLearning = async (req, res, next) => {
       data: result,
     });
   } catch (error) {
-    next(error?.message);
+    res.status(200).send({error: error?.message});
   }
 };
 

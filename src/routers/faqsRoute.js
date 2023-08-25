@@ -1,11 +1,18 @@
 const express = require('express')
-const { faqsInsertMany, faqsGetData } = require('../controllers/faqsController')
+const {
+  faqsInsertOne,
+  faqsGetData,
+  faqsSingleData,
+} = require("../controllers/faqsController");
 const faqsRoute = express.Router()
 
 // data insert in database
-faqsRoute.get('/inset-data', faqsInsertMany)
+faqsRoute.post("/", faqsInsertOne);
 
 // get all data 
 faqsRoute.get('/', faqsGetData)
+
+// get single data 
+faqsRoute.get('/:id', faqsSingleData)
 
 module.exports = faqsRoute

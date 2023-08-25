@@ -33,22 +33,36 @@ const faqsData = [
   },
 ];
 
-const faqsInsertMany = async (req, res, next) => {
+// One Data insert
+const faqsInsertOne = async (req, res) => {
   try {
-    const result = await faqsCollection.insertMany(faqsData);
-    return await res.status(200).json(result);
-  } catch (error) {
-    next(error?.message);
+    const result = await faqsCollection.insertMany(req.body);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(500).send({
+      error: "Insert Data Somethings Wrong!",
+    });
   }
 };
 
-const faqsGetData = async (req, res, next) => {
-   try {
-     const result = await faqsCollection.find()
-     return await result
-   } catch (error) {
-      next(error.message)
-   }
-}
+// get all FAQs Data
+const faqsGetData = async (req, res) => {
+  try {
+    const result = await faqsCollection.find();
+    return await res.status(200).send(result);
+  } catch (error) {
+    res.status(500).send({
+      error: "Data Somethings Wrong!",
+    });
+  }
+};
 
-module.exports = { faqsInsertMany, faqsGetData };
+// get single data
+const faqsSingleData = (req, res) => {
+  faqsCollection
+    .findById(req.params.id)
+    .then((faqData) => res.status(200).send(faqData))
+    .catch(() => res.status(404).send("Data Not Found"));
+};
+
+module.exports = { faqsInsertOne, faqsGetData, faqsSingleData };

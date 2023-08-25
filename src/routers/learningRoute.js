@@ -10,16 +10,16 @@ const {
 } = require("../controllers/learningController");
 
 // Learning insert data
-learningRoute.post("/insert", insertLearning);
+learningRoute.post("/", insertLearning);
 
 // Learning get api
 learningRoute.get("/", getLearning);
 
 // Learning updated api
-learningRoute.get("/update/:id", learningUpdate);
+learningRoute.get("/:id", learningUpdate);
 
 // Learning updated api
-learningRoute.get("/update/:id", postLearning);
+learningRoute.put("/:id", postLearning);
 
 // export module
 module.exports = learningRoute;

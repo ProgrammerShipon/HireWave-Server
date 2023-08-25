@@ -4,11 +4,11 @@ const faqsModel = new Schema(
   {
     question: {
       type: String,
-      require: true,
+      required: true,
     },
     answer: {
       type: String,
-      require: true,
+      required: true,
     },
   },
   { timestamps: true }
