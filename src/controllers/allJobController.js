@@ -2,7 +2,7 @@ const { ObjectId } = require('bson');
 const { allJobCollection } = require('../collections/collection');
 
 
-// Post a Job
+// Post a Job (todo: only developer)
 const postAllJob = async (req, res) => {
    try {
       const newJobPostData = req.body;
@@ -12,6 +12,8 @@ const postAllJob = async (req, res) => {
       res.status(404).send({ message: error.message })
    }
 }
+
+// Post a Job - 
 const postOneJob = async (req, res) => {
    try {
       const newJobPostData = req.body;
@@ -21,6 +23,7 @@ const postOneJob = async (req, res) => {
       res.status(404).send({ message: error.message })
    }
 }
+
 // Get all Jobs Post
 const getAllJob = async (req, res) => {
    try {
@@ -30,6 +33,7 @@ const getAllJob = async (req, res) => {
       res.status(404).send({ message: error.message })
    }
 }
+
 // Get a Jobs Post
 const getAJob = async (req, res) => {
    try {
@@ -41,6 +45,7 @@ const getAJob = async (req, res) => {
       res.status(404).send({ message: error.message })
    }
 }
+
 // Delete A Job Post
 const deleteAJobPost = async (req, res) => {
    try {
@@ -52,4 +57,7 @@ const deleteAJobPost = async (req, res) => {
       res.status(404).send({ message: error.message })
    }
 }
+
+
+
 module.exports = { postAllJob, postOneJob, getAllJob, getAJob, deleteAJobPost };
