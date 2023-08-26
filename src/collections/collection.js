@@ -10,6 +10,10 @@ const allCategoryDataModel = require("../models/allCategoryDataModel");
 const jobLocationDataModel = require("../models/jobLocationDataModel");
 const recruitersDataModel = require("../models/recruitersDataModel");
 const appliedCandidatesDataModel = require("../models/appliedCandidatesDataModel");
+const userSchema = require("../models/userModel");
+
+// User Collection 
+const usersCollection = new mongoose.model("users", userSchema);
 
 // all jobs collection database
 const allJobCollection = new mongoose.model("allJobs", allJobModel);
@@ -45,6 +49,7 @@ const appliedCandidatesCollection = new mongoose.model("appliedCandidates", appl
 
 // export data base
 module.exports = {
+  usersCollection,
   allJobCollection,
   faqsCollection,
   reviewCollection,

@@ -1,12 +1,12 @@
 // terminal clear
-console.clear()
+console.clear();
 
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
-const cors = require('cors');
+const cors = require("cors");
 // const rateLimit = require("express-rate-limit");
 
 // Router require
@@ -21,6 +21,7 @@ const allCategoryRoute = require("./routers/allCategoryRoute");
 const jobLocationRoute = require("./routers/JobLocationRouter");
 const recruiterRoute = require("./routers/recruitersRoute");
 const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
+const userRouter = require("./routers/userRouter");
 
 const app = express();
 
@@ -33,9 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Root Route
-app.get("/", (req, res) =>
-  res.status(200).send("Assalamualaikum")
-);
+app.get("/", (req, res) => res.status(200).send("Assalamualaikum"));
 
 /**
  * Route or apis
@@ -47,42 +46,43 @@ app.get("/", (req, res) =>
  * FAQs Route
  * - api/faqs
  */
-app.use('/api/faqs', faqsRoute)
+app.use("/api/faqs", faqsRoute);
 
 /**
  * reviews api
  * - api/review/insert
  */
-app.use('/api/review', reviewsRoute)
+app.use("/api/review", reviewsRoute);
 
 /**
  * learning api
  * - api/learning
  */
-app.use('/api/learning', learningRoute)
+app.use("/api/learning", learningRoute);
 
+// User Data Route
+app.use("/api/users", userRouter);
 
 // All jobs Route complete
-app.use('/api/allJobs', allJobRoute)
+app.use("/api/allJobs", allJobRoute);
 
 // All jobs Route
-app.use('/api/jobCandidates', candidateRoute)
+app.use("/api/jobCandidates", candidateRoute);
 
 // partners route Complete
-app.use('/api/partners', partnersRoute)
+app.use("/api/partners", partnersRoute);
 
 // all Category route Complete
-app.use('/api/allCategory', allCategoryRoute)
+app.use("/api/allCategory", allCategoryRoute);
 
 // all Category route Complete
-app.use('/api/jobLocation', jobLocationRoute)
+app.use("/api/jobLocation", jobLocationRoute);
 
 // all Category route Complete
-app.use('/api/recruiters', recruiterRoute)
+app.use("/api/recruiters", recruiterRoute);
 
 // all Category route Complete
-app.use('/api/appliedCandidate', appliedCandidateRoute)
-
+app.use("/api/appliedCandidate", appliedCandidateRoute);
 
 // client error handling
 app.use((req, res, next) => {
