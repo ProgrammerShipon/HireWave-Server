@@ -20,6 +20,7 @@ const partnersRoute = require("./routers/partnersRoute");
 const allCategoryRoute = require("./routers/allCategoryRoute");
 const jobLocationRoute = require("./routers/JobLocationRouter");
 const recruiterRoute = require("./routers/recruitersRoute");
+const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
 
 const app = express();
 
@@ -78,6 +79,9 @@ app.use('/api/jobLocation', jobLocationRoute)
 
 // all Category route Complete
 app.use('/api/recruiters', recruiterRoute)
+
+// all Category route Complete
+app.use('/api/appliedCandidate', appliedCandidateRoute)
 
 
 // client error handling
