@@ -69,7 +69,11 @@ const allJobModel = new mongoose.Schema({
     type: Array,
     require: true,
   },
-},
-  { timestamps: true });
+  postedDate: {
+    type: Date,
+    default: Date.now
+  }
+})
+ 
 
 module.exports = allJobModel

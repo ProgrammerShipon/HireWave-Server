@@ -6,10 +6,10 @@ const appliedCandidateRoute = express.Router()
 // Post Candidate Data 
 appliedCandidateRoute.post('/many', postAllAppliedInfo)
 
-// Post Candidate Data complete
+// Apply Candidate Information Store  (complete)
 appliedCandidateRoute.post('/', postOneAppliedInfo)
 
-// Get All candidate 
+// Get All Applied candidate 
 appliedCandidateRoute.get('/', getAllAppliedCandidates)
 
 // Get All Applied Job For Each Candidate (Candidate Dashboard)
@@ -25,7 +25,5 @@ appliedCandidateRoute.get('/candidateInfo/:id', getAllAppliedCandidateInfo)
 appliedCandidateRoute.get('/company/:company', getAppliedCandidateByCompany)
 
 
-// Delete Candidate Data
-// appliedCandidateRoute.delete('/:id', deleteCandidate)
 
 module.exports = appliedCandidateRoute;

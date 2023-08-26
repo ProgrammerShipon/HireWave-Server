@@ -1,6 +1,6 @@
 const { default: mongoose } = require("mongoose");
 
-const recruitersDataModel=new mongoose.Schema({
+const recruitersDataModel = new mongoose.Schema({
     company: {
         type: String,
         require: true,
@@ -9,10 +9,35 @@ const recruitersDataModel=new mongoose.Schema({
         type: String,
         require: true,
     },
+    companyEmail: {
+        type: String,
+        require: true,
+    },
+    companyBanner: {
+        type: String,
+        require: true,
+    },
+    followers: {
+        type: Number,
+        require: true,
+    },
+    about: {
+        type: String,
+        require: true,
+    },
+    specialties: {
+        type: String,
+        require: true,
+    },
+    recentReview: {
+        type: Array,
+        require: true,
+    },
     location: {
         type: String,
         require: true,
     },
+
     totalRating: {
         type: String,
         require: true,
@@ -29,9 +54,9 @@ const recruitersDataModel=new mongoose.Schema({
         type: Number,
         require: true,
     },
-    createdDate: {
+    joinDate: {
         type: Date,
         default: Date.now
     }
 })
-module.exports=recruitersDataModel
+module.exports = recruitersDataModel
