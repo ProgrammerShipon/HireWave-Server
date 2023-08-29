@@ -44,9 +44,10 @@ const faqsInsertMany = async (req, res, next) => {
 
 const faqsGetData = async (req, res, next) => {
    try {
-      const result = await faqsCollection.find({})
+     const result = await faqsCollection.find()
+     res.status(200).send(result)
    } catch (error) {
-      next(error.message)
+      res.status(404).send({ message: error.message });
    }
 }
 
