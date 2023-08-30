@@ -66,10 +66,7 @@ app.use("/api/faqs", faqsRoute);
  */
 app.use("/api/review", reviewsRoute);
 
-/**
- * learning api
- * - api/learning
- */
+// learning blog api - connections Done
 app.use("/api/learning", learningRoute);
 
 // User Data Route
