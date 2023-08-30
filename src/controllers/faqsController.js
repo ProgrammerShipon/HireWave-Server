@@ -34,7 +34,7 @@ const faqsData = [
 ];
 
 // One Data insert
-const faqsInsertOne = async (req, res) => {
+const insertFaqs = async (req, res) => {
   try {
     const result = await faqsCollection.insertMany(req.body);
     res.status(200).send(result);
@@ -46,7 +46,7 @@ const faqsInsertOne = async (req, res) => {
 };
 
 // get all FAQs Data
-const faqsGetData = async (req, res) => {
+const getFaqs = async (req, res) => {
   try {
     const result = await faqsCollection.find();
     return await res.status(200).send(result);
@@ -65,4 +65,26 @@ const faqsSingleData = (req, res) => {
     .catch(() => res.status(404).send("Data Not Found"));
 };
 
-module.exports = { faqsInsertOne, faqsGetData, faqsSingleData };
+// faq updates function
+const faqsUpdate = (req, res) => {
+  faqsCollection
+    .findById(req.params.id)
+    .then((faqData) => res.status(200).send(faqData))
+    .catch(() => res.status(404).send("Data Not Found"));
+};
+
+// get single data
+const deleteFAQs = (req, res) => {
+  faqsCollection
+    .findById(req.params.id)
+    .then((faqData) => res.status(200).send(faqData))
+    .catch(() => res.status(404).send("Data Not Found"));
+};
+
+module.exports = {
+  insertFaqs,
+  getFaqs,
+  faqsSingleData,
+  faqsUpdate,
+  deleteFAQs,
+};

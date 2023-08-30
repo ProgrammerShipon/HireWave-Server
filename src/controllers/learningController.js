@@ -1,6 +1,6 @@
 const { learningCollection } = require("../collections/collection");
 
-const learningData = [
+const learningDatas = [
   {
     authorName: "Anisul Islam",
     authorEmail: "anis@gmail.com",
@@ -133,11 +133,8 @@ const learningData = [
 // insert learning
 const insertLearning = async (req, res, next) => {
   try {
-    const result = await learningCollection.insertMany(learningData);
-    return await res.status(200).send({
-      message: "insert successful! ✅",
-      data: result,
-    });
+    const result = await learningCollection.insertMany(req.body);
+    return await res.status(200).send(result);
   } catch (error) {
     res.status(200).send({error: error?.message});
   }
@@ -147,10 +144,7 @@ const insertLearning = async (req, res, next) => {
 const getLearning = async (req, res, next) => {
   try {
     const result = await learningCollection.find();
-    return await res.status(200).send({
-      message: "learning Data get successful",
-      data: result,
-    });
+    return await res.status(200).send(result);
   } catch (error) {
     next(error?.message);
   }

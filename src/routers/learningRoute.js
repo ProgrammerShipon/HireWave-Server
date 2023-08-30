@@ -12,10 +12,10 @@ const {
 // Learning insert data
 learningRoute.post("/", insertLearning);
 
-// Learning get api
+// Learning get all Data
 learningRoute.get("/", getLearning);
 
-// Learning updated api
+// Learning Single Data
 learningRoute.get("/:id", learningUpdate);
 
 // Learning updated api

@@ -1,22 +1,34 @@
 // terminal clear
-console.clear()
+console.clear();
 
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
+const cors = require("cors");
 // const rateLimit = require("express-rate-limit");
 
 // Router require
-// const userRouter = require("./routers/userRouter");
+const userRouter = require("./routers/userRouter");
 const faqsRoute = require("./routers/faqsRoute");
 const learningRoute = require("./routers/learningRoute");
 const reviewsRoute = require("./routers/reviewsRoute");
+const allJobRoute = require("./routers/allJobRouter");
+const candidateRoute = require("./routers/candidateRoute");
+const partnersRoute = require("./routers/partnersRoute");
+const allCategoryRoute = require("./routers/allCategoryRoute");
+const jobLocationRoute = require("./routers/JobLocationRouter");
+const recruiterRoute = require("./routers/recruitersRoute");
+const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
+const jwt = require('jsonwebtoken')
+const jwtVerify = require("./Middleware/jwtVerify");
+const { jwtSecret } = require("./secret");
 
 const app = express();
 
 // Application level middleware
+app.use(cors());
 app.use(morgan("dev"));
 app.use(xssClean());
 app.use(express.json());
@@ -25,8 +37,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Root Route
 app.get("/", (req, res) =>
-  res.status(200).send("Assalamualaikum")
+  res.status(200).send(`Assalamualaikum. <br/> Hire Wave Server Running`)
 );
+
+app.post('/api/jwt', (req, res) => {
+  const email = req.body;
+  console.log(email)
+  const token = jwt.sign(email, jwtSecret, { expiresIn: '3h' })
+  console.log(token);
+   res.status(200).send({ token })
+})
 
 /**
  * Route or apis
@@ -38,19 +58,43 @@ app.get("/", (req, res) =>
  * FAQs Route
  * - api/faqs
  */
-app.use('/api/faqs', faqsRoute);
+app.use("/api/faqs", faqsRoute);
 
 /**
  * reviews api
  * - api/review/insert
  */
-app.use('/api/review', reviewsRoute)
+app.use("/api/review", reviewsRoute);
 
 /**
  * learning api
  * - api/learning
  */
-app.use('/api/learning', learningRoute)
+app.use("/api/learning", learningRoute);
+
+// User Data Route
+app.use("/api/users", userRouter);
+
+// All jobs Route complete - Connections Done
+app.use("/api/allJobs", allJobRoute);
+
+// All jobs Route
+app.use("/api/jobCandidates", candidateRoute);
+
+// partners route Complete
+app.use("/api/partners", partnersRoute);
+
+// all Category route Complete
+app.use("/api/allCategory", allCategoryRoute);
+
+// all Category route Complete
+app.use("/api/jobLocation", jobLocationRoute);
+
+// all Category route Complete
+app.use("/api/recruiters", recruiterRoute);
+
+// all Category route Complete
+app.use("/api/appliedCandidate", appliedCandidateRoute);
 
 // client error handling
 app.use((req, res, next) => {

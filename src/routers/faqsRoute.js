@@ -1,18 +1,26 @@
 const express = require('express')
 const {
-  faqsInsertOne,
-  faqsGetData,
+  insertFaqs,
+  getFaqs,
   faqsSingleData,
+  faqsUpdate,
+  deleteFAQs,
 } = require("../controllers/faqsController");
 const faqsRoute = express.Router()
 
-// data insert in database
-faqsRoute.post("/", faqsInsertOne);
+// FAQs insert data
+faqsRoute.post("/", insertFaqs);
 
-// get all data 
-faqsRoute.get('/', faqsGetData)
+// FAQs get all data
+faqsRoute.get("/", getFaqs);
 
-// get single data 
-faqsRoute.get('/:id', faqsSingleData)
+// FAQs Single Data
+faqsRoute.get("/:id", faqsSingleData);
+
+// FAQs updated api
+faqsRoute.put("/:id", faqsUpdate);
+
+// Delete FAQs 
+faqsRoute.delete("/:id", deleteFAQs);
 
 module.exports = faqsRoute

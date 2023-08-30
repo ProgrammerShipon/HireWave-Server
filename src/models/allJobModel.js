@@ -1,12 +1,8 @@
-const { Schema } = require("mongoose");
+const mongoose = require("mongoose");
 
-const allJobModel = new Schema({
+const allJobModel = new mongoose.Schema({
   title: {
     type: String,
-    require: true,
-  },
-  postedDate: {
-    type: String, // todo: new Date.now()
     require: true,
   },
   companyName: {
@@ -58,7 +54,7 @@ const allJobModel = new Schema({
     require: true,
   },
   requirements: {
-    type: String,
+    type: Array,
     require: true,
   },
   skillsExperience: {
@@ -66,13 +62,17 @@ const allJobModel = new Schema({
     require: true,
   },
   benefits: {
-    type: String,
+    type: Array,
     require: true,
   },
   skills: {
     type: Array,
     require: true,
   },
-},{ timestamps: true });
+  postedDate: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-module.exports = allJobModel
+module.exports = allJobModel;

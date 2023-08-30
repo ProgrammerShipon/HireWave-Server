@@ -1,22 +1,33 @@
-const createError = require('http-errors')
+const { usersCollection } = require("../collections/collection");
 
-const getUsers = (req, res, next) => {
-   try {
-      res.status(200).send({
-         message: "user profile",
-      });
-   } catch (error) {
-      next(error);
-   }
-}
+// Add A User On DataBase
+const postUser = async (req, res) => {
+  try {
+    const users = req.body;
+    const query = { email: users.email };
+    const existingUser = await usersCollection.findOne(query);
+    console.log(existingUser, "This User Is Already In Database");
 
-const postData = async (req, res, next) => {
-   try {
-      const data = req.body;
-      // const result = await user 
-   } catch (error) {
-      next(error.message)
-   }
-}
+    if (existingUser) {
+      return;
+    }
 
-module.exports = { getUsers };
+    const result = await usersCollection(users).save();
+    res.send(result);
+  } catch (error) {
+    console.log(error)
+    res.status()
+  }
+};
+
+// Get All User
+const getAllUser = async (req, res) => {
+  try {
+    const allUsers = await usersCollection.find();
+    res.status(200).send(allUsers);
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+};
+
+module.exports = { postUser, getAllUser };

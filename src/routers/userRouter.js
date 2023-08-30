@@ -1,7 +1,10 @@
-const express = require('express')
-const { getUsers } = require('../controllers/userControllers')
-const userRouter = express.Router()
+const express = require("express");
+const { postUser, getAllUser } = require("../controllers/userControllers");
+const userRouter = express.Router();
 
-userRouter.get('/', getUsers)
+// Store User data Api
+userRouter.post("/", postUser);
 
-module.exports = userRouter
+userRouter.get("/", getAllUser);
+
+module.exports = userRouter;
