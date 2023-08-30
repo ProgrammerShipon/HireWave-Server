@@ -1,71 +1,37 @@
 const mongoose = require('mongoose');
 
-const candidateDataModel = new mongoose.Schema({
-
-    name: {
-        type: String,
-        require: true,
-    },
-    images: {
-        type: String,
-        require: true,
-    },
-    category: {
-        type: String,
-        require: true,
-    },
-    about: {
-        type: String,
-        require: true,
-    },
-    status: {
-        type: String,
-        require: true,
-    },
-    location: {
-        type: String,
-        require: true,
-    },
-    skills: {
-        type: Array,
-        require: true,
-    },
+const candidateDataModel = new mongoose.Schema(
+  {
+    name: String, // Add the 'name' field
+    images: String,
+    category: String,
+    about: String,
+    status: String,
+    location: String,
+    skills: [String],
+    socialLink: [Object],
     rating: {
-        type: Number,
-        require: true,
+      type: Number,
+      min: 0,
+      max: 5,
     },
-    languages: {
-        type: Array,
-        require: true,
-    },
-    recentReview: {
-        type: Array,
-        require: true,
-    },
+    languages: [Object],
+    recentReview: [Object],
     hourlyRate: {
-        type: Number,
-        require: true,
+      type: Number,
+      min: 0,
     },
     recommendations: {
-        type: Number,
-        require: true,
+      type: Number,
+      min: 0,
     },
-    salaryRange: {
-        type: String,
-        require: true,
-    },
-    education: {
-        type: Array,
-        require: true,
-    },
-    experience: {
-        type: Array,
-        require: true,
-    },
-    joinDate: {
-        type: Date,
-        default: Date.now
-    }
-});
+    salaryRange: String,
+    education: [Object], 
+    experience: [Object],
+    joinDate: Date, 
+  },
+  { timestamps: true }
+); 
 
-module.exports = candidateDataModel
+
+module.exports = candidateDataModel;

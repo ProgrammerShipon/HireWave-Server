@@ -33,7 +33,7 @@ const faqsData = [
   },
 ];
 
-// One Data insert
+// One Data insert Or Many Data
 const insertFaqs = async (req, res) => {
   try {
     const result = await faqsCollection.insertMany(req.body);

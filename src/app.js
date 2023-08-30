@@ -75,7 +75,7 @@ app.use("/api/users", userRouter);
 // All jobs Route complete - Connections Done
 app.use("/api/allJobs", allJobRoute);
 
-// All jobs Route
+// All jobs Route - 
 app.use("/api/jobCandidates", candidateRoute);
 
 // partners route Complete
