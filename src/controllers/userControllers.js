@@ -1,4 +1,4 @@
-const createError = require("http-errors");
+const { ObjectId } = require("bson");
 const { usersCollection } = require("../collections/collection");
 
 // Add A User On DataBase
@@ -15,6 +15,30 @@ const postUser = async (req, res) => {
   res.send(result);
 };
 
+// Get a user by email
+const getUserByEmail = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const query = { email: email };
+    const user = await usersCollection.findOne(query);
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+};
+// Get a user by Id
+const getUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) };
+    const user = await usersCollection.findOne(query);
+    // console.log(user)
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+};
+
 // Get All User
 const getAllUser = async (req, res) => {
   try {
@@ -25,4 +49,4 @@ const getAllUser = async (req, res) => {
   }
 };
 
-module.exports = { postUser, getAllUser };
+module.exports = { postUser, getAllUser, getUserByEmail, getUserById };
