@@ -66,17 +66,24 @@ const faqsSingleData = (req, res) => {
 };
 
 // faq updates function
-const faqsUpdate = (req, res) => {
-  faqsCollection
-    .findById(req.params.id)
-    .then((faqData) => res.status(200).send(faqData))
-    .catch(() => res.status(404).send("Data Not Found"));
+const faqsUpdate = async (req, res) => {
+  const updateData = req.body;
+  try {
+    const updatedCandidate = await faqsCollection.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+    res.status(200).send(updatedCandidate);
+  } catch (err) {
+    res.status(404).send("updating something wrong");
+  }
 };
 
 // get single data
 const deleteFAQs = (req, res) => {
   faqsCollection
-    .findById(req.params.id)
+    .findByIdAndDelete(req.params.id)
     .then((faqData) => res.status(200).send(faqData))
     .catch(() => res.status(404).send("Data Not Found"));
 };

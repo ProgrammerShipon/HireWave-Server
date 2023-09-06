@@ -6,7 +6,8 @@ const {
   getLearning,
   insertLearning,
   learningUpdate,
-  postLearning,
+  updateLearning,
+  deleteLearning,
 } = require("../controllers/learningController");
 
 // Learning insert data
@@ -19,7 +20,10 @@ learningRoute.get("/", getLearning);
 learningRoute.get("/:id", learningUpdate);
 
 // Learning updated api
-learningRoute.put("/:id", postLearning);
+learningRoute.patch("/:id", updateLearning);
+
+// Learning updated api
+learningRoute.delete("/:id", deleteLearning);
 
 // export module
 module.exports = learningRoute;

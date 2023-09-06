@@ -1,11 +1,5 @@
-const express = require('express')
-const {
-  insertFaqs,
-  getFaqs,
-  faqsSingleData,
-  faqsUpdate,
-  deleteFAQs,
-} = require("../controllers/faqsController");
+const express = require('express');
+const { insertFaqs, getFaqs, faqsSingleData, faqsUpdate, deleteFAQs } = require('../controllers/faqsController');
 const faqsRoute = express.Router()
 
 // FAQs insert data
@@ -18,7 +12,7 @@ faqsRoute.get("/", getFaqs);
 faqsRoute.get("/:id", faqsSingleData);
 
 // FAQs updated api
-faqsRoute.put("/:id", faqsUpdate);
+faqsRoute.patch("/:id", faqsUpdate);
 
 // Delete FAQs 
 faqsRoute.delete("/:id", deleteFAQs);

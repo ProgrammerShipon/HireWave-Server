@@ -10,22 +10,18 @@ const cors = require("cors");
 // const rateLimit = require("express-rate-limit");
 
 // Router require
-const userRouter = require("./routers/userRouter");
-const faqsRoute = require("./routers/faqsRoute");
-const learningRoute = require("./routers/learningRoute");
-const reviewsRoute = require("./routers/reviewsRoute");
-const allJobRoute = require("./routers/allJobRouter");
-const candidateRoute = require("./routers/candidateRoute");
-const partnersRoute = require("./routers/partnersRoute");
-const allCategoryRoute = require("./routers/allCategoryRoute");
-const jobLocationRoute = require("./routers/JobLocationRouter");
-const recruiterRoute = require("./routers/recruitersRoute");
-const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
 const jwt = require('jsonwebtoken')
-const jwtVerify = require("./Middleware/jwtVerify");
-const { jwtSecret } = require("./secret");
+const jwtVerify = require("./src/Middleware/jwtVerify");
+const { jwtSecret } = require("./src/secret");
+const faqsRoute = require("./src/routers/faqsRoute");
 
 const app = express();
+
+// const corsOptions = {
+//   origin: "*",
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
 
 // Application level middleware
 app.use(cors());
@@ -42,56 +38,42 @@ app.get("/", (req, res) =>
 
 app.post('/api/jwt', (req, res) => {
   const email = req.body;
-  console.log(email)
   const token = jwt.sign(email, jwtSecret, { expiresIn: '3h' })
-  console.log(token);
    res.status(200).send({ token })
 })
 
-/**
- * Route or apis
- * - api/users/
- */
+//- User route
 // app.use('/api/users', userRouter)
 
-/**
- * FAQs Route
- * - api/faqs
- */
+// faq Route - connections Done
 app.use("/api/faqs", faqsRoute);
 
-/**
- * reviews api
- * - api/review/insert
- */
-app.use("/api/review", reviewsRoute);
+//- api/review/insert
+// app.use("/api/review", reviewsRoute);
 
 // learning blog api - connections Done
-app.use("/api/learning", learningRoute);
-
-// User Data Route
-app.use("/api/users", userRouter);
+// app.use("/api/learning", learningRoute);
 
 // All jobs Route complete - Connections Done
-app.use("/api/allJobs", allJobRoute);
+// app.use("/api/allJobs", allJobRoute);
 
-// All jobs Route - 
-app.use("/api/jobCandidates", candidateRoute);
+// All jobs Route - Connections Done
+// app.use("/api/jobCandidates", candidateRoute);
 
 // partners route Complete
-app.use("/api/partners", partnersRoute);
+// app.use("/api/partners", partnersRoute);
 
 // all Category route Complete
-app.use("/api/allCategory", allCategoryRoute);
+// app.use("/api/allCategory", allCategoryRoute);
 
 // all Category route Complete
-app.use("/api/jobLocation", jobLocationRoute);
+// app.use("/api/jobLocation", jobLocationRoute);
+
+// all Category route Complete - 
+// app.use("/api/recruiters", recruiterRoute);
 
 // all Category route Complete
-app.use("/api/recruiters", recruiterRoute);
-
-// all Category route Complete
-app.use("/api/appliedCandidate", appliedCandidateRoute);
+// app.use("/api/appliedCandidate", appliedCandidateRoute);
 
 // client error handling
 app.use((req, res, next) => {
