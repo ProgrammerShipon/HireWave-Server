@@ -24,6 +24,7 @@ const allCategoryRoute = require("./routers/allCategoryRoute");
 const jobLocationRoute = require("./routers/JobLocationRouter");
 const recruiterRoute = require("./routers/recruitersRoute");
 const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
+const userRouter = require("./routers/userRouter");
 
 const app = express();
 
@@ -53,7 +54,13 @@ app.post('/api/jwt', (req, res) => {
 })
 
 //- User route
-// app.use('/api/users', userRouter)
+app.use('/api/users', userRouter)
+
+// all Category route Complete - 
+app.use("/api/recruiters", recruiterRoute);
+
+// All jobs Route - Connections Done
+app.use("/api/jobCandidates", candidateRoute);
 
 // faq Route - connections Done
 app.use("/api/faqs", faqsRoute);
@@ -67,8 +74,6 @@ app.use("/api/learning", learningRoute);
 // All jobs Route complete - Connections Done
 app.use("/api/allJobs", allJobRoute);
 
-// All jobs Route - Connections Done
-app.use("/api/jobCandidates", candidateRoute);
 
 // partners route Complete
 app.use("/api/partners", partnersRoute);
@@ -79,8 +84,6 @@ app.use("/api/allCategory", allCategoryRoute);
 // all Category route Complete
 app.use("/api/jobLocation", jobLocationRoute);
 
-// all Category route Complete - 
-app.use("/api/recruiters", recruiterRoute);
 
 // all Category route Complete
 app.use("/api/appliedCandidate", appliedCandidateRoute);
