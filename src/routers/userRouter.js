@@ -4,6 +4,8 @@ const {
   getUserByEmail,
   getUserById,
   getAllUser,
+  deleteUser,
+  updateUser,
 } = require("../controllers/userControllers");
 const userRouter = express.Router();
 
@@ -12,8 +14,12 @@ userRouter.post("/", postUser);
 
 // get all user
 userRouter.get("/", getAllUser);
+
+// user search by email
 userRouter.get("/byEmail/:email", getUserByEmail);
-userRouter.get("/Id/:id", getUserById);
+
+// user search by Id
+userRouter.get("/byId/:id", getUserById);
 
 // get delete user
 userRouter.delete("/:id", deleteUser);

@@ -1,13 +1,30 @@
-const { usersCollection } = require("../collections/collection");
+const { allCandidatesCollection, usersCollection } = require("../collections/collection");
 
 // Add A User On DataBase
 const postUser = async (req, res) => {
   try {
     const newUserData = req.body;
-    const newUser = await usersCollection.insertMany(newUserData);
-    res.status(200).send(newUser);
+    console.log('client data ' , newUserData)
+
+    const data = {
+      role: 'candidate',
+      name: 'shipon',
+      email: 'shipon234@gmail.com',
+      image: '',
+    }
+
+    const query = { email: newUserData.email };
+    const isExist = await usersCollection.findOne(query);
+    if (isExist) {
+      return res.status(201).send('user exist')
+    } else {
+      const insert = await usersCollection(newUserData).save();
+      return res.status(200).send({ insert})
+    }
+
   } catch (error) {
-    res.status(404).send({ message: "Server Problem"});
+    console.error(error);
+    res.status(404).send({ message: "Server Problem",});
   }
 };
 
@@ -75,4 +92,11 @@ const updateUser = async (req, res) => {
 };
 
 // export user controller
-module.exports = { postUser, getAllUser, deleteUser, updateUser };
+module.exports = {
+  postUser,
+  getUserByEmail,
+  getUserById,
+  getAllUser,
+  deleteUser,
+  updateUser,
+};
