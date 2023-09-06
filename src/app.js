@@ -16,19 +16,18 @@ const { jwtSecret } = require("./secret");
 
 // all route require
 const userRouter = require("./routers/userRouter");
-
-// const faqsRoute = require("./routers/faqsRoute");
-// const reviewsRoute = require("./routers/reviewsRoute");
-// const learningRoute = require("./routers/learningRoute");
-// const allJobRoute = require("./routers/allJobRouter");
-// const candidateRoute = require("./routers/candidateRoute");
-// const partnersRoute = require("./routers/partnersRoute");
-// const allCategoryRoute = require("./routers/allCategoryRoute");
-// const jobLocationRoute = require("./routers/JobLocationRouter");
-// const recruiterRoute = require("./routers/recruitersRoute");
-// const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
-// const chatRoute = require("./routers/chatRoute");
-// const messageRoute = require("./routers/messageRoute");
+const faqsRoute = require("./routers/faqsRoute");
+const reviewsRoute = require("./routers/reviewsRoute");
+const learningRoute = require("./routers/learningRoute");
+const allJobRoute = require("./routers/allJobRouter");
+const candidateRoute = require("./routers/candidateRoute");
+const partnersRoute = require("./routers/partnersRoute");
+const allCategoryRoute = require("./routers/allCategoryRoute");
+const jobLocationRoute = require("./routers/JobLocationRouter");
+const recruiterRoute = require("./routers/recruitersRoute");
+const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
+const chatRoute = require("./routers/chatRoute");
+const messageRoute = require("./routers/messageRoute");
 
 const app = express();
 
@@ -61,44 +60,44 @@ app.post('/api/jwt', (req, res) => {
 app.use('/api/users', userRouter)
 
 // all Category route Complete - 
-// app.use("/api/recruiters", recruiterRoute);
+app.use("/api/recruiters", recruiterRoute);
 
 // All jobs Route - Connections Done
-// app.use("/api/jobCandidates", candidateRoute);
+app.use("/api/jobCandidates", candidateRoute);
 
 // faq Route - connections Done
-// app.use("/api/faqs", faqsRoute);
+app.use("/api/faqs", faqsRoute);
 
 //- api/review/insert
-// app.use("/api/review", reviewsRoute);
+app.use("/api/review", reviewsRoute);
 
 // learning blog api - connections Done
-// app.use("/api/learning", learningRoute);
+app.use("/api/learning", learningRoute);
 
 // All jobs Route complete - Connections Done
-// app.use("/api/allJobs", allJobRoute);
+app.use("/api/allJobs", allJobRoute);
 
 
 // partners route Complete
-// app.use("/api/partners", partnersRoute);
+app.use("/api/partners", partnersRoute);
 
 // all Category route Complete
-// app.use("/api/allCategory", allCategoryRoute);
+app.use("/api/allCategory", allCategoryRoute);
 
 // all Category route Complete
-// app.use("/api/jobLocation", jobLocationRoute);
+app.use("/api/jobLocation", jobLocationRoute);
 
 // all Category route Complete
-// app.use("/api/recruiters", recruiterRoute);
+app.use("/api/recruiters", recruiterRoute);
 
 // all Category route Complete
-// app.use("/api/appliedCandidate", appliedCandidateRoute);
+app.use("/api/appliedCandidate", appliedCandidateRoute);
 
 // user chatting
-// app.use("/api/chat", chatRoute);
+app.use("/api/chat", chatRoute);
 
 // user message
-// app.use("/api/message", messageRoute);
+app.use("/api/message", messageRoute);
 
 // client error handling
 app.use((req, res, next) => {
