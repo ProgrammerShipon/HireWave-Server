@@ -1,13 +1,15 @@
 const { default: mongoose } = require("mongoose");
-// const bcrypt = require("bcrypt");
-// const { defaultImagePath } = require("../secret");
-
+// const userinfo = { name: user.displayName, email: user.email, userProfile: user.photoURL, role: "user" };
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
   email: {
+    type: String,
+    required: true,
+  },
+  userProfile: {
     type: String,
     required: true,
   },
@@ -19,6 +21,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+},
+  {
+    timestamps: true
+  }
+);
 
 module.exports = userSchema;
