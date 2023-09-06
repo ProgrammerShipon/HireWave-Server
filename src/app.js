@@ -11,9 +11,19 @@ const cors = require("cors");
 
 // Router require
 const jwt = require('jsonwebtoken')
-const jwtVerify = require("./src/Middleware/jwtVerify");
-const { jwtSecret } = require("./src/secret");
-const faqsRoute = require("./src/routers/faqsRoute");
+const jwtVerify = require("./Middleware/jwtVerify");
+const { jwtSecret } = require("./secret");
+
+const faqsRoute = require("./routers/faqsRoute");
+const reviewsRoute = require("./routers/reviewsRoute");
+const learningRoute = require("./routers/learningRoute");
+const allJobRoute = require("./routers/allJobRouter");
+const candidateRoute = require("./routers/candidateRoute");
+const partnersRoute = require("./routers/partnersRoute");
+const allCategoryRoute = require("./routers/allCategoryRoute");
+const jobLocationRoute = require("./routers/JobLocationRouter");
+const recruiterRoute = require("./routers/recruitersRoute");
+const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
 
 const app = express();
 
@@ -49,31 +59,31 @@ app.post('/api/jwt', (req, res) => {
 app.use("/api/faqs", faqsRoute);
 
 //- api/review/insert
-// app.use("/api/review", reviewsRoute);
+app.use("/api/review", reviewsRoute);
 
 // learning blog api - connections Done
-// app.use("/api/learning", learningRoute);
+app.use("/api/learning", learningRoute);
 
 // All jobs Route complete - Connections Done
-// app.use("/api/allJobs", allJobRoute);
+app.use("/api/allJobs", allJobRoute);
 
 // All jobs Route - Connections Done
-// app.use("/api/jobCandidates", candidateRoute);
+app.use("/api/jobCandidates", candidateRoute);
 
 // partners route Complete
-// app.use("/api/partners", partnersRoute);
+app.use("/api/partners", partnersRoute);
 
 // all Category route Complete
-// app.use("/api/allCategory", allCategoryRoute);
+app.use("/api/allCategory", allCategoryRoute);
 
 // all Category route Complete
-// app.use("/api/jobLocation", jobLocationRoute);
+app.use("/api/jobLocation", jobLocationRoute);
 
 // all Category route Complete - 
-// app.use("/api/recruiters", recruiterRoute);
+app.use("/api/recruiters", recruiterRoute);
 
 // all Category route Complete
-// app.use("/api/appliedCandidate", appliedCandidateRoute);
+app.use("/api/appliedCandidate", appliedCandidateRoute);
 
 // client error handling
 app.use((req, res, next) => {
