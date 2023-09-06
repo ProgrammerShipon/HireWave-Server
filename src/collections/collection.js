@@ -1,16 +1,17 @@
 const { default: mongoose } = require("mongoose");
-
-// All Model or schema require
+const userSchema = require("../models/userModel");
 const allJobModel = require("../models/allJobModel");
-const faqsModel = require("../models/faqsModel");
 const reviewModel = require("../models/reviewModel");
+const faqsModel = require("../models/faqsModel");
 const learningModel = require("../models/learningModel");
+const candidateDataModel = require("../models/candidateDataModel");
 const partnersDataModel = require("../models/partnersDataModel");
 const allCategoryDataModel = require("../models/allCategoryDataModel");
 const jobLocationDataModel = require("../models/jobLocationDataModel");
 const recruitersDataModel = require("../models/recruitersDataModel");
 const appliedCandidatesDataModel = require("../models/appliedCandidatesDataModel");
-const userSchema = require("../models/userModel");
+
+// All Model or schema require
 
 // User Collection 
 const usersCollection = new mongoose.model("users", userSchema);
@@ -19,7 +20,8 @@ const usersCollection = new mongoose.model("users", userSchema);
 const allJobCollection = new mongoose.model("allJobs", allJobModel);
 
 // FAQS Collection database
-const faqsCollection = new mongoose.model("faqs", faqsModel);
+const faqsCollection = new mongoose.model("faqs", faqsModel
+);
 
 // Review Collection database
 const reviewCollection = new mongoose.model("reviews", reviewModel);
@@ -28,7 +30,10 @@ const reviewCollection = new mongoose.model("reviews", reviewModel);
 const learningCollection = new mongoose.model("learning", learningModel);
 
 // Candidates Collection database
-const allCandidatesCollection = new mongoose.model("candidates", learningModel);
+const allCandidatesCollection = new mongoose.model(
+  "candidates",
+  candidateDataModel
+);
 
 // Partners Collection database
 const partnersCollection = new mongoose.model("partners", partnersDataModel);
@@ -44,8 +49,6 @@ const recruitersCollection = new mongoose.model("recruiters", recruitersDataMode
 
 // applied Candidates Collection database
 const appliedCandidatesCollection = new mongoose.model("appliedCandidates", appliedCandidatesDataModel);
-
-
 
 // export data base
 module.exports = {

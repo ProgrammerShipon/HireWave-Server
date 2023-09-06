@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "keywords": [],
@@ -18,6 +17,7 @@
     "express": "^4.18.2",
     "express-rate-limit": "^6.9.0",
     "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",
     "xss-clean": "^0.1.4"
   },

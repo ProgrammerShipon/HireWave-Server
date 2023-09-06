@@ -6,7 +6,12 @@ const { allJobCollection } = require('../collections/collection');
 const postAllJob = async (req, res) => {
    try {
       const newJobPostData = req.body;
+      console.log("new Job Data -> ", newJobPostData);
+
       const newJobPost = await allJobCollection.insertMany(newJobPostData);
+
+      console.log('Inserted data -> ', newJobPost);
+
       res.status(200).send(newJobPost)
    } catch (error) {
       res.status(404).send({ message: error.message })
