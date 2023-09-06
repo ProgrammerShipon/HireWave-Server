@@ -1,7 +1,5 @@
 const { default: mongoose } = require("mongoose");
-// const bcrypt = require("bcrypt");
-// const { defaultImagePath } = require("../secret");
-
+// const userinfo = { name: user.displayName, email: user.email, userProfile: user.photoURL, role: "user" };
 const userSchema = new mongoose.Schema({
   role: String,
   profileView: Number,

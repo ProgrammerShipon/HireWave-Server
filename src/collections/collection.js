@@ -1,8 +1,10 @@
 const { default: mongoose } = require("mongoose");
+
+// all schema model require
 const userSchema = require("../models/userModel");
 const allJobModel = require("../models/allJobModel");
-const reviewModel = require("../models/reviewModel");
 const faqsModel = require("../models/faqsModel");
+const reviewModel = require("../models/reviewModel");
 const learningModel = require("../models/learningModel");
 const candidateDataModel = require("../models/candidateDataModel");
 const partnersDataModel = require("../models/partnersDataModel");
@@ -10,10 +12,10 @@ const allCategoryDataModel = require("../models/allCategoryDataModel");
 const jobLocationDataModel = require("../models/jobLocationDataModel");
 const recruitersDataModel = require("../models/recruitersDataModel");
 const appliedCandidatesDataModel = require("../models/appliedCandidatesDataModel");
+const chatDataModel = require("../models/chatDataModel");
+const messageModel = require("../models/messageModel");
 
-// All Model or schema require
-
-// User Collection 
+// User Collection
 const usersCollection = new mongoose.model("users", userSchema);
 
 // all jobs collection database
@@ -39,16 +41,34 @@ const allCandidatesCollection = new mongoose.model(
 const partnersCollection = new mongoose.model("partners", partnersDataModel);
 
 // All Category Collection database
-const AllCategoryCollection = new mongoose.model("category", allCategoryDataModel);
+const AllCategoryCollection = new mongoose.model(
+  "category",
+  allCategoryDataModel
+);
 
 // Job Location Collection database
-const jobsLocationCollection = new mongoose.model("jobLocation", jobLocationDataModel);
+const jobsLocationCollection = new mongoose.model(
+  "jobLocation",
+  jobLocationDataModel
+);
 
 // Job Location Collection database
-const recruitersCollection = new mongoose.model("recruiters", recruitersDataModel);
+const recruitersCollection = new mongoose.model(
+  "recruiters",
+  recruitersDataModel
+);
 
 // applied Candidates Collection database
-const appliedCandidatesCollection = new mongoose.model("appliedCandidates", appliedCandidatesDataModel);
+const appliedCandidatesCollection = new mongoose.model(
+  "appliedCandidates",
+  appliedCandidatesDataModel
+);
+
+// Chat History Collection database
+const chatCollection = new mongoose.model("chat", chatDataModel);
+
+// message Collection
+const messageCollection = new mongoose.model("message", messageModel);
 
 // export data base
 module.exports = {
@@ -62,5 +82,7 @@ module.exports = {
   AllCategoryCollection,
   jobsLocationCollection,
   recruitersCollection,
-  appliedCandidatesCollection
+  appliedCandidatesCollection,
+  chatCollection,
+  messageCollection
 };
