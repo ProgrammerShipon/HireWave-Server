@@ -1,71 +1,90 @@
 const mongoose = require('mongoose');
 
-const candidateDataModel = new mongoose.Schema({
+const validateEmail = function (email) {
+  const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return re.test(email);
+};
 
-    name: {
-        type: String,
-        require: true,
-    },
-    images: {
-        type: String,
-        require: true,
-    },
-    category: {
-        type: String,
-        require: true,
-    },
-    about: {
-        type: String,
-        require: true,
-    },
-    status: {
-        type: String,
-        require: true,
-    },
-    location: {
-        type: String,
-        require: true,
-    },
-    skills: {
-        type: Array,
-        require: true,
-    },
-    rating: {
-        type: Number,
-        require: true,
-    },
-    languages: {
-        type: Array,
-        require: true,
-    },
-    recentReview: {
-        type: Array,
-        require: true,
-    },
-    hourlyRate: {
-        type: Number,
-        require: true,
-    },
-    recommendations: {
-        type: Number,
-        require: true,
-    },
-    salaryRange: {
-        type: String,
-        require: true,
-    },
-    education: {
-        type: Array,
-        require: true,
-    },
-    experience: {
-        type: Array,
-        require: true,
-    },
-    joinDate: {
-        type: Date,
-        default: Date.now
-    }
+const candidateDataModel = new mongoose.Schema({
+  role: { type: String },
+
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    unique: true,
+    // required: true, // todos: unComment
+    validate: [validateEmail, "Please fill a valid email address"],
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      "Please fill a valid email address",
+    ],
+  },
+  image: {
+    type: String,
+  },
+  title: {
+    type: String,
+  },
+  phone: {
+    type: Array,
+  },
+  category: {
+    type: String,
+  },
+  hourlyRate: {
+    type: String,
+  },
+  jobType: {
+    type: String,
+  },
+  location: {
+    type: Array,
+  },
+  address: {
+    type: String,
+  },
+  skills: [String],
+  about: {
+    type: Array,
+  },
+  education: {
+    type: Array,
+  },
+  experience: {
+    type: Array,
+  },
+  socialLink: {
+    type: Array,
+  },
+  languages: {
+    type: Array,
+  },
+  recommendations: {
+    type: Number,
+    min: 0,
+  },
+  openToWork: {
+    type: Boolean,
+  },
+  visibility: {
+    type: String,
+  },
+  status: Boolean,
+  joinDate: String,
 });
 
-module.exports = candidateDataModel
+
+  // rating: {
+  //   type: Number,
+  //   min: 0,
+  //   max: 5,
+  // },
+  // salaryRange: String,
+
+
+module.exports = candidateDataModel;

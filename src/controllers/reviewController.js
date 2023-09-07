@@ -1,80 +1,69 @@
 const { reviewCollection } = require("../collections/collection");
 
-const data = [
-  {
-    companyName: "Turing",
-    companyImage:
-      "https://media.licdn.com/dms/image/D4D0BAQHB79AE71th8A/company-logo_200_200/0/1688472201106?e=1699488000&v=beta&t=0d0PUBEZaz9eBjh_n89dzoR-TV9T5LZFBOUERFA_2jw",
-    recommenderImage: "https://i.ibb.co/6gPj1nr/customer-1.png",
-    recommenderName: "Alexandra Thompson",
-    recommenderPosition: "CEO",
-    comment:
-      "At TechGlobe, we have had the pleasure of working with the exceptional talents sourced by HireWave. Their dedication greatly impressed us.",
-    date: "21 January, 2023",
-    rating: 4.7,
-  },
-  {
-    companyName: "FestiVibe",
-    companyImage:
-      "https://media.licdn.com/dms/image/C4D0BAQHeFujxmFBRzw/company-logo_200_200/0/1658302690386?e=1699488000&v=beta&t=-x95WfW5pFwUx_IjDzaHwJjb-vgipHRVcHJDKVZym-A",
-    recommenderName: "Michael Rodriguez",
-    recommenderImage: "https://i.ibb.co/C23DwmC/customer-2.png",
-    recommenderPosition: "Creative Director",
-    comment:
-      "HireWave consistently delivers remarkable designers. Their deep understanding of our industry has delivered success to our team.",
-    date: "05 March, 2023",
-    rating: 4.2,
-  },
-  {
-    companyName: "La Meridian",
-    companyImage:
-      "https://media.licdn.com/dms/image/C4E0BAQFakt8VoVE7Bg/company-logo_200_200/0/1553560365823?e=1699488000&v=beta&t=W0ykUhy5ZRr8x70XOxXad2BJO1nqeCyuZK7QdMrsW8A",
-    recommenderName: "Juan Chen",
-    recommenderImage: "https://i.ibb.co/b32wRhT/customer-3.png",
-    recommenderPosition: "Head of Culinary Operations",
-    comment:
-      "Partnering with HireWave has been a game-changer. For anyone searching for culinary brilliance, CulinaryConnections is the agency you need.",
-    date: "20 February, 2023",
-    rating: 4.1,
-  },
-  {
-    companyName: "Green tech",
-    companyImage:
-      "https://media.licdn.com/dms/image/C560BAQEpYS5mr8i0rQ/company-logo_200_200/0/1582549520990?e=1699488000&v=beta&t=J6U4g3kGOgL-p0hfHMC-61BDYffLo74ubtK84nQwIUg",
-    recommenderName: "Jonathan Parker",
-    recommenderImage: "https://i.ibb.co/QnB7nyK/customer-4.png",
-    recommenderPosition: "Sustainability Director",
-    comment:
-      "HireWave Agency consistently presents candidates who align with our mission. If you're serious about sustainability, here is the partner to collaborate with.",
-    date: "16 April, 2023",
-    rating: 4.9,
-  },
-];
-
-
-const insertReview = async (req, res, next) => {
+// post many or single data
+const postNewReview = async (req, res) => {
   try {
     const result = await reviewCollection.insertMany(data); // todo: insertMany -> insert
-    return await res.status(200).send({
-      message: "insert data successful  ✅",
-      data: result,
-    });
+    return await res.status(200).send(result);
   } catch (error) {
-    next(error?.message);
+    res.status(404).send({message: "Server Error"});
   }
 };
 
-const getReviews = async (req, res, next) => {
+// get All Review
+const getAllReview = async (req, res, ) => {
   try {
-    const result = await reviewCollection.find({});
-    return await res.status(200).send({
-      message: "Get All Reviews Successful ✅",
-      data: result,
-    });
+    const result = await reviewCollection.find();
+    return await res.status(200).send(result);
   } catch (error) {
-    next(error);
+    res.status(404).send({ message: "Server Error" });
   }
 };
 
+// get Review single data
+const getSingleReview = async (req, res) => {
+  try {
+    await reviewCollection
+      .findById(req.params.id)
+      .then((review) => res.status(200).send(review))
+      .catch(() => res.status(404).send("Data Not Found"));
+  } catch (error) {
+    res.status(404).send("Data Not Found or Server error");
+  }
+};
 
-module.exports = { getReviews, insertReview };
+// Delete a candidate by ID
+const deleteReview = async (req, res) => {
+  try {
+    const deletedReview = await reviewCollection.findByIdAndDelete(
+      req.params.id
+    );
+    console.log('Deleted candidate:', deletedReview);
+    res.status(200).send(deletedReview);
+  } catch (err) {
+    console.error('Error deleting candidate:', err);
+  }
+};
+
+// Update a candidate by ID
+const updateReview = async (req, res) => {
+  const updateData = req.body;
+  try {
+    const updatedCandidate = await reviewCollection.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+    res.status(200).send(updatedCandidate);
+  } catch (err) {
+    res.send('Error updating candidate:', err);
+  }
+};
+
+module.exports = {
+  getAllReview,
+  postNewReview,
+  getSingleReview,
+  deleteReview,
+  updateReview,
+};

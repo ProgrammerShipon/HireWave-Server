@@ -1,12 +1,20 @@
 const express = require('express');
+const { postNewReview, getAllReview, getSingleReview, deleteReview, updateReview } = require('../controllers/reviewController');
 const reviewsRoute = express.Router();
 
-const { getReviews, insertReview } = require('../controllers/reviewController');
+// review insert data
+reviewsRoute.post("/", postNewReview);
 
-// insert data
-reviewsRoute.post("/insert", insertReview);
+// review get all data
+reviewsRoute.get("/", getAllReview);
 
-// get all reviews data
-reviewsRoute.get("/", getReviews);
+// review Single Data
+reviewsRoute.get("/:id", getSingleReview);
+
+// review updated api
+reviewsRoute.patch("/:id", updateReview);
+
+// Delete FAQs 
+reviewsRoute.delete("/:id", deleteReview);
 
 module.exports = reviewsRoute
