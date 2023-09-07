@@ -57,20 +57,20 @@
   - send Candidates data
     - { method: post }
     - body -> { key: value }
-    - http://localhost:3030/api/allJobs
+    - http://localhost:3030/api/candidate
   - All Candidates
     - { method: get }
-    - http://localhost:3030/api/allJobs
+    - http://localhost:3030/api/candidate
   - Single Candidates Data
     - { method: get }
-    - http://localhost:3030/api/allJobs/:id
+    - http://localhost:3030/api/candidate/:id
   - Single Candidates Delete Data
     - { method: delete }
-    - http://localhost:3030/api/allJobs/:id
+    - http://localhost:3030/api/candidate/:id
   - Single Candidates Update Data
     - { method: patch }
     - body -> { key: value }
-    - http://localhost:3030/api/allJobs/:id
+    - http://localhost:3030/api/candidate/:id
 
 <br>
 

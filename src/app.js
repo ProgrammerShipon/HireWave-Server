@@ -63,7 +63,7 @@ app.use('/api/users', userRouter)
 app.use("/api/recruiters", recruiterRoute);
 
 // All jobs Route - Connections Done
-app.use("/api/jobCandidates", candidateRoute);
+app.use("/api/candidate", candidateRoute);
 
 // faq Route - connections Done
 app.use("/api/faqs", faqsRoute);
