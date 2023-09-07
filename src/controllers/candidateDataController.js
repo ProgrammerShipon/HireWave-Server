@@ -1,4 +1,4 @@
-const { allCandidatesCollection } = require('../collections/collection');
+const { allCandidatesCollection, usersCollection } = require('../collections/collection');
 
 // Find All Candidates Data
 const getAllCandidatesData = async (req, res) => {
@@ -26,13 +26,18 @@ const getACandidate = async (req, res) => {
 const postCandidateData = async (req, res) => {
   try {
     const newCandidateData = req.body;
-    console.log("new Job Data -> ", newCandidateData);
+    const newUser = {
+      role: "candidate",
+      name: newCandidateData?.name,
+      email: newCandidateData?.email,
+      image: newCandidateData?.image,
+      status: 'padding'
+    };
 
-    const result = await allCandidatesCollection(newCandidateData).save();
+    const insertUser = await usersCollection(newUser).save();
+    const insertCandidate = await allCandidatesCollection(newCandidateData).save();
 
-    console.log("Inserted data -> ", result);
-
-    res.status(200).send(result);
+      res.status(200).send([{...insertUser}, {...insertCandidate}]);
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
