@@ -15,8 +15,6 @@ allJobRoute.get('/', getAllJob)
 // Get all Jobs Post
 allJobRoute.get('/:id', getAJob)
 
-// Get a  Jobs Post
-allJobRoute.get('/:id', getAJob)
 
 // Delete A Job Post
 allJobRoute.delete('/:id', deleteAJobPost)
