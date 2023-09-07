@@ -43,8 +43,7 @@ const getAllJob = async (req, res) => {
 const getAJob = async (req, res) => {
    try {
       const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const Result = await allJobCollection.find(query);
+      const Result = await allJobCollection.findById(id);
       res.status(200).send(Result);
    } catch (error) {
       res.status(404).send({ message: error.message })

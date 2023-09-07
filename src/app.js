@@ -10,10 +10,15 @@ const cors = require("cors");
 // const rateLimit = require("express-rate-limit");
 
 // Router require
-// const userRouter = require("./routers/userRouter");
+const jwt = require('jsonwebtoken')
+const jwtVerify = require("./Middleware/jwtVerify");
+const { jwtSecret } = require("./secret");
+
+// all route require
+const userRouter = require("./routers/userRouter");
 const faqsRoute = require("./routers/faqsRoute");
-const learningRoute = require("./routers/learningRoute");
 const reviewsRoute = require("./routers/reviewsRoute");
+const learningRoute = require("./routers/learningRoute");
 const allJobRoute = require("./routers/allJobRouter");
 const candidateRoute = require("./routers/candidateRoute");
 const partnersRoute = require("./routers/partnersRoute");
@@ -21,11 +26,16 @@ const allCategoryRoute = require("./routers/allCategoryRoute");
 const jobLocationRoute = require("./routers/JobLocationRouter");
 const recruiterRoute = require("./routers/recruitersRoute");
 const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
-const userRouter = require("./routers/userRouter");
 const chatRoute = require("./routers/chatRoute");
 const messageRoute = require("./routers/messageRoute");
 
 const app = express();
+
+// const corsOptions = {
+//   origin: "*",
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
 
 // Application level middleware
 app.use(cors());
@@ -36,40 +46,36 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Root Route
-app.get("/", (req, res) => res.status(200).send("Assalamualaikum"));
+app.get("/", (req, res) =>
+  res.status(200).send(`Assalamualaikum. <br/> Hire Wave Server Running`)
+);
 
-/**
- * Route or apis
- * - api/users/
- */
-// app.use('/api/users', userRouter)
+app.post('/api/jwt', (req, res) => {
+  const email = req.body;
+  const token = jwt.sign(email, jwtSecret, { expiresIn: '3h' })
+   res.status(200).send({ token })
+})
 
-/**
- * FAQs Route
- * - api/faqs
- */
+//- User route
+app.use('/api/users', userRouter)
+
+// all Category route Complete - 
+app.use("/api/recruiters", recruiterRoute);
+
+// All jobs Route - Connections Done
+app.use("/api/candidate", candidateRoute);
+
+// faq Route - connections Done
 app.use("/api/faqs", faqsRoute);
 
-/**
- * reviews api
- * - api/review/insert
- */
+//- api/review/insert
 app.use("/api/review", reviewsRoute);
 
-/**
- * learning api
- * - api/learning
- */
+// learning blog api - connections Done
 app.use("/api/learning", learningRoute);
 
-// User Data Route
-app.use("/api/users", userRouter);
-
-// All jobs Route complete
+// All jobs Route complete - Connections Done
 app.use("/api/allJobs", allJobRoute);
-
-// All jobs Route
-app.use("/api/jobCandidates", candidateRoute);
 
 // partners route Complete
 app.use("/api/partners", partnersRoute);
@@ -86,7 +92,10 @@ app.use("/api/recruiters", recruiterRoute);
 // all Category route Complete
 app.use("/api/appliedCandidate", appliedCandidateRoute);
 
+// user chatting
 app.use("/api/chat", chatRoute);
+
+// user message
 app.use("/api/message", messageRoute);
 
 // client error handling

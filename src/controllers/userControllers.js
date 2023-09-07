@@ -1,18 +1,32 @@
-const { usersCollection } = require("../collections/collection");
+const { allCandidatesCollection, usersCollection } = require("../collections/collection");
 
 // Add A User On DataBase
 const postUser = async (req, res) => {
   try {
     const newUserData = req.body;
-    const query = { email: newUserData.email }
-    const existingUser = await usersCollection.findOne(query);
-    if (existingUser) {
-      return res.send({ message: 'user Is already exists' })
+    const data = {
+      role: 'candidate',
+      name: 'shipon',
+      email: 'shipon234@gmail.com',
+      image: '',
     }
-    const newUser = await usersCollection(newUserData).save();
-    res.status(200).send(newUser);
+
+    console.log('post user -> ', newUserData)
+
+    const query = { email: newUserData.email };
+    const isExist = await usersCollection.findOne(query);
+    console.log(isExist)
+    
+    if (isExist) {
+      return res.status(201).send({ isExist, message: "user exist" });
+    } else {
+      const insert = await usersCollection(newUserData).save();
+      return res.status(200).send({ insert})
+    }
+
   } catch (error) {
-    res.status(404).send(error.message);
+    console.error(error);
+    res.status(404).send({ message: "Server Problem",});
   }
 };
 
@@ -55,7 +69,6 @@ const deleteUser = async (req, res) => {
     const deleteUser = await usersCollection.findByIdAndDelete(req.params.id);
     res.status(202).send(deleteUser);
   } catch (error) {
-
     res.status(404).send({ message: error.message });
   }
 }
@@ -77,4 +90,11 @@ const updateUser = async (req, res) => {
 };
 
 // export user controller
-module.exports = { postUser, getAllUser, deleteUser, updateUser, getUserByEmail, getUserById };
+module.exports = {
+  postUser,
+  getUserByEmail,
+  getUserById,
+  getAllUser,
+  deleteUser,
+  updateUser,
+};

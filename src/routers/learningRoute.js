@@ -1,14 +1,6 @@
 const express = require("express");
+const { insertLearning, getLearning, singleLearning, updateLearning, deleteLearning } = require("../controllers/learningController");
 const learningRoute = express.Router();
-
-// Require Control Function
-const {
-  getLearning,
-  insertLearning,
-  learningUpdate,
-  updateLearning,
-  deleteLearning,
-} = require("../controllers/learningController");
 
 // Learning insert data
 learningRoute.post("/", insertLearning);
@@ -17,7 +9,7 @@ learningRoute.post("/", insertLearning);
 learningRoute.get("/", getLearning);
 
 // Learning Single Data
-learningRoute.get("/:id", learningUpdate);
+learningRoute.get("/:id", singleLearning);
 
 // Learning updated api
 learningRoute.patch("/:id", updateLearning);

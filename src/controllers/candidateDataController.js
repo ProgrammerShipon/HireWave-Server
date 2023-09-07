@@ -28,13 +28,11 @@ const postCandidateData = async (req, res) => {
     const newCandidateData = req.body;
     console.log("new Job Data -> ", newCandidateData);
 
-    const newCandidate = await allCandidatesCollection.insertMany(
-      newCandidateData
-    );
+    const result = await allCandidatesCollection(newCandidateData).save();
 
-    console.log("Inserted data -> ", newCandidate);
+    console.log("Inserted data -> ", result);
 
-    res.status(200).send(newCandidate);
+    res.status(200).send(result);
   } catch (error) {
     res.status(404).send({ message: error.message });
   }

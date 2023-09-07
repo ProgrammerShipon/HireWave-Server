@@ -1,8 +1,10 @@
 const { default: mongoose } = require("mongoose");
+
+// all schema model require
 const userSchema = require("../models/userModel");
 const allJobModel = require("../models/allJobModel");
-const reviewModel = require("../models/reviewModel");
 const faqsModel = require("../models/faqsModel");
+const reviewModel = require("../models/reviewModel");
 const learningModel = require("../models/learningModel");
 const candidateDataModel = require("../models/candidateDataModel");
 const partnersDataModel = require("../models/partnersDataModel");
@@ -10,9 +12,9 @@ const allCategoryDataModel = require("../models/allCategoryDataModel");
 const jobLocationDataModel = require("../models/jobLocationDataModel");
 const recruitersDataModel = require("../models/recruitersDataModel");
 const appliedCandidatesDataModel = require("../models/appliedCandidatesDataModel");
+const chatDataModel = require("../models/chatDataModel");
+const messageModel = require("../models/messageModel");
 const userDataModel = require("../models/userDataModel");
-
-// All Model or schema require
 
 // User Collection
 const usersCollection = new mongoose.model("users", userDataModel);
@@ -62,6 +64,12 @@ const appliedCandidatesCollection = new mongoose.model(
   "appliedCandidates",
   appliedCandidatesDataModel
 );
+
+// Chat History Collection database
+const chatCollection = new mongoose.model("chat", chatDataModel);
+
+// message Collection
+const messageCollection = new mongoose.model("message", messageModel);
 
 // export data base
 module.exports = {

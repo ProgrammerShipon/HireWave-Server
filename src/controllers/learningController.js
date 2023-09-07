@@ -6,7 +6,7 @@ const insertLearning = async (req, res, next) => {
     const result = await learningCollection.insertMany(req.body);
     return await res.status(200).send(result);
   } catch (error) {
-    res.status(200).send({error: error?.message});
+    res.status(200).send({ error: error?.message });
   }
 };
 
@@ -17,6 +17,17 @@ const getLearning = async (req, res, next) => {
     return await res.status(200).send(result);
   } catch (error) {
     next(error?.message);
+  }
+};
+
+// Learning Single Data
+const singleLearning = async (req, res, next) => {
+  try {
+    const id=req.params.id
+    const result = await learningCollection.findById(id);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(200).send({ message: "Not Found Learning Data" });
   }
 };
 
@@ -31,7 +42,7 @@ const updateLearning = async (req, res) => {
     );
     res.status(200).send(updatedLearning);
   } catch (err) {
-    res.status(404).send('Error updating candidate:');
+    res.status(404).send("Error updating candidate:");
   }
 };
 
@@ -50,20 +61,11 @@ const deleteLearning = async (req, res) => {
   }
 };
 
-// Update a Learning by ID
-const learningUpdate = async (req, res, next) => {
-  try {
-    const upData = req.body;
-    console.log(upData);
-  } catch (error) {
-    next(error?.message);
-  }
-};
-
+// export file
 module.exports = {
   updateLearning,
   insertLearning,
   getLearning,
-  learningUpdate,
+  singleLearning,
   deleteLearning,
 };

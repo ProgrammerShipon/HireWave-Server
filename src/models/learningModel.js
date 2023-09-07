@@ -1,39 +1,27 @@
-const { Schema } = require("mongoose");
+const mongoose = require("mongoose");
 
-const learningModel = new Schema(
+// Define a schema for the comments
+const commentSchema = new mongoose.Schema({
+  commenterImg: String,
+  commenterName: String,
+  commenterEmail: String,
+  commentText: String,
+  commentTime: String,
+  commentId: String,
+});
+
+const learningModel = new mongoose.Schema(
   {
-    category: {
-      type: String,
-      require: true,
-    },
-    thumbnail: {
-      type: String,
-      require: true,
-    },
-    videoTitle: {
-      type: String,
-      require: true,
-    },
-    description: {
-      type: String,
-      require: true,
-    },
-    videoLink: {
-      type: String,
-      require: true,
-    },
-    authorName: {
-      type: String,
-    },
-    authorEmail: {
-      type: String,
-    },
-    authorImg: {
-      type: String,
-    },
-    comment: {
-      type: Array,
-    },
+    category: String,
+    thumbnail: String,
+    title: String,
+    videoLink: String,
+    authorName: String,
+    authorEmail: String,
+    authorImg: String,
+    comments: [commentSchema],
+    readTime: Number,
+    description: String,
   },
   { timestamps: true }
 );
