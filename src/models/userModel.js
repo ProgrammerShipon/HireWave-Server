@@ -1,7 +1,7 @@
 const { default: mongoose } = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  role: String,
+  role: { type: String, enum: ["admin", "candidate", "recruiter"] },
   name: { type: String, required: true },
   email: {
     type: String,
@@ -9,7 +9,11 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   image: String,
-  status: { type: String, required: true },
+  status: {
+    type: String,
+    required: true,
+    enum: ["approved", "pending", "rejected"],
+  },
 });
 
 module.exports = userSchema;

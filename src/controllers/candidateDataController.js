@@ -31,7 +31,7 @@ const postCandidateData = async (req, res) => {
       name: newCandidateData?.name,
       email: newCandidateData?.email,
       image: newCandidateData?.image,
-      status: 'padding'
+      status: "pending",
     };
 
     const insertUser = await usersCollection(newUser).save();

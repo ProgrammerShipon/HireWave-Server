@@ -1,11 +1,22 @@
-const { recruitersCollection } = require("../collections/collection");
+const { recruitersCollection, usersCollection } = require("../collections/collection");
 
-// post single data
+
+// One Data insert 
 const postNewRecruiter = async (req, res) => {
   try {
     const newRecruiterData = req.body;
-    const newRecruiter = await recruitersCollection(newRecruiterData).save();
-    res.status(200).send(newRecruiter);
+    const newUser = {
+      role: "recruiter",
+      name: newRecruiterData?.name,
+      email: newRecruiterData?.email,
+      image: newRecruiterData?.image,
+      status: "pending",
+    };
+
+    const insertUser = await usersCollection(newUser).save();
+    const insertRecruiter = await recruitersCollection(newRecruiterData).save();
+
+    res.status(200).send([{ ...insertUser }, { ...insertRecruiter }]);
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
