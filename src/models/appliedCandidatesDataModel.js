@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 
 const appliedCandidatesDataModel = new mongoose.Schema({
 
-    applicantId: {
+    applicantEmail: {
         type: String,
         require: true
     },
@@ -11,6 +11,10 @@ const appliedCandidatesDataModel = new mongoose.Schema({
         require: true
     },
     companyName: {
+        type: String,
+        require: true
+    },
+    companyLogo: {
         type: String,
         require: true
     },

@@ -15,12 +15,20 @@ const postAllAppliedInfo = async (req, res) => {
 
 // Post applied Candidate - 
 const postOneAppliedInfo = async (req, res) => {
+    const appliedJob = req.body
+    const appliedJobId = appliedJob.appliedJobId;
+    const applicantEmail = appliedJob.applicantEmail;
+    const query = { appliedJobId: appliedJobId, applicantEmail: applicantEmail };
+    const isExist = await appliedCandidatesCollection.findOne(query);
     try {
-        const newApplicantData = req.body;
-        const newApplicant = await appliedCandidatesCollection(newApplicantData).save();
-        res.status(200).send(newApplicant)
+        if (isExist) {
+            return res.status(202).send({ isExist, message: "Already  Applied" });
+        } else {
+            const newApplicant = await appliedCandidatesCollection(appliedJob).save();
+            res.status(200).send(newApplicant)
+        }
     } catch (error) {
-        res.status(404).send({ message: error.message })
+        res.status(400).send({ error: error?.message });
     }
 }
 // Get All Applied Candidate Developer route 
@@ -48,8 +56,8 @@ const getAllAppliedCandidateInfo = async (req, res) => {
 // Get All Applied Job For Each Candidate 
 const getAppliedJobEachCandidate = async (req, res) => {
     try {
-        const applicantId = req.params.applicantId;
-        const query = { applicantId: applicantId };
+        const applicantEmail = req.params.email;
+        const query = { applicantEmail: applicantEmail };
         const Result = await appliedCandidatesCollection.find(query);
         res.status(200).send(Result);
     } catch (error) {
@@ -117,4 +125,4 @@ const deleteOneAppliedInfo = async (req, res) => {
 
 
 
-module.exports = { postAllAppliedInfo, getAllAppliedCandidates,getAppliedJobEachCandidate,cancelApplicationEachCandidate, getAllAppliedCandidateInfo, postOneAppliedInfo, getAppliedJobInfo, getAppliedCandidateByCompany, getAppliedCandidatesDetails, deleteOneAppliedInfo };
+module.exports = { postAllAppliedInfo, getAllAppliedCandidates, getAppliedJobEachCandidate, cancelApplicationEachCandidate, getAllAppliedCandidateInfo, postOneAppliedInfo, getAppliedJobInfo, getAppliedCandidateByCompany, getAppliedCandidatesDetails, deleteOneAppliedInfo };

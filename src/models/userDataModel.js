@@ -6,6 +6,11 @@ const userDataModel = new Schema(
       type: String,
       required: true,
     },
+    status: {
+      type: String,
+      enum: ["approved", "pending", "rejected"],
+      default: "pending",
+    },
     name: {
       type: String,
       required: true,

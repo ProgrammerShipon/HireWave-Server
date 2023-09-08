@@ -13,7 +13,7 @@ appliedCandidateRoute.post('/', postOneAppliedInfo) //
 appliedCandidateRoute.get('/', getAllAppliedCandidates)//
 
 // Get All Applied Job For Each Candidate (Candidate Dashboard)
-appliedCandidateRoute.get('/eachCandidate/:applicantId', getAppliedJobEachCandidate)//
+appliedCandidateRoute.get('/eachCandidate/:email', getAppliedJobEachCandidate)//
 
 // Cancellation of Application  For Each Candidate (Candidate Dashboard)
 appliedCandidateRoute.delete('/cancelApplication/:appliedJobId', cancelApplicationEachCandidate)//
