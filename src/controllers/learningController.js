@@ -1,7 +1,7 @@
 const { learningCollection } = require("../collections/collection");
 
 // insert learning
-const insertLearning = async (req, res, next) => {
+const insertLearning = async (req, res) => {
   try {
     const result = await learningCollection.insertMany(req.body);
     return await res.status(200).send(result);
@@ -11,23 +11,23 @@ const insertLearning = async (req, res, next) => {
 };
 
 // get all data
-const getLearning = async (req, res, next) => {
+const getLearning = async (req, res) => {
   try {
-    const result = await learningCollection.find();
-    return await res.status(200).send(result);
+    const learningBlog = await learningCollection.find();
+    res.status(200).send(learningBlog);
   } catch (error) {
-    next(error?.message);
+    res.status(404).send({ message: error.message });
   }
 };
 
 // Learning Single Data
 const singleLearning = async (req, res, next) => {
   try {
-    const id=req.params.id
+    const id = req.params.id
     const result = await learningCollection.findById(id);
     res.status(200).send(result);
   } catch (error) {
-    res.status(200).send({ message: "Not Found Learning Data" });
+    res.status(400).send({ message: "Not Found Learning Data" });
   }
 };
 

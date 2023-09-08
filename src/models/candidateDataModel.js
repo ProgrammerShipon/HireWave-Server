@@ -13,6 +13,7 @@ const candidateDataModel = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   image: String,
   title: String,
@@ -55,6 +56,11 @@ const candidateDataModel = new mongoose.Schema({
       level: String,
     },
   ],
+  status: {
+    type: String,
+    enum: ["approved", "pending", "rejected"],
+    default: "pending",
+  },
   recommendations: Number,
   active: Boolean,
   visibility: String,

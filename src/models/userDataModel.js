@@ -17,8 +17,11 @@ const userDataModel = new Schema(
     image: {
       type: String,
     },
-  },
-  { timestamps: true }
+    joinDate: {
+      type: Date,
+      default: Date.now
+    }
+  }
 );
 
 module.exports = userDataModel;
