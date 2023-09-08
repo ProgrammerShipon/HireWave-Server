@@ -29,7 +29,7 @@ const savedJobDataModel = new mongoose.Schema({
         require: true,
     },
     candidateMail: {
-        type: Array,
+        type: String,
         require: true,
     },
     skills: {

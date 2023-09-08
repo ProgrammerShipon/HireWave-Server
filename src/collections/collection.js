@@ -88,4 +88,5 @@ module.exports = {
   jobsLocationCollection,
   recruitersCollection,
   appliedCandidatesCollection,
+  savedJobCollection
 };

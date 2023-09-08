@@ -28,6 +28,7 @@ const recruiterRoute = require("./routers/recruitersRoute");
 const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
 const chatRoute = require("./routers/chatRoute");
 const messageRoute = require("./routers/messageRoute");
+const savedJobRoute = require("./routers/savedJobRoute");
 
 const app = express();
 
@@ -53,44 +54,44 @@ app.get("/", (req, res) =>
 app.post('/api/jwt', (req, res) => {
   const email = req.body;
   const token = jwt.sign(email, jwtSecret, { expiresIn: '3h' })
-   res.status(200).send({ token })
+  res.status(200).send({ token })
 })
 
 //- User route
-app.use('/api/users', userRouter) 
+app.use('/api/users', userRouter)
 
 // all Category route Complete - 
-app.use("/api/recruiters", recruiterRoute); 
+app.use("/api/recruiters", recruiterRoute);
 
 // All jobs Route - Connections Done
 app.use("/api/candidates", candidateRoute);
 
 // faq Route - connections Done
-app.use("/api/faqs", faqsRoute); 
+app.use("/api/faqs", faqsRoute);
 
 //- api/review/insert
 app.use("/api/review", reviewsRoute); //
 
 // learning blog api - connections Done
-app.use("/api/learning", learningRoute);  
+app.use("/api/learning", learningRoute);
 
 // All jobs Route complete - Connections Done
-app.use("/api/allJobs", allJobRoute); 
+app.use("/api/allJobs", allJobRoute);
 
 // partners route Complete
-app.use("/api/partners", partnersRoute); 
+app.use("/api/partners", partnersRoute);
 
 // all Category route Complete
-app.use("/api/allCategory", allCategoryRoute); 
+app.use("/api/allCategory", allCategoryRoute);
+
+//jobLocationRoute route Complete
+app.use("/api/jobLocation", jobLocationRoute);
 
 // all Category route Complete
-app.use("/api/jobLocation", jobLocationRoute); 
+app.use("/api/savedjob", savedJobRoute);
 
 // all Category route Complete
-// app.use("/api/recruiters", recruiterRoute);
-
-// all Category route Complete
-app.use("/api/appliedCandidate", appliedCandidateRoute); 
+app.use("/api/appliedCandidate", appliedCandidateRoute);
 
 // user chatting
 app.use("/api/chat", chatRoute);
