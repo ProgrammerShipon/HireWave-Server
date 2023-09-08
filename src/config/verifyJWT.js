@@ -1,6 +1,6 @@
 const verifyJWT = (req, res, next) => {
     const authorization = req.headers.authorization;
-    // console.log('authorization', authorization)
+    console.log('authorization', authorization)
     if (!authorization) {
         return res.status(401).send({ error: true, message: 'unauthorized access 1' });
     }

@@ -63,6 +63,16 @@ const getRecruiter = async (req, res) => {
     res.status(404).send({ message: error.message });
   }
 };
+// find single Recruiters data 
+const getRecruiterByGmail = async (req, res) => {
+  try {
+    const query = { email: req.params.email }
+    const result = await recruitersCollection.findOne(query)
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+};
 
 // Update Recruiter
 const updateData = (req, res) => {
@@ -90,5 +100,6 @@ module.exports = {
   postNewRecruiter,
   deleteRecruiter,
   postNewRecruiters,
+  getRecruiterByGmail,
   updateData,
 };
