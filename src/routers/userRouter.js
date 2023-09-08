@@ -16,10 +16,10 @@ userRouter.post("/", postUser);
 userRouter.get("/", getAllUser);
 
 // user search by email
-userRouter.get("/byEmail/:email", getUserByEmail);
+userRouter.get("/email/:email", getUserByEmail);
 
 // user search by Id
-userRouter.get("/byId/:id", getUserById);
+userRouter.get("/id/:id", getUserById);
 
 // get delete user
 userRouter.delete("/:id", deleteUser);
