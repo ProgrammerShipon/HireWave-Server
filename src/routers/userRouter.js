@@ -7,14 +7,14 @@ const {
   deleteUser,
   updateUser,
 } = require("../controllers/userControllers");
-const verifyJWT = require("../config/verifyJWT");
+const verifyJWT = require("../Middleware/verifyJWT");
 const userRouter = express.Router();
 
 // Store Many User data Api
 userRouter.post("/", postUser);
 
 // get all user
-userRouter.get("/", verifyJWT, getAllUser);
+userRouter.get("/", getAllUser);
 
 // user search by email
 userRouter.get("/email/:email", getUserByEmail);

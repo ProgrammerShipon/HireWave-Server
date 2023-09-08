@@ -11,8 +11,7 @@ const cors = require("cors");
 
 // Router require
 const jwt = require('jsonwebtoken');
-const jwtVerify = require("./Middleware/jwtVerify");
-const { jwtSecret } = require("./secret");
+const { jwtSecret } = require('./secret');
 
 // all route require
 const userRouter = require("./routers/userRouter");
@@ -51,33 +50,12 @@ app.get("/", (req, res) =>
   res.status(200).send(`Assalamualaikum. <br/> Hire Wave Server Running`)
 );
 
-
-// const verifyJWT = (req, res, next) => {
-//   const authorization = req.headers.authorization;
-//   // console.log('authorization', authorization)
-//   if (!authorization) {
-//     return res.status(401).send({ error: true, message: 'unauthorized access 1' });
-//   }
-//   // bearer token
-//   const token = authorization.split(' ')[1];
-//   console.log('token', token)
-//   jwt.verify(token, process.env.JWT_ACCESS_TOCKEN, (err, decoded) => {
-//     if (err) {
-//       return res.status(401).send({ error: true, message: 'unauthorized access 2' })
-//     }
-//     req.decoded = decoded;
-//     next();
-//   })
-// }
-
+// send jwt token 
 app.post('/api/jwt', (req, res) => {
   const user = req.body;
-  console.log('from user /jwt', user)
-  console.log(process.env.JWT_ACCESS_TOCKEN)
-  const token = jwt.sign(user, process.env.JWT_ACCESS_TOCKEN, { expiresIn: '50h' })
+  const token = jwt.sign(user, jwtSecret, { expiresIn: "50h" });
   res.send({ token })
 })
-
 
 //- User route
 app.use('/api/users', userRouter)
