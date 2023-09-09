@@ -7,7 +7,6 @@ const {
   deleteUser,
   updateUser,
 } = require("../controllers/userControllers");
-const verifyJWT = require("../Middleware/verifyJWT");
 const userRouter = express.Router();
 
 // Store Many User data Api

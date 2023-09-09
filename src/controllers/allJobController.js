@@ -23,6 +23,7 @@ const postOneJob = async (req, res) => {
    try {
       const newJobPostData = req.body;
       const newJobPost = await allJobCollection(newJobPostData).save();
+      console.log(newJobPost)
       res.status(200).send(newJobPost)
    } catch (error) {
       res.status(404).send({ message: error.message })
