@@ -51,6 +51,23 @@ const getAJob = async (req, res) => {
    }
 }
 
+// Update A Job Data
+const updateJobs = async (req, res) => {
+   const updateData = req.body;
+   console.log(updateData);
+
+  try {
+    const result = await allJobCollection.findByIdAndUpdate(
+       req.params.id, 
+       req.body,
+       { new: true }
+    );
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+};
+
 // Delete A Job Post
 const deleteAJobPost = async (req, res) => {
    try {
@@ -65,4 +82,11 @@ const deleteAJobPost = async (req, res) => {
 
 
 
-module.exports = { postAllJob, postOneJob, getAllJob, getAJob, deleteAJobPost };
+module.exports = {
+  postAllJob,
+  postOneJob,
+  getAllJob,
+  getAJob,
+  updateJobs,
+  deleteAJobPost,
+};

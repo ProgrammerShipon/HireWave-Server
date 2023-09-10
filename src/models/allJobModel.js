@@ -73,6 +73,11 @@ const allJobModel = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  status: {
+    type: String,
+    enum: ["approved", "pending", "rejected"],
+  },
+  open: Boolean,
 });
 
 module.exports = allJobModel;

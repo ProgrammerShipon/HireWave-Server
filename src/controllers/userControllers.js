@@ -4,18 +4,9 @@ const { allCandidatesCollection, usersCollection } = require("../collections/col
 const postUser = async (req, res) => {
   try {
     const newUserData = req.body;
-    const data = {
-      role: 'candidate',
-      name: 'shipon',
-      email: 'shipon234@gmail.com',
-      image: '',
-    }
-
-    console.log('post user -> ', newUserData)
 
     const query = { email: newUserData.email };
     const isExist = await usersCollection.findOne(query);
-    console.log(isExist)
     
     if (isExist) {
       return res.status(201).send({ isExist, message: "user exist" });
@@ -41,6 +32,7 @@ const getUserByEmail = async (req, res) => {
     res.status(404).send({ message: error.message });
   }
 };
+
 // Get a user by Id
 const getUserById = async (req, res) => {
   try {
@@ -76,7 +68,8 @@ const deleteUser = async (req, res) => {
 // User Update by ID
 const updateUser = async (req, res) => {
   const updateData = req.body;
-  console.log('update user -> ', updateData)
+  console.log('update user -> ', updateData);
+
   try {
     const updatedUser = await usersCollection.findByIdAndUpdate(
       req.params.id,
