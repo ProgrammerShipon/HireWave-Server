@@ -21,6 +21,17 @@ const getACandidate = async (req, res) => {
     res.status(404).send("Data Not Found or Server error");
   }
 }
+// find single Recruiters data 
+const getCandidateByGmail = async (req, res) => {
+  try {
+    const query = { email: req.params.email }
+    const result = await allCandidatesCollection.findOne(query)
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+};
+
 
 // One Data insert Or Many Data
 const postCandidateData = async (req, res) => {
@@ -82,4 +93,5 @@ module.exports = {
   postCandidateData,
   deleteCandidate,
   updateCandidate,
+  getCandidateByGmail
 };
