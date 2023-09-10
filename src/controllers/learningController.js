@@ -49,16 +49,17 @@ const updateLearning = async (req, res) => {
 // Delete a Learning by ID
 const deleteLearning = async (req, res) => {
   const updateData = req.body;
-  try {
-    const updatedLearning = await learningCollection.findByIdAndDelete(
-      req.params.id,
-      updateData,
-      { new: true }
-    );
-    res.status(200).send(updatedLearning);
-  } catch (err) {
-    res.status(404).send("Error updating candidate:");
-  }
+  console.log('Update Data -> ', updateData);
+  // try {
+  //   const updatedLearning = await learningCollection.findByIdAndDelete(
+  //     req.params.id,
+  //     updateData,
+  //     { new: true }
+  //   );
+  //   res.status(200).send(updatedLearning);
+  // } catch (err) {
+  //   res.status(404).send("Error updating candidate:");
+  // }
 };
 
 // export file
