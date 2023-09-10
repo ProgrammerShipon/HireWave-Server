@@ -42,14 +42,24 @@ const postNewRecruiters = async (req, res) => {
 };
 
 // get all recruiter data
-const getAllRecruiters = async (req, res) => {
+const getRecruiters = async (req, res) => {
   try {
-    const recruiters = await recruitersCollection.find();
+    const query = { status: "approved" };
+    const recruiters = await recruitersCollection.find(query);
     res.status(200).send(recruiters);
   } catch (error) {
-    res.status(404).send({ message: error.message }); // todos: no server error send
+    res.status(404).send({ message: error.message });
   }
 };
+
+const getAllRecruiters = async ( req, res ) => {
+  try {
+    const recruiters = await recruitersCollection.find(query);
+    res.status(200).send(recruiters);
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+}
 
 // find single Recruiters data 
 const getRecruiter = async (req, res) => {
@@ -95,11 +105,12 @@ const deleteRecruiter = async (req, res) => {
 };
 
 module.exports = {
-  getAllRecruiters,
+  getRecruiters,
   getRecruiter,
   postNewRecruiter,
   deleteRecruiter,
   postNewRecruiters,
   getRecruiterByGmail,
   updateData,
+  getAllRecruiters,
 };

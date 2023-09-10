@@ -3,7 +3,8 @@ const { allCandidatesCollection, usersCollection } = require('../collections/col
 // Find All Candidates Data
 const getAllCandidatesData = async (req, res) => {
   try {
-    const allCandidates = await allCandidatesCollection.find();
+    const query = { status: "approved" };
+    const allCandidates = await allCandidatesCollection.find(query);
     res.status(200).send(allCandidates)
   } catch (error) {
     res.status(404).send({ message: error.message }) // todos: back-end error no send front-end

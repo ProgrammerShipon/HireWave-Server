@@ -1,6 +1,7 @@
 const express = require('express')
 const {
   getAllRecruiters,
+  getRecruiters,
   postNewRecruiter,
   getRecruiter,
   deleteRecruiter,
@@ -18,7 +19,10 @@ recruiterRoute.post('/many', postNewRecruiters)
 recruiterRoute.post('/', postNewRecruiter)
 
 // Get All Recruiters Data
-recruiterRoute.get('/', getAllRecruiters)
+recruiterRoute.get('/', getRecruiters)
+
+// Get All Recruiters Data
+recruiterRoute.get('/all', getAllRecruiters)
 
 // Single Recruiters Details
 recruiterRoute.get('/:id', getRecruiter)

@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { getAllJob, postAllJob, getAJob, deleteAJobPost, postOneJob } = require('../controllers/allJobController')
+const { getAllJob, postAllJob, getAJob,deleteAJobPost, updateJobs, postOneJob } = require('../controllers/allJobController')
 const allJobRoute = express.Router()
 
 // Post a Job
@@ -15,9 +15,11 @@ allJobRoute.get('/', getAllJob)
 // Get all Jobs Post
 allJobRoute.get('/:id', getAJob)
 
+// Delete A Job Post
+allJobRoute.patch('/:id', updateJobs)
 
 // Delete A Job Post
-allJobRoute.delete('/:id', deleteAJobPost)
+allJobRoute.delete("/:id", deleteAJobPost);
 
 
 module.exports = allJobRoute;
