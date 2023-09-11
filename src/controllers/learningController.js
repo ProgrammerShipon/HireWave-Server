@@ -1,4 +1,5 @@
 const { learningCollection } = require("../collections/collection");
+const { updateData } = require("./recruitersController");
 
 // insert learning
 const insertLearning = async (req, res) => {
@@ -32,17 +33,46 @@ const singleLearning = async (req, res, next) => {
 };
 
 // Update a Learning by ID
-const updateLearning = async (req, res) => {
-  const updateData = req.body;
+const updateLearningLike = async (req, res) => {
   try {
-    const updatedLearning = await learningCollection.findByIdAndUpdate(
-      req.params.id,
-      updateData,
-      { new: true }
-    );
+    const updatedLearning = await learningCollection.findOneAndUpdate(
+      { _id: req.params.id },
+      { $inc: { like: 1 } },
+      { new: true },);
+    // console.log()
     res.status(200).send(updatedLearning);
-  } catch (err) {
-    res.status(404).send("Error updating candidate:");
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+};
+
+// Update a Learning by ID
+const updateLearningDisLike = async (req, res) => {
+  // const increaseLikeBy = 5;
+  try {
+    const updatedLearning = await learningCollection.findOneAndUpdate(
+      { _id: req.params.id },
+      { $inc: { disLike: 1 } },
+      { new: true },);
+    // console.log()
+    res.status(200).send(updatedLearning);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+};
+
+// Update a Learning by ID
+const updateLearningView = async (req, res) => {
+  // const increaseLikeBy = 5;
+  try {
+    const updatedLearning = await learningCollection.findOneAndUpdate(
+      { _id: req.params.id },
+      { $inc: { views: 1 } },
+      { new: true },);
+    // console.log()
+    res.status(200).send(updatedLearning);
+  } catch (error) {
+    res.status(404).send(error.message);
   }
 };
 
@@ -64,7 +94,9 @@ const deleteLearning = async (req, res) => {
 
 // export file
 module.exports = {
-  updateLearning,
+  updateLearningLike,
+  updateLearningDisLike,
+  updateLearningView,
   insertLearning,
   getLearning,
   singleLearning,
