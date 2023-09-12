@@ -1,5 +1,5 @@
 const { ObjectId } = require('bson');
-const { appliedCandidatesCollection, allJobCollection, allCandidatesCollection } = require('../collections/collection');
+const { appliedCandidatesCollection, allCandidatesCollection } = require('../collections/collection');
 
 
 // Post a applied Candidate (todo: only developer)

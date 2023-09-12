@@ -25,8 +25,7 @@ const postUser = async (req, res) => {
 const getUserByEmail = async (req, res) => {
   try {
     const email = req.params.email;
-    const query = { email: email };
-    const user = await usersCollection.findOne(query);
+    const user = await usersCollection.findOne({email});
     res.status(200).send(user);
   } catch (error) {
     res.status(404).send({ message: error.message });
