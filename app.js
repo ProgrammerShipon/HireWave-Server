@@ -84,6 +84,7 @@ app.use("/api/recruiters", recruiterRoute);
 // all Category route Complete
 app.use("/api/appliedCandidate", appliedCandidateRoute);
 
+// all user mange route
 app.use("/api/user", userRouter);
 
 // client error handling
