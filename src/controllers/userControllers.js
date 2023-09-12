@@ -1,4 +1,4 @@
-const { allCandidatesCollection, usersCollection } = require("../collections/collection");
+const { usersCollection } = require("../collections/collection");
 
 // Add A User On DataBase
 const postUser = async (req, res) => {
@@ -24,8 +24,7 @@ const postUser = async (req, res) => {
 // Get a user by email
 const getUserByEmail = async (req, res) => {
   try {
-    const email = req.params.email;
-    const user = await usersCollection.findOne({email});
+    const user = await usersCollection.findOne({email: req.params.email});
     res.status(200).send(user);
   } catch (error) {
     res.status(404).send({ message: error.message });
@@ -35,9 +34,7 @@ const getUserByEmail = async (req, res) => {
 // Get a user by Id
 const getUserById = async (req, res) => {
   try {
-    const id = req.params.id;
-    const user = await usersCollection.findById(id);
-    // console.log(user)
+    const user = await usersCollection.findById(req.params.id);
     res.status(200).json(user);
   } catch (error) {
     res.status(404).send({ message: error.message });

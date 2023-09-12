@@ -47,7 +47,7 @@ app.get("/", (req, res) =>
 
 app.post('/api/jwt', (req, res) => {
   const email = req.body;
-  const token = jwt.sign(email, jwtSecret, { expiresIn: '3h' })
+  const token = jwt.sign(email, jwtSecret, { expiresIn: '24h' })
    res.status(200).send({ token })
 })
 
@@ -81,11 +81,11 @@ app.use("/api/jobLocation", jobLocationRoute);
 // all Category route Complete - 
 app.use("/api/recruiters", recruiterRoute);
 
-// all Category route Complete
+// Applied Candidate route Complete
 app.use("/api/appliedCandidate", appliedCandidateRoute);
 
 // all user mange route
-app.use("/api/user", userRouter);
+app.use("/api/users", userRouter);
 
 // client error handling
 app.use((req, res, next) => {

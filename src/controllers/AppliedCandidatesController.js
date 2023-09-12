@@ -20,6 +20,9 @@ const postOneAppliedInfo = async (req, res) => {
     const applicantEmail = appliedJob.applicantEmail;
     const query = { appliedJobId: appliedJobId, applicantEmail: applicantEmail };
     const isExist = await appliedCandidatesCollection.findOne(query);
+
+    console.log(isExist);
+
     try {
         if (isExist) {
             return res.status(202).send({ isExist, message: "Already  Applied" });
@@ -31,6 +34,7 @@ const postOneAppliedInfo = async (req, res) => {
         res.status(400).send({ error: error?.message });
     }
 }
+
 // Get All Applied Candidate Developer route 
 const getAllAppliedCandidates = async (req, res) => {
     try {
