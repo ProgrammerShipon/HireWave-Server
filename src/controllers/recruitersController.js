@@ -44,8 +44,7 @@ const postNewRecruiters = async (req, res) => {
 // get all recruiter data
 const getRecruiters = async (req, res) => {
   try {
-    const query = { status: "approved" };
-    const recruiters = await recruitersCollection.find(query);
+    const recruiters = await recruitersCollection.find();
     res.status(200).send(recruiters);
   } catch (error) {
     res.status(404).send({ message: error.message });

@@ -1,5 +1,5 @@
 const { ObjectId } = require('bson');
-const { appliedCandidatesCollection, allJobCollection, allCandidatesCollection } = require('../collections/collection');
+const { appliedCandidatesCollection, allCandidatesCollection } = require('../collections/collection');
 
 
 // Post a applied Candidate (todo: only developer)
@@ -16,21 +16,19 @@ const postAllAppliedInfo = async (req, res) => {
 // Post applied Candidate - 
 const postOneAppliedInfo = async (req, res) => {
     const appliedJob = req.body
-    const appliedJobId = appliedJob.appliedJobId;
-    const applicantEmail = appliedJob.applicantEmail;
-    const query = { appliedJobId: appliedJobId, applicantEmail: applicantEmail };
-    const isExist = await appliedCandidatesCollection.findOne(query);
+    // const appliedJobId = appliedJob.appliedJobId;
+    // const applicantEmail = appliedJob.applicantEmail;
+    // const query = { appliedJobId: appliedJobId, applicantEmail: applicantEmail };
+    // const isExist = await appliedCandidatesCollection.findOne(query);
+    console.log(appliedJob)
     try {
-        if (isExist) {
-            return res.status(202).send({ isExist, message: "Already  Applied" });
-        } else {
-            const newApplicant = await appliedCandidatesCollection(appliedJob).save();
-            res.status(200).send(newApplicant)
-        }
+        const newApplicant = await appliedCandidatesCollection(appliedJob).save();
+        res.status(200).send(newApplicant)
     } catch (error) {
         res.status(400).send({ error: error?.message });
     }
 }
+
 // Get All Applied Candidate Developer route 
 const getAllAppliedCandidates = async (req, res) => {
     try {

@@ -69,8 +69,8 @@ app.use("/api/candidates", candidateRoute);
 // faq Route - connections Done
 app.use("/api/faqs", faqsRoute);
 
-//- api/review/insert
-app.use("/api/review", reviewsRoute); //
+// api/review/insert
+app.use("/api/review", reviewsRoute);
 
 // learning blog api - connections Done
 app.use("/api/learning", learningRoute);

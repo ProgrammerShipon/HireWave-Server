@@ -51,6 +51,17 @@ const getAJob = async (req, res) => {
    }
 }
 
+// Get a Jobs Post
+const getEmail = async (req, res) => {
+   try {
+      const email = {email: req.params.email};
+      const Result = await allJobCollection.findOne(id);
+      res.status(200).send(Result);
+   } catch (error) {
+      res.status(404).send({ message: error.message })
+   }
+}
+
 // Update A Job Data
 const updateJobs = async (req, res) => {
    const updateData = req.body;
@@ -88,5 +99,6 @@ module.exports = {
   getAllJob,
   getAJob,
   updateJobs,
-  deleteAJobPost,
+   deleteAJobPost,
+  getEmail
 };
