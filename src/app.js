@@ -28,14 +28,11 @@ const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
 const chatRoute = require("./routers/chatRoute");
 const messageRoute = require("./routers/messageRoute");
 const savedJobRoute = require("./routers/savedJobRoute");
+const paymentRoute = require("./routers/paymentRoute");
 
 const app = express();
 
-// const corsOptions = {
-//   origin: "*",
-//   credentials: true,
-//   optionSuccessStatus: 200,
-// };
+
 
 // Application level middleware
 app.use(cors());
@@ -98,6 +95,9 @@ app.use("/api/chat", chatRoute);
 
 // user message
 app.use("/api/message", messageRoute);
+
+// payment
+app.use("/api/payment", paymentRoute);
 
 // client error handling
 app.use((req, res, next) => {

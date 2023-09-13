@@ -6,6 +6,18 @@ const appliedCandidatesDataModel = new mongoose.Schema({
     type: String,
     required: true,
   },
+  applicantName: {
+    type: String,
+    required: true,
+  },
+  applicantImage: {
+    type: String,
+    required: true,
+  },
+  companyEmail: {
+    type: String,
+    required: true,
+  },
   jobId: {
     type: String,
     required: true

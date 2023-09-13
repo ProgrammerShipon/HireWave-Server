@@ -13,19 +13,15 @@ const postAllAppliedInfo = async (req, res) => {
     }
 }
 
-// Post applied Candidate - 
-const postOneAppliedInfo = async (req, res) => {
-    const appliedJob = req.body
-    // const appliedJobId = appliedJob.appliedJobId;
-    // const applicantEmail = appliedJob.applicantEmail;
-    // const query = { appliedJobId: appliedJobId, applicantEmail: applicantEmail };
-    // const isExist = await appliedCandidatesCollection.findOne(query);
-    console.log(appliedJob)
+const storeAppliedInfo = async (req, res) => {
     try {
-        const newApplicant = await appliedCandidatesCollection(appliedJob).save();
-        res.status(200).send(newApplicant)
+        const appliedJob = req.body;
+        console.log(appliedJob)
+        const result = await appliedCandidatesCollection(appliedJob).save()
+        console.log(result)
+        res.status(200).send(result)
     } catch (error) {
-        res.status(400).send({ error: error?.message });
+        res.status(400).send({ message: error.message })
     }
 }
 
@@ -39,13 +35,24 @@ const getAllAppliedCandidates = async (req, res) => {
     }
 }
 
-// Get all applied Info -for Candidate
-const getAllAppliedCandidateInfo = async (req, res) => {
+// Get All Applied Candidate Developer route 
+const getAppliedCandidates = async (req, res) => {
     try {
-        const applicantId = req.params.id;
-        const query = { _id: new ObjectId(applicantId) }
-        const allApplicant = await allCandidatesCollection.find(query);
-        res.status(200).send(allApplicant);
+        const idd = { _id: new ObjectId(req.params.id) }
+        const Result = await appliedCandidatesCollection.findOne(idd);
+        res.status(200).send(Result);
+    } catch (error) {
+        res.status(404).send({ message: error.message })
+    }
+}
+
+// Get all applied Info -for Candidate
+const AppliedCandidateInfo = async (req, res) => {
+    try {
+        console.log(req.params.id)
+        const candidateInfo = await allCandidatesCollection.findById(req.params.id);
+        console.log(candidateInfo)
+        res.status(200).send(candidateInfo);
     } catch (error) {
         res.status(404).send({ message: error.message })
     }
@@ -89,8 +96,8 @@ const getAppliedJobInfo = async (req, res) => {
 // Get a Specific Company's applied Candidate  for recruiters
 const getAppliedCandidateByCompany = async (req, res) => {
     try {
-        const company = req.params.company;
-        const query = { companyName: company };
+        const recruiterEmail = req.params.recruiterEmail;
+        const query = { companyEmail: recruiterEmail };
         const Result = await appliedCandidatesCollection.find(query);
         res.status(200).send(Result);
     } catch (error) {
@@ -100,9 +107,7 @@ const getAppliedCandidateByCompany = async (req, res) => {
 // Get a Specific Company's applied Candidate  for recruiters
 const getAppliedCandidatesDetails = async (req, res) => {
     try {
-        const id = req.params.id;
-        const query = { _id: new ObjectId(id) };
-        const Result = await allCandidatesCollection.find(query);
+        const Result = await allCandidatesCollection.find();
         res.status(200).send(Result);
     } catch (error) {
         res.status(404).send({ message: error.message })
@@ -123,4 +128,4 @@ const deleteOneAppliedInfo = async (req, res) => {
 
 
 
-module.exports = { postAllAppliedInfo, getAllAppliedCandidates, getAppliedJobEachCandidate, cancelApplicationEachCandidate, getAllAppliedCandidateInfo, postOneAppliedInfo, getAppliedJobInfo, getAppliedCandidateByCompany, getAppliedCandidatesDetails, deleteOneAppliedInfo };
+module.exports = { postAllAppliedInfo, getAllAppliedCandidates, getAppliedJobEachCandidate, cancelApplicationEachCandidate, AppliedCandidateInfo, storeAppliedInfo, getAppliedJobInfo, getAppliedCandidateByCompany, getAppliedCandidatesDetails,getAppliedCandidates, deleteOneAppliedInfo };
