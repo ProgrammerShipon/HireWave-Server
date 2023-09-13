@@ -19,6 +19,7 @@
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",
+    "sslcommerz-lts": "^1.1.0",
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
