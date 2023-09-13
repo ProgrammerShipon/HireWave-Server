@@ -80,17 +80,40 @@ const updateLearningView = async (req, res) => {
 const deleteLearning = async (req, res) => {
   const updateData = req.body;
   console.log('Update Data -> ', updateData);
-  // try {
-  //   const updatedLearning = await learningCollection.findByIdAndDelete(
-  //     req.params.id,
-  //     updateData,
-  //     { new: true }
-  //   );
-  //   res.status(200).send(updatedLearning);
-  // } catch (err) {
-  //   res.status(404).send("Error updating candidate:");
-  // }
+  try {
+    const updatedLearning = await learningCollection.findByIdAndDelete(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+    res.status(200).send(updatedLearning);
+  } catch (err) {
+    res.status(404).send("Error updating candidate:");
+  }
 };
+
+const updateInteractions = (req, res) => {
+  const upData = req.body; 
+  console.log(upData);
+  const d = {
+    like: 647,
+    disLike: 74,
+    views: 8,
+  };
+
+
+  // const increaseLikeBy = 5;
+  // try {
+  //   const updatedLearning = await learningCollection.findOneAndUpdate(
+  //     { _id: req.params.id },
+  //     { $inc: { views: 1 } },
+  //     { new: true },);
+  //   // console.log()
+  //   res.status(200).send(updatedLearning);
+  // } catch (error) {
+  //   res.status(404).send(error.message);
+  // }
+}
 
 // export file
 module.exports = {
@@ -101,4 +124,5 @@ module.exports = {
   getLearning,
   singleLearning,
   deleteLearning,
+  updateInteractions,
 };

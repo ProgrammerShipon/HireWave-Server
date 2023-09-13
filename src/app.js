@@ -29,10 +29,9 @@ const chatRoute = require("./routers/chatRoute");
 const messageRoute = require("./routers/messageRoute");
 const savedJobRoute = require("./routers/savedJobRoute");
 const paymentRoute = require("./routers/paymentRoute");
+const tasksRoute = require("./routers/taskRoute");
 
 const app = express();
-
-
 
 // Application level middleware
 app.use(cors());
@@ -98,6 +97,9 @@ app.use("/api/message", messageRoute);
 
 // payment
 app.use("/api/payment", paymentRoute);
+
+// any task recruiter & candidate
+app.use("/api/task", tasksRoute);
 
 // client error handling
 app.use((req, res, next) => {
