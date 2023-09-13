@@ -53,7 +53,7 @@ const getRecruiters = async (req, res) => {
 
 const getAllRecruiters = async ( req, res ) => {
   try {
-    const recruiters = await recruitersCollection.find(query);
+    const recruiters = await recruitersCollection.find();
     res.status(200).send(recruiters);
   } catch (error) {
     res.status(404).send({ message: error.message });

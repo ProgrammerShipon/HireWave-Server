@@ -54,8 +54,8 @@ const getAJob = async (req, res) => {
 // Get a Jobs Post
 const getEmail = async (req, res) => {
    try {
-      const email = {email: req.params.email};
-      const Result = await allJobCollection.findOne(id);
+      const email = {companyEmail: req.params.email};
+      const Result = await allJobCollection.find(email);
       res.status(200).send(Result);
    } catch (error) {
       res.status(404).send({ message: error.message })
