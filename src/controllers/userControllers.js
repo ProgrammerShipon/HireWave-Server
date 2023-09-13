@@ -27,6 +27,10 @@ const getUserByEmail = async (req, res) => {
     const email = req.params.email;
     const query = { email: email };
     const user = await usersCollection.findOne(query);
+    console.log('user' , user)
+    if (user ===null ) {
+     return res.status(400).send({ message: "400"});
+    }
     res.status(200).send(user);
   } catch (error) {
     res.status(404).send({ message: error.message });
