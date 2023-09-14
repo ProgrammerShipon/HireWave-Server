@@ -11,6 +11,8 @@ const tasksModel = new mongoose.Schema({
   companyLogo: String,
   companyEmail: String,
   title: String,
+  appliedId: String,
+  companyId: String,
   tasks: [
     {
       given: Array,
