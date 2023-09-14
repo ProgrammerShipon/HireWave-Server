@@ -16,8 +16,8 @@ paymentRoute.post('/', async (req, res) => {
         const data = {
             total_amount: payment.amount,
             currency: 'USD',
-            tran_id: tran_id, // use unique tran_id for each api call
-            success_url: (`http://localhost:3030/api/payment/success/${tran_id}`),
+            tran_id: tran_id, 
+            success_url: `http://localhost:3030/api/payment/success/${tran_id}`,
             fail_url: 'http://localhost:3030/api/payment/fail',
             cancel_url: 'http://localhost:3030/api/payment/fail',
             ipn_url: 'http://localhost:3030/ipn',
@@ -43,12 +43,12 @@ paymentRoute.post('/', async (req, res) => {
             ship_postcode: 1000,
             ship_country: 'Bangladesh',
         };
-        // console.log(data)
+        console.log(data)
         const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
-        // console.log(sslcz)
+        console.log(sslcz)
         sslcz.init(data).then(apiResponse => {
             // Redirect the user to payment gateway
-            // console.log(apiResponse)
+            console.log(apiResponse)
             let GatewayPageURL = apiResponse.GatewayPageURL
             res.send({ url: GatewayPageURL })
             console.log('Redirecting to: ', GatewayPageURL)

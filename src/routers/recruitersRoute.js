@@ -8,6 +8,7 @@ const {
   postNewRecruiters,
   updateData,
   getRecruiterByGmail,
+  updateRecruiter,
 } = require("../controllers/recruitersController");
 
 const recruiterRoute = express.Router()
@@ -31,7 +32,7 @@ recruiterRoute.get('/:id', getRecruiter)
 recruiterRoute.get('/email/:email', getRecruiterByGmail)
 
 // Update Recruiters Details
-recruiterRoute.patch('/:id', updateData)
+recruiterRoute.patch('/:id', updateRecruiter)
 
 // Delete One Recruiters Details
 recruiterRoute.delete('/:id', deleteRecruiter)
