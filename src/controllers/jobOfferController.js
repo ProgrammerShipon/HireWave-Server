@@ -34,7 +34,7 @@ const findByCandidateEmail = async (req, res) => {
 
    try {
       const jobs = await jobOffer.find()
-      const filteredJob = await jobs.filter(job => job?.applicant?.name == candidateEmail);
+      const filteredJob = await jobs.filter(job => job?.applicant?.email == candidateEmail);
       res.status(200).send(filteredJob);
    } catch (err) {
       console.log(err)
