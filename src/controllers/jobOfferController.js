@@ -25,15 +25,21 @@ const postJobOffer = async (req, res) => {
 
 // Post a Job Offer
 const findByCandidateEmail = async (req, res) => {
+   console.log("findByCandidateEmail");
    const body = req?.body;
-   
+   const candidateEmail = req?.params.email;
+
+   console.log('body -> ', body);
+   console.log("candidateEmail -> ", candidateEmail);
+
    try {
-      const result = await jobOffer(body).save()
-      res.status(200).send(result)
+      const jobs = await jobOffer.find()
+      const filteredJob = await jobs.filter(job => job?.applicant?.name == candidateEmail);
+      res.status(200).send(filteredJob);
    } catch (err) {
       console.log(err)
       res.status(404).send({message: 'Server Error' })
    }
 }
 
-module.exports = { getAllJobOffer, postJobOffer };
+module.exports = { getAllJobOffer, postJobOffer, findByCandidateEmail };

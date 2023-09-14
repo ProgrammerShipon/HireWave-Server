@@ -1,6 +1,7 @@
 const {
   getAllJobOffer,
   postJobOffer,
+  findByCandidateEmail,
 } = require("../controllers/jobOfferController");
 
 const jobOfferRoute = require("express").Router();
@@ -11,8 +12,8 @@ jobOfferRoute.get("/", getAllJobOffer);
 // Get task by id
 // jobOfferRoute.get('/:id', getACandidate)
 
-// Get task by id
-// jobOfferRoute.get('/email/:email', getCandidateByGmail)
+// Job Offer Notification by candidate
+jobOfferRoute.get("/candidate-email/:email", findByCandidateEmail);
 
 // Post task Data
 jobOfferRoute.post("/", postJobOffer);
