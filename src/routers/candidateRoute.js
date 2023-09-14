@@ -17,7 +17,7 @@ candidateRoute.post('/', postCandidateData)
 // Delete Candidate Data
 candidateRoute.delete('/:id', deleteCandidate)
 
-// Delete Candidate Data
+// Update Candidate Data
 candidateRoute.patch('/:id', updateCandidate)
 
 module.exports = candidateRoute;

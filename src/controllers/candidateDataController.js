@@ -79,15 +79,32 @@ const deleteCandidate = async (req, res) => {
 const updateCandidate = async (req, res) => {
   const candidateId = req.params.id;
   const updateData = req.body;
+  // console.log(updateData)
   try {
-    const updatedCandidate = await allCandidatesCollection.findByIdAndUpdate(
+
+    // console.log(updatedCandidate)
+    console.log(await allCandidatesCollection.findOneAndUpdate(
       candidateId,
-      updateData,
-      { new: true }
-    );
-    res.status(200).send(updatedCandidate);
-  } catch (err) {
-    res.send('Error updating candidate:', err);
+      {
+        jobType: updateData.jobType,
+        hourlyRate: updateData.hourlyRate,
+        about: updateData.about,
+        location: updateData.location,
+        address: updateData.address,
+        languages: updateData.languages,
+        education: updateData.education,
+        experience: updateData.experience,
+        experience: updateData.experience,
+        experience: updateData.experience
+      },
+      {
+        new: true,
+        upsert: true
+      }
+    ))
+    // res.status(200).send(updateCandidate);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
   }
 };
 

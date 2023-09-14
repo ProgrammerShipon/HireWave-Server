@@ -51,7 +51,7 @@ const getRecruiters = async (req, res) => {
   }
 };
 
-const getAllRecruiters = async ( req, res ) => {
+const getAllRecruiters = async (req, res) => {
   try {
     const recruiters = await recruitersCollection.find();
     res.status(200).send(recruiters);
@@ -84,12 +84,21 @@ const getRecruiterByGmail = async (req, res) => {
 };
 
 // Update Recruiter
-const updateData = (req, res) => {
-  console.log('update Recruiter')
-  const id = req.params.id;
-  const body = req.body;
-  console.log(id, body)
-}
+const updateRecruiter = async (req, res) => {
+  const recruiterId = req.params.id;
+  console.log(recruiterId)
+  const updateData = req.body;
+  try {
+    const updateRecruiter = await recruitersCollection.findByIdAndUpdate(
+      recruiterId,
+      updateData,
+      { new: true }
+    );
+    res.status(200).send(updateRecruiter);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+};
 
 // Delete Recruiter data
 const deleteRecruiter = async (req, res) => {
@@ -110,6 +119,6 @@ module.exports = {
   deleteRecruiter,
   postNewRecruiters,
   getRecruiterByGmail,
-  updateData,
+  updateRecruiter,
   getAllRecruiters,
 };
