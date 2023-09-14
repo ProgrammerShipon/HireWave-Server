@@ -30,6 +30,8 @@ const messageRoute = require("./routers/messageRoute");
 const savedJobRoute = require("./routers/savedJobRoute");
 const paymentRoute = require("./routers/paymentRoute");
 const tasksRoute = require("./routers/taskRoute");
+const jobOfferController = require("./controllers/jobOfferController");
+const jobOfferRoute = require("./routers/jobOfferRoute");
 
 const app = express();
 
@@ -100,6 +102,9 @@ app.use("/api/payment", paymentRoute);
 
 // any task recruiter & candidate
 app.use("/api/task", tasksRoute);
+
+// any task recruiter & candidate
+app.use("/api/job_offer", jobOfferRoute);
 
 // client error handling
 app.use((req, res, next) => {

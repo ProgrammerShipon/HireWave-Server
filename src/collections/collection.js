@@ -18,6 +18,7 @@ const userDataModel = require("../models/userDataModel");
 const savedJobDataModel = require("../models/savedJobDataModel");
 const paymentDataModel = require("../models/paymentModel");
 const tasksModel = require("../models/tasksModel");
+const jobOfferModel = require("../models/jobOfferModel");
 
 // User Collection
 const usersCollection = new mongoose.model("users", userDataModel);
@@ -83,6 +84,9 @@ const paymentCollection = new mongoose.model("payment", paymentDataModel);
 // Job task Collection
 const tasks = new mongoose.model("tasks", tasksModel);
 
+// Job Offer Collection
+const jobOffer = new mongoose.model("jobOffer", jobOfferModel);
+
 // export data base
 module.exports = {
   usersCollection,
@@ -101,4 +105,5 @@ module.exports = {
   chatCollection,
   messageCollection,
   tasks,
+  jobOffer,
 };
