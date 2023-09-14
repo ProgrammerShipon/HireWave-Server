@@ -69,13 +69,4 @@ const candidateDataModel = new mongoose.Schema({
   joinDate: String,
 });
 
-
-  // rating: {
-  //   type: Number,
-  //   min: 0,
-  //   max: 5,
-  // },
-  // salaryRange: String,
-
-
 module.exports = candidateDataModel;
