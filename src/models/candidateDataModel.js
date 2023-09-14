@@ -21,7 +21,7 @@ const candidateDataModel = new mongoose.Schema({
   category: String,
   hourlyRate: String,
   jobType: String,
-  location: [String],
+  location: String,
   address: String,
   skills: [String],
   about: [String],
