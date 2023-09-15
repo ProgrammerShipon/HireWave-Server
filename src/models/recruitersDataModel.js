@@ -15,22 +15,14 @@ const recruitersDataModel = new mongoose.Schema({
     lowercase: true,
   },
   banner: String,
-  phone: [
-    {
-      type: String,
-    },
-  ],
+  phone: String,
   industry: {
     type: String,
   },
   website: String,
   category: String,
   subCategory: String,
-  location: [
-    {
-      type: String,
-    },
-  ],
+  location: String,
   address: String,
   about: [
     {
