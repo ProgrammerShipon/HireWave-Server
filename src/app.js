@@ -10,8 +10,8 @@ const cors = require("cors");
 // const rateLimit = require("express-rate-limit");
 
 // Router require
-const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('./secret');
+const jwt = require("jsonwebtoken");
+const { jwtSecret } = require("./secret");
 
 // all route require
 const userRouter = require("./routers/userRouter");
@@ -28,6 +28,9 @@ const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
 const messageRoute = require("./routers/messageRoute");
 const savedJobRoute = require("./routers/savedJobRoute");
 const paymentRoute = require("./routers/paymentRoute");
+const tasksRoute = require("./routers/taskRoute");
+const jobOfferController = require("./controllers/jobOfferController");
+const jobOfferRoute = require("./routers/jobOfferRoute");
 
 const app = express();
 
@@ -44,17 +47,17 @@ app.get("/", (req, res) =>
   res.status(200).send(`Assalamualaikum. <br/> Hire Wave Server Running`)
 );
 
-// send jwt token 
-app.post('/api/jwt', (req, res) => {
+// send jwt token
+app.post("/api/jwt", (req, res) => {
   const user = req.body;
   const token = jwt.sign(user, jwtSecret, { expiresIn: "50h" });
-  res.send({ token })
-})
+  res.send({ token });
+});
 
 //- User route
-app.use('/api/users', userRouter)
+app.use("/api/users", userRouter);
 
-// all Category route Complete - 
+// all Category route Complete -
 app.use("/api/recruiters", recruiterRoute);
 
 // All jobs Route - Connections Done
@@ -91,11 +94,16 @@ app.use("/api/appliedCandidate", appliedCandidateRoute);
 // app.use("/api/chat", chatRoute);
 
 // user message
-// app.use("/api/message", messageRoute);
+app.use("/api/message", messageRoute);
 
 // payment
 app.use("/api/payment", paymentRoute);
 
+// any task recruiter & candidate
+app.use("/api/task", tasksRoute);
+
+// any task recruiter & candidate
+app.use("/api/job_offer", jobOfferRoute);
 
 // client error handling
 app.use((req, res, next) => {
