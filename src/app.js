@@ -25,7 +25,6 @@ const allCategoryRoute = require("./routers/allCategoryRoute");
 const jobLocationRoute = require("./routers/JobLocationRouter");
 const recruiterRoute = require("./routers/recruitersRoute");
 const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
-const chatRoute = require("./routers/chatRoute");
 const messageRoute = require("./routers/messageRoute");
 const savedJobRoute = require("./routers/savedJobRoute");
 const paymentRoute = require("./routers/paymentRoute");
@@ -92,7 +91,7 @@ app.use("/api/savedjob", savedJobRoute);
 app.use("/api/appliedCandidate", appliedCandidateRoute);
 
 // user chatting
-app.use("/api/chat", chatRoute);
+// app.use("/api/chat", chatRoute);
 
 // user message
 app.use("/api/message", messageRoute);
