@@ -22,7 +22,7 @@ jobOfferRoute.post("/", postJobOffer);
 // jobOfferRoute.delete('/:id', deleteCandidate)
 
 // Delete task Data
-// jobOfferRoute.patch('/:id', updateCandidate)
+// jobOfferRoute.patch('/:id', updateJobOfferRead)
 
 // Module or file exports
 module.exports = jobOfferRoute;
