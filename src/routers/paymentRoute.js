@@ -12,7 +12,7 @@ const paymentRoute = express.Router();
 paymentRoute.post('/', async (req, res) => {
     try {
         const payment = req.body;
-        console.log(payment)
+        // console.log(payment)
         const data = {
             total_amount: payment.amount,
             currency: 'USD',
@@ -44,6 +44,7 @@ paymentRoute.post('/', async (req, res) => {
             ship_country: 'Bangladesh',
         };
         console.log(data)
+        // const sslcz = new SSLCommerzPayment(process.env.STORE_ID, process.env.STORE_PASSWD, process.env.IS_LIVE)
         const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
         console.log(sslcz)
         sslcz.init(data).then(apiResponse => {
