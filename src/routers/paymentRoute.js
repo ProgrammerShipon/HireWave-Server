@@ -12,11 +12,11 @@ const paymentRoute = express.Router();
 paymentRoute.post('/', async (req, res) => {
     try {
         const payment = req.body;
-        // console.log(payment)
+        console.log(payment)
         const data = {
             total_amount: payment.amount,
             currency: 'USD',
-            tran_id: tran_id, 
+            tran_id: tran_id,
             success_url: `http://localhost:3030/api/payment/success/${tran_id}`,
             fail_url: 'http://localhost:3030/api/payment/fail',
             cancel_url: 'http://localhost:3030/api/payment/fail',
@@ -43,46 +43,50 @@ paymentRoute.post('/', async (req, res) => {
             ship_postcode: 1000,
             ship_country: 'Bangladesh',
         };
-        console.log(data)
-        // const sslcz = new SSLCommerzPayment(process.env.STORE_ID, process.env.STORE_PASSWD, process.env.IS_LIVE)
         const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
         console.log(sslcz)
         sslcz.init(data).then(apiResponse => {
             // Redirect the user to payment gateway
             console.log(apiResponse)
             let GatewayPageURL = apiResponse.GatewayPageURL
+
             res.send({ url: GatewayPageURL })
+            // const paymentHistory = {
+            //     recruiterId: payment.recruiterId,
+            //     receiver: payment.receiver,
+            //     amount: payment.amount,
+            //     paymentTimeline: payment.paymentTimeline,
+            //     recruiterName: payment.recruiterName,
+            //     companyLogo: payment.companyLogo,
+            //     tran_id: tran_id,
+            //     isPaid: false
+            // }
+            // const storePaymentHistory = paymentCollection(paymentHistory).save();
+            console.log('storePaymentHistory')
             console.log('Redirecting to: ', GatewayPageURL)
         });
-        paymentRoute.post('/success/:tran_id', async (req, res) => {
-            // set payment id in mongodb
-            console.log('tran', req.params.tran_id)
-            const paymentHistory = {
-                recruiterId: payment.recruiterId,
-                receiver: payment.receiver,
-                amount: payment.amount,
-                paymentTimeline: payment.paymentTimeline,
-                recruiterName: payment.recruiterName,
-                companyLogo: payment.companyLogo,
-                tran_id: tran_id
-            }
 
-            console.log(paymentHistory)
-            // insert payment history 
-            const storePaymentHistory = await paymentCollection(paymentHistory).save();
-            console.log(storePaymentHistory)
+        // paymentRoute.post('/success/:tran_id', async (req, res) => {
+        //     const tran_id = req.params.tran_id;
+        //     console.log(tran_id)
+        //     // const updatePaymentData = await paymentCollection.findOneAndUpdate(
+        //     //     {
+        //     //         tran_id: tran_id,
+        //     //         isPaid: true
+        //     //     }
+        //     // )
+        //     // res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
 
-            // res.send({updateResult,})
-            res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
-        })
-        paymentRoute.post('/fail', async (req, res) => {
-            res.redirect('http://localhost:5173/dashboard/payment/fail')
-        })
+        // })
+
     } catch (error) {
         res.status(500).send({ message: error.message })
     }
 })
 
+paymentRoute.post('/fail', async (req, res) => {
+    res.redirect('http://localhost:5173/dashboard/payment/fail')
+})
 paymentRoute.get('/history', async (req, res) => {
     try {
         res.status(200).send(await paymentCollection.find().sort({ purchaseDate: -1 }))
@@ -94,6 +98,7 @@ paymentRoute.get('/history', async (req, res) => {
 paymentRoute.get('/history/:recruiterName', async (req, res) => {
     try {
         const payment = await paymentCollection.find({ recruiterName: req.params.recruiterName }).sort({ purchaseDate: -1 })
+        console.log(payment)
         res.status(200).send(payment)
     } catch (error) {
         res.status(400).send({ message: error.message })
