@@ -1,4 +1,4 @@
-const { allCandidatesCollection } = require("../collections/collection");
+const { allCandidatesCollection, usersCollection } = require("../collections/collection");
 const { ObjectId } = require('bson');
 // Find All Candidates Data
 const getAllCandidatesData = async (req, res) => {
@@ -37,6 +37,7 @@ const getCandidateByGmail = async (req, res) => {
 const postCandidateData = async (req, res) => {
   try {
     const newCandidateData = req.body;
+    console.log("newCandidate")
     const newUser = {
       role: "candidate",
       name: newCandidateData?.name,
