@@ -17,7 +17,7 @@ const candidateDataModel = new mongoose.Schema({
   },
   image: String,
   title: String,
-  phone: [String],
+  phone: String,
   category: String,
   hourlyRate: String,
   jobType: String,
