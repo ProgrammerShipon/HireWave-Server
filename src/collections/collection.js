@@ -12,12 +12,9 @@ const allCategoryDataModel = require("../models/allCategoryDataModel");
 const jobLocationDataModel = require("../models/jobLocationDataModel");
 const recruitersDataModel = require("../models/recruitersDataModel");
 const appliedCandidatesDataModel = require("../models/appliedCandidatesDataModel");
-const messageModel = require("../models/messageModel");
 const userDataModel = require("../models/userDataModel");
 const savedJobDataModel = require("../models/savedJobDataModel");
 const paymentDataModel = require("../models/paymentModel");
-const tasksModel = require("../models/tasksModel");
-const jobOfferModel = require("../models/jobOfferModel");
 
 // User Collection
 const usersCollection = new mongoose.model("users", userDataModel);
@@ -36,41 +33,22 @@ const reviewCollection = new mongoose.model("reviews", reviewModel);
 const learningCollection = new mongoose.model("learning", learningModel);
 
 // Candidates Collection database
-const allCandidatesCollection = new mongoose.model(
-  "candidates",
-  candidateDataModel
-);
+const allCandidatesCollection = new mongoose.model("candidates", candidateDataModel);
 
 // Partners Collection database
 const partnersCollection = new mongoose.model("partners", partnersDataModel);
 
 // All Category Collection database
-const AllCategoryCollection = new mongoose.model(
-  "category",
-  allCategoryDataModel
-);
+const AllCategoryCollection = new mongoose.model("category", allCategoryDataModel);
 
 // Job Location Collection database
-const jobsLocationCollection = new mongoose.model(
-  "jobLocation",
-  jobLocationDataModel
-);
+const jobsLocationCollection = new mongoose.model("jobLocation", jobLocationDataModel);
 
 // Job Location Collection database
-const recruitersCollection = new mongoose.model(
-  "recruiters",
-  recruitersDataModel
-);
+const recruitersCollection = new mongoose.model("recruiters", recruitersDataModel);
 
 // applied Candidates Collection database
-const appliedCandidatesCollection = new mongoose.model(
-  "appliedJobs",
-  appliedCandidatesDataModel
-);
-
-
-// message Collection
-const messageCollection = new mongoose.model("message", messageModel);
+const appliedCandidatesCollection = new mongoose.model("appliedJobs",appliedCandidatesDataModel);
 
 // Saved Job Collection
 const savedJobCollection = new mongoose.model("savedjob", savedJobDataModel);
@@ -79,10 +57,10 @@ const savedJobCollection = new mongoose.model("savedjob", savedJobDataModel);
 const paymentCollection = new mongoose.model("payment", paymentDataModel);
 
 // Job task Collection
-const tasks = new mongoose.model("tasks", tasksModel);
+// const tasks = new mongoose.model("tasks", tasksModel);
 
 // Job Offer Collection
-const jobOffer = new mongoose.model("jobOffer", jobOfferModel);
+// const jobOffer = new mongoose.model("jobOffer", jobOfferModel);
 
 // export data base
 module.exports = {
@@ -98,8 +76,5 @@ module.exports = {
   jobsLocationCollection,
   recruitersCollection,
   appliedCandidatesCollection,
-  savedJobCollection,
-  messageCollection,
-  tasks,
-  jobOffer,
+  savedJobCollection
 };
