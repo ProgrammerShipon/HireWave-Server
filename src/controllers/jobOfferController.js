@@ -37,4 +37,25 @@ const findByCandidateEmail = async (req, res) => {
    }
 }
 
-module.exports = { getAllJobOffer, postJobOffer, findByCandidateEmail };
+// Job Offer Candidate Seen
+const updateJobOfferRead = async ( req, res ) => {
+   const OfferId = req?.params.id;
+   console.log(OfferId);
+   // try {
+   //    const jobs = await jobOffer.find()
+   //    const filteredJob = await jobs.filter(job => job?.applicant?.email == candidateEmail);
+   //    res.status(200).send(filteredJob);
+   // } catch (err) {
+   //    console.log(err)
+   //    res.status(404).send({message: 'Server Error' })
+   // }
+} 
+
+
+// 
+module.exports = {
+  getAllJobOffer,
+  postJobOffer,
+  findByCandidateEmail,
+  updateJobOfferRead,
+};
