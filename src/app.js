@@ -25,18 +25,18 @@ const allCategoryRoute = require("./routers/allCategoryRoute");
 const jobLocationRoute = require("./routers/JobLocationRouter");
 const recruiterRoute = require("./routers/recruitersRoute");
 const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
-const chatRoute = require("./routers/chatRoute");
-const messageRoute = require("./routers/messageRoute");
 const savedJobRoute = require("./routers/savedJobRoute");
 const paymentRoute = require("./routers/paymentRoute");
 const tasksRoute = require("./routers/taskRoute");
-const jobOfferController = require("./controllers/jobOfferController");
 const jobOfferRoute = require("./routers/jobOfferRoute");
 
 const app = express();
 
 // Application level middleware
 app.use(cors());
+// app.use(cors({
+//   origin: 'https://hire-wave-server.vercel.app',
+// }));
 app.use(morgan("dev"));
 app.use(xssClean());
 app.use(express.json());
@@ -91,11 +91,6 @@ app.use("/api/savedjob", savedJobRoute);
 // all Category route Complete
 app.use("/api/appliedCandidate", appliedCandidateRoute);
 
-// user chatting
-app.use("/api/chat", chatRoute);
-
-// user message
-app.use("/api/message", messageRoute);
 
 // payment
 app.use("/api/payment", paymentRoute);

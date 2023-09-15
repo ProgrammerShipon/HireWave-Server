@@ -1,9 +1,9 @@
 const { PORT } = require("./src/secret");
 
 const connectDB = require("./src/config/db");
+const app = require("./src/app");
 connectDB();
 
-const app = require("./src/app");
 
 // Running Server
 try {
@@ -14,5 +14,3 @@ try {
 } catch (error) {
   console.log(error.message)
 }
-
-

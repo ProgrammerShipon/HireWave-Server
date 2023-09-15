@@ -12,7 +12,6 @@ const allCategoryDataModel = require("../models/allCategoryDataModel");
 const jobLocationDataModel = require("../models/jobLocationDataModel");
 const recruitersDataModel = require("../models/recruitersDataModel");
 const appliedCandidatesDataModel = require("../models/appliedCandidatesDataModel");
-const chatDataModel = require("../models/chatDataModel");
 const messageModel = require("../models/messageModel");
 const userDataModel = require("../models/userDataModel");
 const savedJobDataModel = require("../models/savedJobDataModel");
@@ -69,8 +68,6 @@ const appliedCandidatesCollection = new mongoose.model(
   appliedCandidatesDataModel
 );
 
-// Chat History Collection database
-const chatCollection = new mongoose.model("chat", chatDataModel);
 
 // message Collection
 const messageCollection = new mongoose.model("message", messageModel);
@@ -102,7 +99,6 @@ module.exports = {
   recruitersCollection,
   appliedCandidatesCollection,
   savedJobCollection,
-  chatCollection,
   messageCollection,
   tasks,
   jobOffer,
