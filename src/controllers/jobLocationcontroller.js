@@ -50,9 +50,8 @@ const getAJobLocation = async (req, res) => {
 // Delete A JOB LOCATION DETAILS BY :ID
 const deleteJobLocationPost = async (req, res) => {
     try {
-        const id = req.params.id;
-        const query = { _id: new ObjectId(id) }
-        const currentJobLocationPost = await jobsLocationCollection.findOneAndDelete(query);
+        const currentJobLocationPost =
+          await jobsLocationCollection.findOneAndDelete(req.params.id);
         res.status(200).send(currentJobLocationPost)
     } catch (error) {
         res.status(404).send({ message: error.message })
