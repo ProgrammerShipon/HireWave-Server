@@ -1,8 +1,9 @@
 const { PORT } = require("./src/secret");
-
 const connectDB = require("./src/config/db");
 const app = require("./src/app");
 connectDB();
+
+// const functions = require('firebase-functions')
 
 
 // Running Server
@@ -14,3 +15,5 @@ try {
 } catch (error) {
   console.log(error.message)
 }
+
+// exports.api = functions.https.onRequest(app)

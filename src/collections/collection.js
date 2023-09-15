@@ -15,6 +15,8 @@ const appliedCandidatesDataModel = require("../models/appliedCandidatesDataModel
 const userDataModel = require("../models/userDataModel");
 const savedJobDataModel = require("../models/savedJobDataModel");
 const paymentDataModel = require("../models/paymentModel");
+const tasksModel = require("../models/tasksModel");
+const jobOfferModel = require("../models/jobOfferModel");
 
 // User Collection
 const usersCollection = new mongoose.model("users", userDataModel);
@@ -48,7 +50,10 @@ const jobsLocationCollection = new mongoose.model("jobLocation", jobLocationData
 const recruitersCollection = new mongoose.model("recruiters", recruitersDataModel);
 
 // applied Candidates Collection database
-const appliedCandidatesCollection = new mongoose.model("appliedJobs",appliedCandidatesDataModel);
+const appliedCandidatesCollection = new mongoose.model(
+  "appliedJobs",
+  appliedCandidatesDataModel
+);
 
 // Saved Job Collection
 const savedJobCollection = new mongoose.model("savedjob", savedJobDataModel);
@@ -57,10 +62,10 @@ const savedJobCollection = new mongoose.model("savedjob", savedJobDataModel);
 const paymentCollection = new mongoose.model("payment", paymentDataModel);
 
 // Job task Collection
-// const tasks = new mongoose.model("tasks", tasksModel);
+const tasks = new mongoose.model("tasks", tasksModel);
 
 // Job Offer Collection
-// const jobOffer = new mongoose.model("jobOffer", jobOfferModel);
+const jobOffer = new mongoose.model("jobOffer", jobOfferModel);
 
 // export data base
 module.exports = {
@@ -76,5 +81,7 @@ module.exports = {
   jobsLocationCollection,
   recruitersCollection,
   appliedCandidatesCollection,
-  savedJobCollection
+  savedJobCollection,
+  tasks,
+  jobOffer,
 };
