@@ -316,7 +316,6 @@ module.exports = {
   updateCandidateSkills,
   updateCandidateLanguageSkills,
   updateCandidateEducationalQualification,
-  updateCandidateEducationalQualification,
   updateCandidateExperience,
   getCandidateByGmail
 };
