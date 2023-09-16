@@ -25,6 +25,6 @@ userRouter.get("/id/:id", getUserById);
 userRouter.delete("/:id", deleteUser);
 
 // get delete user
-userRouter.patch("/:id", updateUser);
+userRouter.patch("/", updateUser);
 
 module.exports = userRouter;

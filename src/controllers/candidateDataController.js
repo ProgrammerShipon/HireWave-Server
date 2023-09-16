@@ -1,5 +1,6 @@
 const { allCandidatesCollection, usersCollection } = require("../collections/collection");
 const { ObjectId } = require('bson');
+
 // Find All Candidates Data
 const getAllCandidatesData = async (req, res) => {
   try {
@@ -21,6 +22,7 @@ const getACandidate = async (req, res) => {
     res.status(404).send("Data Not Found or Server error");
   }
 }
+
 // find single Recruiters data 
 const getCandidateByGmail = async (req, res) => {
   try {
@@ -72,6 +74,33 @@ const deleteCandidate = async (req, res) => {
     res.status(200).send(deletedCandidate);
   } catch (err) {
     console.error('Error deleting candidate:', err);
+  }
+};
+
+// Update candidate status
+const candidateStatusUpdate = async (req, res) => {
+  const updateData = req.body;
+
+  try {
+    const emailQuery = { email: updateData?.email };
+
+    // only user collection status update
+    const usersClnUpdate = await usersCollection.findOneAndUpdate(
+      emailQuery,
+      { status: updateData?.status },
+      { new: true }
+    );
+    // only recruiter collection status update
+    const candidateClnUpdate = await allCandidatesCollection.findOneAndUpdate(
+      emailQuery,
+      { status: updateData?.status },
+      { new: true }
+    );
+
+    // send data client site
+    res.status(200).send({ usersClnUpdate, candidateClnUpdate });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
   }
 };
 
@@ -129,6 +158,7 @@ const updateCandidateProfile = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
 // Update candidate Availability
 const updateCandidateAvailability = async (req, res) => {
   const candidateId = req.params.id;
@@ -316,5 +346,6 @@ module.exports = {
   updateCandidateLanguageSkills,
   updateCandidateEducationalQualification,
   updateCandidateExperience,
-  getCandidateByGmail
+  getCandidateByGmail,
+  candidateStatusUpdate,
 };
