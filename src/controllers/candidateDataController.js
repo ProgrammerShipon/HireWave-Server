@@ -32,7 +32,6 @@ const getCandidateByGmail = async (req, res) => {
   }
 };
 
-
 // One Data insert Or Many Data
 const postCandidateData = async (req, res) => {
   try {
@@ -315,7 +314,6 @@ module.exports = {
   updateCandidateLocation,
   updateCandidateSkills,
   updateCandidateLanguageSkills,
-  updateCandidateEducationalQualification,
   updateCandidateEducationalQualification,
   updateCandidateExperience,
   getCandidateByGmail

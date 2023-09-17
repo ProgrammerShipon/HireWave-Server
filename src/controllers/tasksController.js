@@ -4,9 +4,7 @@ const { tasks } = require("../collections/collection");
 // task post or store database
 const tasksPost = async (req, res) => {
    const body = req.body;
-   console.log(body)
    try {
-      console.log('try')
       const result = await tasks(body).save();
       res.status(200).send(result)
    } catch (error) {
