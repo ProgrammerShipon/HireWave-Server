@@ -54,6 +54,7 @@ const postCandidateData = async (req, res) => {
 
     const insertUser = await usersCollection(newUser).save();
     const insertCandidate = await allCandidatesCollection(newCandidate).save();
+    
     const responseData = {
       user: insertUser,
       candidate: insertCandidate,
