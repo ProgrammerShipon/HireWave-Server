@@ -1,6 +1,6 @@
 const { messageCollection } = require("../collections/collection");
 
-const addMessage = async (req, res) => {
+const createMessage = async (req, res) => {
   const { chatId, senderId, text } = req.body;
   const message = new messageCollection({
     chatId,
@@ -34,4 +34,4 @@ const getAllMessages = async (req, res) => {
   }
 };
 
-module.exports = { addMessage, getMessages, getAllMessages };
+module.exports = { createMessage, getMessages, getAllMessages };

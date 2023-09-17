@@ -17,6 +17,8 @@ const savedJobDataModel = require("../models/savedJobDataModel");
 const paymentDataModel = require("../models/paymentModel");
 const tasksModel = require("../models/tasksModel");
 const jobOfferModel = require("../models/jobOfferModel");
+const chatModel = require("../models/chatModel");
+const messageModel = require("../models/messageModel");
 
 // User Collection
 const usersCollection = new mongoose.model("users", userDataModel);
@@ -27,6 +29,11 @@ const allJobCollection = new mongoose.model("allJobs", allJobModel);
 // FAQS Collection database
 const faqsCollection = new mongoose.model("faqs", faqsModel
 );
+
+// FAQS Collection database
+const chatCollection = new mongoose.model("chats", chatModel);
+// FAQS Collection database
+const messageCollection = new mongoose.model("message", messageModel);
 
 // Review Collection database
 const reviewCollection = new mongoose.model("reviews", reviewModel);
@@ -70,6 +77,8 @@ const jobOffer = new mongoose.model("jobOffer", jobOfferModel);
 // export data base
 module.exports = {
   usersCollection,
+  chatCollection,
+  messageCollection,
   paymentCollection,
   allJobCollection,
   faqsCollection,

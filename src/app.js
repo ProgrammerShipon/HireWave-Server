@@ -28,6 +28,7 @@ const appliedCandidateRoute = require("./routers/appliedCandidatesRoute");
 const messageRoute = require("./routers/messageRoute");
 const savedJobRoute = require("./routers/savedJobRoute");
 const paymentRoute = require("./routers/paymentRoute");
+const chatRoute = require("./routers/chatRoute");
 
 const app = express();
 
@@ -88,10 +89,10 @@ app.use("/api/savedjob", savedJobRoute);
 app.use("/api/appliedCandidate", appliedCandidateRoute);
 
 // user chatting
-// app.use("/api/chat", chatRoute);
+app.use("/api/chat", chatRoute);
 
 // user message
-// app.use("/api/message", messageRoute);
+app.use("/api/message", messageRoute);
 
 // payment
 app.use("/api/payment", paymentRoute);
