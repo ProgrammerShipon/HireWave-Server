@@ -29,7 +29,6 @@ const messageRoute = require("./routers/messageRoute");
 const savedJobRoute = require("./routers/savedJobRoute");
 const paymentRoute = require("./routers/paymentRoute");
 const tasksRoute = require("./routers/taskRoute");
-const jobOfferController = require("./controllers/jobOfferController");
 const jobOfferRoute = require("./routers/jobOfferRoute");
 
 const app = express();
