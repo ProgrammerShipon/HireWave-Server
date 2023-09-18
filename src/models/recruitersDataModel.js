@@ -36,11 +36,9 @@ const recruitersDataModel = new mongoose.Schema({
     default: "pending",
   },
   active: Boolean,
-  followers: {
-    type: Number,
-    min: 0, // Followers should not be negative
-  },
+  viewsCount: [String],
+  following: [String],
   joinDate: Date,
 });
 
-module.exports = recruitersDataModel
+module.exports = recruitersDataModel;

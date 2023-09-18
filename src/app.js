@@ -10,8 +10,8 @@ const cors = require("cors");
 // const rateLimit = require("express-rate-limit");
 
 // Router require
-const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('./secret');
+const jwt = require("jsonwebtoken");
+const { jwtSecret } = require("./secret");
 
 // all route require
 const userRouter = require("./routers/userRouter");
@@ -29,6 +29,8 @@ const messageRoute = require("./routers/messageRoute");
 const savedJobRoute = require("./routers/savedJobRoute");
 const paymentRoute = require("./routers/paymentRoute");
 const chatRoute = require("./routers/chatRoute");
+const tasksRoute = require("./routers/taskRoute");
+const jobOfferRoute = require("./routers/jobOfferRoute");
 
 const app = express();
 
@@ -45,39 +47,45 @@ app.get("/", (req, res) =>
   res.status(200).send(`Assalamualaikum. <br/> Hire Wave Server Running`)
 );
 
-// send jwt token 
-app.post('/api/jwt', (req, res) => {
+// send jwt token
+app.post("/api/jwt", (req, res) => {
   const user = req.body;
   const token = jwt.sign(user, jwtSecret, { expiresIn: "50h" });
-  res.send({ token })
-})
+  res.send({ token });
+});
+
+//========== All User Route Start ==========//
 
 //- User route
-app.use('/api/users', userRouter)
+app.use("/api/users", userRouter);
 
-// all Category route Complete - 
+// Recruiter route Complete -
 app.use("/api/recruiters", recruiterRoute);
 
 // All jobs Route - Connections Done
 app.use("/api/candidates", candidateRoute);
 
-// faq Route - connections Done
-app.use("/api/faqs", faqsRoute);
+// all Category route Complete
+app.use("/api/appliedCandidate", appliedCandidateRoute);
 
-// api/review/insert
-app.use("/api/review", reviewsRoute);
+// any task recruiter & candidate
+app.use("/api/task", tasksRoute);
 
-// learning blog api - connections Done
-app.use("/api/learning", learningRoute);
+// any task recruiter & candidate
+app.use("/api/job_offer", jobOfferRoute);
 
-// All jobs Route complete - Connections Done
-app.use("/api/allJobs", allJobRoute);
 
-// partners route Complete
-app.use("/api/partners", partnersRoute);
+//========== All User Route End ==========//
+
+
+//========== All job Route Start ==========//
+
 
 // all Category route Complete
 app.use("/api/allCategory", allCategoryRoute);
+
+// All jobs Route complete - Connections Done
+app.use("/api/allJobs", allJobRoute);
 
 //jobLocationRoute route Complete
 // app.use("/api/jobLocation", jobLocationRoute);
@@ -85,8 +93,21 @@ app.use("/api/allCategory", allCategoryRoute);
 // all Category route Complete
 app.use("/api/savedjob", savedJobRoute);
 
-// all Category route Complete
-app.use("/api/appliedCandidate", appliedCandidateRoute);
+// api/review/insert
+app.use("/api/review", reviewsRoute);
+
+//========== All job Route end ==========//
+
+
+//========== All payment Systems Route Start ==========//
+
+// payment
+app.use("/api/payment", paymentRoute);
+
+//========== All payment Systems Route end ==========//
+
+
+//========== All message & Interviews Route Start ==========//
 
 // user chatting
 app.use("/api/chat", chatRoute);
@@ -94,9 +115,22 @@ app.use("/api/chat", chatRoute);
 // user message
 app.use("/api/message", messageRoute);
 
-// payment
-app.use("/api/payment", paymentRoute);
+//========== All message & Interviews Route end ==========//
 
+
+//========== All Others Route end ==========//
+
+// faq Route - connections Done
+app.use("/api/faqs", faqsRoute);
+
+// learning blog api - connections Done
+app.use("/api/learning", learningRoute);
+
+// partners route Complete
+app.use("/api/partners", partnersRoute);
+
+
+//========== All Others Route end ==========//
 
 // client error handling
 app.use((req, res, next) => {

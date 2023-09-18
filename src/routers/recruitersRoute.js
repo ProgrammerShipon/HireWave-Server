@@ -1,14 +1,14 @@
 const express = require('express')
 const {
   getAllRecruiters,
-  getRecruiters,
   postNewRecruiter,
   getRecruiter,
   deleteRecruiter,
   postNewRecruiters,
-  updateData,
+  // updateData,
   getRecruiterByGmail,
   updateRecruiter,
+  recruiterViewsCountUpdate,
 } = require("../controllers/recruitersController");
 
 const recruiterRoute = express.Router()
@@ -20,10 +20,7 @@ recruiterRoute.post('/many', postNewRecruiters)
 recruiterRoute.post('/', postNewRecruiter)
 
 // Get All Recruiters Data
-recruiterRoute.get('/', getRecruiters)
-
-// Get All Recruiters Data
-recruiterRoute.get('/all', getAllRecruiters)
+recruiterRoute.get('/', getAllRecruiters)
 
 // Single Recruiters Details
 recruiterRoute.get('/:id', getRecruiter)
@@ -32,7 +29,10 @@ recruiterRoute.get('/:id', getRecruiter)
 recruiterRoute.get('/email/:email', getRecruiterByGmail)
 
 // Update Recruiters Details
-recruiterRoute.patch('/:id', updateRecruiter)
+recruiterRoute.patch('/', updateRecruiter)
+
+// Update Recruiters Details
+recruiterRoute.patch("/viewsCount/:id", recruiterViewsCountUpdate);
 
 // Delete One Recruiters Details
 recruiterRoute.delete('/:id', deleteRecruiter)

@@ -25,13 +25,9 @@ const postJobOffer = async (req, res) => {
 
 // Post a Job Offer
 const findByCandidateEmail = async (req, res) => {
-   console.log("findByCandidateEmail");
    const body = req?.body;
    const candidateEmail = req?.params.email;
-
-   console.log('body -> ', body);
-   console.log("candidateEmail -> ", candidateEmail);
-
+   
    try {
       const jobs = await jobOffer.find()
       const filteredJob = await jobs.filter(job => job?.applicant?.email == candidateEmail);

@@ -64,7 +64,8 @@ const candidateDataModel = new mongoose.Schema({
   recommendations: Number,
   active: Boolean,
   earning: Number,
-  viewsCount: Number,
+  viewsCount: [String],
+  following: [String],
   visibility: String,
   joinDate: String,
 });

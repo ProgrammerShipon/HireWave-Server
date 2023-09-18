@@ -5,6 +5,7 @@ const { recruitersCollection, usersCollection } = require("../collections/collec
 const postNewRecruiter = async (req, res) => {
   try {
     const newRecruiterData = req.body;
+
     const newUser = {
       role: "recruiter",
       name: newRecruiterData?.name,
@@ -13,14 +14,21 @@ const postNewRecruiter = async (req, res) => {
       status: "pending",
     };
 
+    const recruiterData = {
+      ...newRecruiterData,
+      viewsCount: [],
+      following: [],
+    };
+
     const insertUser = await usersCollection(newUser).save();
-    const insertRecruiter = await recruitersCollection(newRecruiterData).save();
+    const insertRecruiter = await recruitersCollection(recruiterData).save();
 
     const responseData = {
       user: insertUser,
       recruiter: insertRecruiter,
     };
 
+    // send result client site
     res.status(200).send(responseData);
   } catch (error) {
     res.status(404).send({ message: error.message });
@@ -34,23 +42,16 @@ const postNewRecruiters = async (req, res) => {
     const newRecruiter = await recruitersCollection.insertMany(
       newRecruiterData
     );
+
+    // send result client site
     res.status(200).send(newRecruiter);
   } catch (error) {
     console.log('postNewRecruiters -> ', error);
-    res.status(404).send({ message: error.message }); // todos: no server error send
+    res.status(404).send({ message: error.message }); // todo: no server error send
   }
 };
 
-// get all recruiter data
-const getRecruiters = async (req, res) => {
-  try {
-    const recruiters = await recruitersCollection.find();
-    res.status(200).send(recruiters);
-  } catch (error) {
-    res.status(404).send({ message: error.message });
-  }
-};
-
+// all recruiter data
 const getAllRecruiters = async (req, res) => {
   try {
     const recruiters = await recruitersCollection.find();
@@ -72,11 +73,14 @@ const getRecruiter = async (req, res) => {
     res.status(404).send({ message: error.message });
   }
 };
+
 // find single Recruiters data 
 const getRecruiterByGmail = async (req, res) => {
   try {
-    const query = { email: req.params.email }
-    const result = await recruitersCollection.findOne(query)
+    const query = { email: req.params.email };
+    const result = await recruitersCollection.findOne(query);
+
+    // send result client site
     res.status(200).send(result);
   } catch (error) {
     res.status(404).send({ message: error.message });
@@ -85,16 +89,26 @@ const getRecruiterByGmail = async (req, res) => {
 
 // Update Recruiter
 const updateRecruiter = async (req, res) => {
-  const recruiterId = req.params.id;
-  console.log(recruiterId)
   const updateData = req.body;
+
   try {
-    const updateRecruiter = await recruitersCollection.findByIdAndUpdate(
-      recruiterId,
-      updateData,
+    const emailQuery = { email: updateData?.email };
+
+    // only user collection status update
+    const usersClnUpdate = await usersCollection.findOneAndUpdate(
+      emailQuery,
+      { status: updateData?.status },
       { new: true }
     );
-    res.status(200).send(updateRecruiter);
+    // only recruiter collection status update
+    const recruiterClnUpdate = await recruitersCollection.findOneAndUpdate(
+      emailQuery,
+      { status: updateData?.status },
+      { new: true }
+    );
+
+    // send data client site
+    res.status(200).send({ usersClnUpdate, recruiterClnUpdate });
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
@@ -112,8 +126,28 @@ const deleteRecruiter = async (req, res) => {
   }
 };
 
+// Profile visitor Count
+const recruiterViewsCountUpdate = async (req, res) => {
+  console.log(req.params.id, req.body.email);
+  try {
+    const UpdateRecruiterData = await recruitersCollection.findByIdAndUpdate(
+      req.params.id,
+      { $addToSet: { viewsCount: req.body.email } },
+      { new: true }
+    );
+    console.log(UpdateRecruiterData.viewsCount.length)
+
+    if (!UpdateRecruiterData) {
+      return res.status(404).json({ message: 'Recruiter not found or This this user is already exist' });
+    }
+    return res.status(200).json(UpdateRecruiterData);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
-  getRecruiters,
   getRecruiter,
   postNewRecruiter,
   deleteRecruiter,
@@ -121,4 +155,5 @@ module.exports = {
   getRecruiterByGmail,
   updateRecruiter,
   getAllRecruiters,
+  recruiterViewsCountUpdate,
 };
