@@ -1,7 +1,6 @@
 const { default: mongoose } = require("mongoose");
 
 // all schema model require
-const userSchema = require("../models/userModel");
 const allJobModel = require("../models/allJobModel");
 const faqsModel = require("../models/faqsModel");
 const reviewModel = require("../models/reviewModel");
