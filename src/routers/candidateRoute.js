@@ -15,6 +15,7 @@ const {
   updateCandidateProfile,
   updateCandidateProfilePhoto,
   candidateStatusUpdate,
+  candidateViewsCountUpdate,
 } = require("../controllers/candidateDataController");
 const candidateRoute = express.Router();
 
@@ -35,6 +36,9 @@ candidateRoute.delete("/:id", deleteCandidate);
 
 // Update Candidate Data
 candidateRoute.patch("/", candidateStatusUpdate);
+
+// Update Candidate Data
+candidateRoute.patch("/viewsCount/:id", candidateViewsCountUpdate);
 
 // Update Candidate Data
 candidateRoute.patch("/profilePhoto/:id", updateCandidateProfilePhoto);
