@@ -49,39 +49,37 @@ paymentRoute.post('/', async (req, res) => {
             // Redirect the user to payment gateway
             console.log(apiResponse)
             let GatewayPageURL = apiResponse.GatewayPageURL
-
+            const paymentHistory = {
+                recruiterId: payment.recruiterId,
+                amount: payment.amount,
+                package:payment.package,
+                paymentTimeline: payment.paymentTimeline,
+                recruiterName: payment.recruiterName,
+                companyLogo: payment.companyLogo,
+                tran_id: tran_id,
+                isPaid: false
+            }
+            const storePaymentHistory = paymentCollection(paymentHistory).save();
             res.send({ url: GatewayPageURL })
-            // const paymentHistory = {
-            //     recruiterId: payment.recruiterId,
-            //     receiver: payment.receiver,
-            //     amount: payment.amount,
-            //     paymentTimeline: payment.paymentTimeline,
-            //     recruiterName: payment.recruiterName,
-            //     companyLogo: payment.companyLogo,
-            //     tran_id: tran_id,
-            //     isPaid: false
-            // }
-            // const storePaymentHistory = paymentCollection(paymentHistory).save();
             console.log('storePaymentHistory')
             console.log('Redirecting to: ', GatewayPageURL)
         });
 
-        // paymentRoute.post('/success/:tran_id', async (req, res) => {
-        //     const tran_id = req.params.tran_id;
-        //     console.log(tran_id)
-        //     // const updatePaymentData = await paymentCollection.findOneAndUpdate(
-        //     //     {
-        //     //         tran_id: tran_id,
-        //     //         isPaid: true
-        //     //     }
-        //     // )
-        //     // res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
-
-        // })
-
     } catch (error) {
         res.status(500).send({ message: error.message })
     }
+})
+
+paymentRoute.post('/success/:tran_id', async (req, res) => {
+    const tran_id = req.params.tran_id;
+    console.log(tran_id)
+    const updatePaymentData = await paymentCollection.findOneAndUpdate(
+        {
+            tran_id: tran_id,
+            isPaid: true
+        }
+    )
+    res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
 })
 
 paymentRoute.post('/fail', async (req, res) => {

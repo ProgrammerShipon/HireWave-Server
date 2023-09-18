@@ -5,10 +5,6 @@ const paymentDataModel = new mongoose.Schema({
         type: String,
         require: true,
     },
-    receiver: {
-        type: String,
-        require: true,
-    },
     amount: {
         type: Number,
         require: true,
@@ -17,7 +13,7 @@ const paymentDataModel = new mongoose.Schema({
         type: String,
         require: true,
     },
-    paymentTimeline: {
+    package: {
         type: String,
         require: true,
     },
@@ -29,9 +25,14 @@ const paymentDataModel = new mongoose.Schema({
         type: String,
         require: true,
     },
+    
     purchaseDate: {
         type: Date,
         default: Date.now
+    },
+    isPaid: {
+        type: Boolean,
+        required: true
     }
 
 });
