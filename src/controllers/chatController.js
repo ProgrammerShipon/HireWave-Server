@@ -1,20 +1,20 @@
 const { chatCollection } = require("../collections/collection");
 
 const createChat = async (req, res) => {
-  const { firstId, secondId } = req.body;
-  console.log(firstId, secondId)
+  const { receiver ,sender } = req.body;
+  console.log(receiver ,sender)
 
   try {
 
     const chat = await chatCollection.find({
-      members: { $all: [firstId, secondId] }
+      members: { $all: [receiver ,sender] }
     })
     console.log("chat", chat)
     if (chat.length > 0) return res.status(200).json(chat)
 
 
     const newChat = new chatCollection({
-      members: [firstId, secondId]
+      members: [receiver ,sender]
     })
     console.log("newChat", newChat)
     const saveNewChat = await newChat.save()
@@ -48,7 +48,7 @@ const findUsersChats = async (req, res) => {
 const findChat = async (req, res) => {
   try {
     const chat = await chatCollection.find({
-      members: { $all: [req.params.firstId, req.params.secondId] },
+      members: { $all: [receiver ,sender] },
     });
     res.status(200).json(chat);
   } catch (error) {

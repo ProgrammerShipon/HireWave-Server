@@ -4,9 +4,9 @@ const { ObjectId } = require('bson');
 const getAllCandidatesData = async (req, res) => {
   try {
     const allCandidates = await allCandidatesCollection.find();
-    res.status(200).send(allCandidates)
+    res.status(200).json(allCandidates)
   } catch (error) {
-    res.status(404).send({ message: error.message }) // todos: back-end error no send front-end
+    res.status(404).json({ message: error.message }) // todos: back-end error no json front-end
   }
 }
 
@@ -15,10 +15,10 @@ const getACandidate = async (req, res) => {
   try {
     await allCandidatesCollection
       .findById(req.params.id)
-      .then((candidateData) => res.status(200).send(candidateData))
-      .catch(() => res.status(404).send("Data Not Found"));
+      .then((candidateData) => res.status(200).json(candidateData))
+      .catch(() => res.status(404).json("Data Not Found"));
   } catch (error) {
-    res.status(404).send("Data Not Found or Server error");
+    res.status(404).json("Data Not Found or Server error");
   }
 }
 // find single Recruiters data 
@@ -26,9 +26,9 @@ const getCandidateByGmail = async (req, res) => {
   try {
     const query = { email: req.params.email }
     const result = await allCandidatesCollection.findOne(query)
-    res.status(200).send(result);
+    res.status(200).json(result);
   } catch (error) {
-    res.status(404).send({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -36,7 +36,7 @@ const getCandidateByGmail = async (req, res) => {
 const postCandidateData = async (req, res) => {
   try {
     const newCandidateData = req.body;
-    console.log("newCandidate")
+    console.log("newCandidate" , newCandidateData)
     const newUser = {
       role: "candidate",
       name: newCandidateData?.name,
@@ -56,9 +56,10 @@ const postCandidateData = async (req, res) => {
       user: insertUser,
       candidate: insertCandidate,
     };
-    res.status(200).send(responseData);
+    console.log(responseData)
+    res.status(200).json(responseData);
   } catch (error) {
-    res.status(404).send({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -69,7 +70,7 @@ const deleteCandidate = async (req, res) => {
       req.params.id
     );
     console.log('Deleted candidate:', deletedCandidate);
-    res.status(200).send(deletedCandidate);
+    res.status(200).json(deletedCandidate);
   } catch (err) {
     console.error('Error deleting candidate:', err);
   }
@@ -96,7 +97,7 @@ const updateCandidateProfilePhoto = async (req, res) => {
       return res.status(404).json({ message: 'Candidate not found' });
     }
 
-    res.status(200).send(updatedCandidate);
+    res.status(200).json(updatedCandidate);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -124,7 +125,7 @@ const updateCandidateProfile = async (req, res) => {
       return res.status(404).json({ message: 'Candidate not found' });
     }
 
-    res.status(200).send(updatedCandidate);
+    res.status(200).json(updatedCandidate);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -151,7 +152,7 @@ const updateCandidateAvailability = async (req, res) => {
       return res.status(404).json({ message: 'Candidate not found' });
     }
 
-    res.status(200).send(updatedCandidate);
+    res.status(200).json(updatedCandidate);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -176,7 +177,7 @@ const updateCandidateAbout = async (req, res) => {
       return res.status(404).json({ message: 'Candidate not found' });
     }
 
-    res.status(200).send(updatedCandidate);
+    res.status(200).json(updatedCandidate);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -203,7 +204,7 @@ const updateCandidateLocation = async (req, res) => {
       return res.status(404).json({ message: 'Candidate not found' });
     }
 
-    res.status(200).send(updatedCandidate);
+    res.status(200).json(updatedCandidate);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -224,7 +225,7 @@ const updateCandidateSkills = async (req, res) => {
       return res.status(404).json({ message: 'Candidate not found' });
     }
 
-    res.status(200).send(updatedCandidate);
+    res.status(200).json(updatedCandidate);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -247,7 +248,7 @@ const updateCandidateLanguageSkills = async (req, res) => {
       return res.status(404).json({ message: 'Candidate not found' });
     }
 
-    res.status(200).send(updatedCandidate);
+    res.status(200).json(updatedCandidate);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -270,7 +271,7 @@ const updateCandidateEducationalQualification = async (req, res) => {
       return res.status(404).json({ message: 'Candidate not found' });
     }
 
-    res.status(200).send(updatedCandidate);
+    res.status(200).json(updatedCandidate);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -293,7 +294,7 @@ const updateCandidateExperience = async (req, res) => {
       return res.status(404).json({ message: 'Candidate not found' });
     }
 
-    res.status(200).send(updatedCandidate);
+    res.status(200).json(updatedCandidate);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
