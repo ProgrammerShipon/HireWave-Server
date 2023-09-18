@@ -5,6 +5,7 @@ const { recruitersCollection, usersCollection } = require("../collections/collec
 const postNewRecruiter = async (req, res) => {
   try {
     const newRecruiterData = req.body;
+
     const newUser = {
       role: "recruiter",
       name: newRecruiterData?.name,
@@ -13,8 +14,14 @@ const postNewRecruiter = async (req, res) => {
       status: "pending",
     };
 
+    const recruiterData = {
+      ...newRecruiterData,
+      viewsCount: [],
+      following: [],
+    };
+
     const insertUser = await usersCollection(newUser).save();
-    const insertRecruiter = await recruitersCollection(newRecruiterData).save();
+    const insertRecruiter = await recruitersCollection(recruiterData).save();
 
     const responseData = {
       user: insertUser,
@@ -119,6 +126,45 @@ const deleteRecruiter = async (req, res) => {
   }
 };
 
+// Profile visitor Count
+const recruiterViewsCountUpdate = async (req, res) => {
+  const bodyData = req.body;
+  const id = req.params.id;
+  console.log({ bodyData, id });
+  
+  try {
+    const data = await recruitersCollection.findById(id);
+    console.log("data -> ", data);
+
+    // already visitor or not checking
+    // const isExist = await data.viewsCount.find(bodyData.candidateEmail);
+    const isExist = await data.find({
+      viewsCount: { $in: bodyData.candidateEmail },
+    });
+
+    console.log("isExist -> ", isExist);
+
+    if (!isExist) {
+      console.log(`!isExist`);
+      const updated = await recruitersCollection.findByIdAndUpdate(
+        id,
+        { viewsCount: bodyData.candidateEmail },
+        { new: true }
+      );
+
+      console.log("candidate visitor counted");
+      // updated data send
+      res.status(200).send(updated);
+    }
+
+    // Already data send
+    res.status(201).send({message: 'already Counted'});
+  } catch (error) {
+    console.log(error)
+    res.status(404).send({message: 'Server Error !'})
+  }
+}
+
 module.exports = {
   getRecruiter,
   postNewRecruiter,
@@ -127,4 +173,5 @@ module.exports = {
   getRecruiterByGmail,
   updateRecruiter,
   getAllRecruiters,
+  recruiterViewsCountUpdate,
 };

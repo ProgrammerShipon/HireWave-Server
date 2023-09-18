@@ -7,14 +7,13 @@ const postUser = async (req, res) => {
 
     const query = { email: newUserData.email };
     const isExist = await usersCollection.findOne(query);
-    
+
     if (isExist) {
       return res.status(201).send({ isExist, message: "user exist" });
     } else {
       const insert = await usersCollection(newUserData).save();
       return res.status(200).send({ insert})
     }
-
   } catch (error) {
     console.error(error);
     res.status(404).send({ message: "Server Problem",});

@@ -33,7 +33,7 @@ const getCandidateByGmail = async (req, res) => {
   }
 };
 
-// One Data insert Or Many Data
+// One Data insert
 const postCandidateData = async (req, res) => {
   console.log('postCandidateData');
   try {
@@ -49,8 +49,10 @@ const postCandidateData = async (req, res) => {
 
     const newCandidate = {
       ...newCandidateData,
-      status: "pending"
-    }
+      status: "pending",
+      viewsCount: [],
+      following: [],
+    };
 
     const insertUser = await usersCollection(newUser).save();
     const insertCandidate = await allCandidatesCollection(newCandidate).save();
