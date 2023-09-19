@@ -1,6 +1,6 @@
 const tasksRoute = require("express").Router();
 
-const { tasksPost, allTaskGet } = require("../controllers/tasksController");
+const { tasksPost, allTaskGet, findByCandidateEmail } = require("../controllers/tasksController");
 
 
 // Get All task 
