@@ -38,7 +38,7 @@ const postCandidateData = async (req, res) => {
   console.log('postCandidateData');
   try {
     const newCandidateData = req.body;
-    console.log("newCandidate" , newCandidateData)
+    console.log("newCandidate", newCandidateData)
     const newUser = {
       role: "candidate",
       name: newCandidateData?.name,
@@ -56,7 +56,7 @@ const postCandidateData = async (req, res) => {
 
     const insertUser = await usersCollection(newUser).save();
     const insertCandidate = await allCandidatesCollection(newCandidate).save();
-    
+
     const responseData = {
       user: insertUser,
       candidate: insertCandidate,
@@ -127,8 +127,18 @@ const updateCandidateProfilePhoto = async (req, res) => {
           image: updateData.url
         },
       },
-      { new: true } // To return the updated document
+      { new: true } 
     );
+
+    const updateUserData = await usersCollection.findOneAndUpdate(
+      { email: updateData.email },
+      {
+        $set: {
+          image: updateData.url
+        },
+      },
+      { new: true }
+    )
     // console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
@@ -155,9 +165,20 @@ const updateCandidateProfile = async (req, res) => {
           visibility: updateData.visibility
         },
       },
-      { new: true } // To return the updated document
+      { new: true }
     );
-    // console.log(updatedCandidate)
+
+    const updateUserData = await usersCollection.findOneAndUpdate(
+      { email: updateData.email },
+      {
+        $set: {
+          title: updateData.title,
+          name: updateData.name,
+        },
+      },
+      { new: true }
+    )
+    // console.log(updateUserData)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -346,7 +367,7 @@ const candidateViewsCountUpdate = async (req, res) => {
   const bodyData = req.body;
   const id = req.params.id;
   console.log({ bodyData, id });
-  
+
   try {
     const data = await allCandidatesCollection.findById(id);
 
@@ -367,10 +388,10 @@ const candidateViewsCountUpdate = async (req, res) => {
     }
 
     // Already data send
-    res.status(201).send({message: 'already Counted'});
+    res.status(201).send({ message: 'already Counted' });
   } catch (error) {
     console.log(error)
-    res.status(404).send({message: 'Server Error !'})
+    res.status(404).send({ message: 'Server Error !' })
   }
 }
 

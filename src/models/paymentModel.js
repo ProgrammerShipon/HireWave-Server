@@ -13,7 +13,7 @@ const paymentDataModel = new mongoose.Schema({
         type: String,
         require: true,
     },
-    package: {
+    packages: {
         type: String,
         require: true,
     },
