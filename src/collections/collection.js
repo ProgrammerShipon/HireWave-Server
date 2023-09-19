@@ -18,6 +18,7 @@ const tasksModel = require("../models/tasksModel");
 const jobOfferModel = require("../models/jobOfferModel");
 const chatModel = require("../models/chatModel");
 const messageModel = require("../models/messageModel");
+const favoriteModel = require("../models/favoriteModel.js");
 
 // User Collection
 const usersCollection = new mongoose.model("users", userDataModel);
@@ -73,6 +74,9 @@ const tasks = new mongoose.model("tasks", tasksModel);
 // Job Offer Collection
 const jobOffer = new mongoose.model("jobOffer", jobOfferModel);
 
+// Job Offer Collection
+const favoriteCollection = new mongoose.model("favorite", favoriteModel);
+
 // export data base
 module.exports = {
   usersCollection,
@@ -92,4 +96,5 @@ module.exports = {
   savedJobCollection,
   tasks,
   jobOffer,
+  favoriteCollection,
 };

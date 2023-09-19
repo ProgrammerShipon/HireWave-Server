@@ -17,6 +17,7 @@ const {
   candidateStatusUpdate,
   candidateViewsCountUpdate,
 } = require("../controllers/candidateDataController");
+
 const candidateRoute = express.Router();
 
 // Get All candidate

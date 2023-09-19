@@ -13,10 +13,8 @@ const getAllCandidatesData = async (req, res) => {
 // get candidates single data
 const getACandidate = async (req, res) => {
   try {
-    await allCandidatesCollection
-      .findById(req.params.id)
-      .then((candidateData) => res.status(200).json(candidateData))
-      .catch(() => res.status(404).json("Data Not Found"));
+    const Result = await allCandidatesCollection.findById(req.params.id);
+      res.status(200).json(Result)
   } catch (error) {
     res.status(404).json("Data Not Found or Server error");
   }
