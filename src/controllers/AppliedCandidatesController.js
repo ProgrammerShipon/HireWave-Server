@@ -16,9 +16,7 @@ const postAllAppliedInfo = async (req, res) => {
 const storeAppliedInfo = async (req, res) => {
     try {
         const appliedJob = req.body;
-        console.log(appliedJob)
         const result = await appliedCandidatesCollection(appliedJob).save()
-        console.log(result)
         res.status(200).send(result)
     } catch (error) {
         res.status(400).send({ message: error.message })
@@ -49,9 +47,7 @@ const getAppliedCandidates = async (req, res) => {
 // Get all applied Info -for Candidate
 const AppliedCandidateInfo = async (req, res) => {
     try {
-        console.log(req.params.id)
         const candidateInfo = await allCandidatesCollection.findById(req.params.id);
-        console.log(candidateInfo)
         res.status(200).send(candidateInfo);
     } catch (error) {
         res.status(404).send({ message: error.message })

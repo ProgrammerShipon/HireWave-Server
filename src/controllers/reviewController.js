@@ -38,7 +38,6 @@ const deleteReview = async (req, res) => {
     const deletedReview = await reviewCollection.findByIdAndDelete(
       req.params.id
     );
-    console.log('Deleted candidate:', deletedReview);
     res.status(200).send(deletedReview);
   } catch (err) {
     console.error('Error deleting candidate:', err);

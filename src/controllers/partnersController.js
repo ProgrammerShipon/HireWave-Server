@@ -14,7 +14,6 @@ const getPartner = async (req, res) => {
         const id = req.params.id;
         const query = { _id: new ObjectId(id) }
         const partners = await partnersCollection.find(query);
-        // console.log(partners)
         res.status(200).send(partners)
     } catch (error) {
         res.status(404).send({ message: error.message })
@@ -23,7 +22,6 @@ const getPartner = async (req, res) => {
 const postPartnersData = async (req, res) => {
     try {
         const newPartners = req.body;
-        console.log('newPartners', newPartners)
         const result = await partnersCollection.insertMany(newPartners);
         res.status(200).send(result)
     } catch (error) {
@@ -33,7 +31,6 @@ const postPartnersData = async (req, res) => {
 const postOnePartnersData = async (req, res) => {
     try {
         const newPartners = req.body;
-        console.log('newPartners', newPartners)
         const result = await new partnersCollection(newPartners).save();
         res.status(200).send(result)
     } catch (error) {
@@ -45,7 +42,6 @@ const deletePartners = async (req, res) => {
         const id = req.params.id;
         const query = { _id: new ObjectId(id) }
         const partners = await partnersCollection.findOneAndDelete(query);
-        console.log(partners)
         res.status(200).send(partners)
     } catch (error) {
         res.status(404).send({ message: error.message })

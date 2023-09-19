@@ -33,7 +33,6 @@ const getACategory = async (req, res) => {
         const id = req.params.id;
         const query = { _id: new ObjectId(id) }
         const Category = await AllCategoryCollection.find(query);
-        // console.log(Category)
         res.status(200).send(Category)
     } catch (error) {
         res.status(404).send({ message: error.message })
@@ -44,7 +43,6 @@ const deleteACategoryPost = async (req, res) => {
         const id = req.params.id;
         const query = { _id: new ObjectId(id) }
         const Category = await AllCategoryCollection.findOneAndDelete(query);
-        console.log(Category)
         res.status(200).send(Category)
     } catch (error) {
         res.status(404).send({ message: error.message })

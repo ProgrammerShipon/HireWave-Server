@@ -6,7 +6,6 @@ const { ObjectId } = require('bson');
 const postJobLocation = async (req, res) => {
     try {
         const newJobLocation = req.body;
-        // console.log(newJobLocation)
         const newJobLocationPost = await new jobsLocationCollection(newJobLocation).save();
         res.status(200).send(newJobLocationPost)
     } catch (error) {

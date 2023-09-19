@@ -2,23 +2,18 @@ const { chatCollection } = require("../collections/collection");
 
 const createChat = async (req, res) => {
   const { receiver ,sender } = req.body;
-  console.log(receiver ,sender)
-
   try {
 
     const chat = await chatCollection.find({
       members: { $all: [receiver ,sender] }
     })
-    console.log("chat", chat)
     if (chat.length > 0) return res.status(200).json(chat)
 
 
     const newChat = new chatCollection({
-      members: [receiver ,sender]
-    })
-    console.log("newChat", newChat)
-    const saveNewChat = await newChat.save()
-    console.log(saveNewChat)
+      members: [receiver, sender]
+    });
+    const saveNewChat = await newChat.save();
     res.status(200).json(saveNewChat)
   }
   catch (error) {

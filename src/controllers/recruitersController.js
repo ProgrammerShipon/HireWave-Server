@@ -46,7 +46,6 @@ const postNewRecruiters = async (req, res) => {
     // send result client site
     res.status(200).send(newRecruiter);
   } catch (error) {
-    console.log('postNewRecruiters -> ', error);
     res.status(404).send({ message: error.message }); // todo: no server error send
   }
 };
@@ -127,14 +126,12 @@ const deleteRecruiter = async (req, res) => {
 
 // Profile visitor Count
 const recruiterViewsCountUpdate = async (req, res) => {
-  console.log(req.params.id, req.body.email);
   try {
     const UpdateRecruiterData = await recruitersCollection.findByIdAndUpdate(
       req.params.id,
       { $addToSet: { viewsCount: req.body.email } },
       { new: true }
     );
-    console.log('viewsCount.length', UpdateRecruiterData.viewsCount.length)
 
     if (!UpdateRecruiterData) {
       return res.status(404).json({ message: 'Recruiter not found or This this user is already exist' });

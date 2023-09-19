@@ -41,16 +41,11 @@ const postPaymentData = async (req, res) => {
             ship_postcode: 1000,
             ship_country: 'Bangladesh',
         };
-
-        // console.log(data)
         const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
-        // console.log(sslcz)
         sslcz.init(data).then(apiResponse => {
             // Redirect the user to payment gateway
-            // console.log(apiResponse)
             let GatewayPageURL = apiResponse.GatewayPageURL
             res.send({ url: GatewayPageURL })
-            console.log('Redirecting to: ', GatewayPageURL)
         });
 
 
@@ -62,7 +57,6 @@ const postPaymentData = async (req, res) => {
 
 const storePaymentHistory = async (req, res) => {
     const payment=req.body
-    console.log("payment data" )
 }
 const getPaymentHistory = async (req, res) => {
     res.send("payment data")

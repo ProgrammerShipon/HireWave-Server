@@ -35,10 +35,8 @@ const getCandidateByGmail = async (req, res) => {
 
 // One Data insert
 const postCandidateData = async (req, res) => {
-  console.log('postCandidateData');
   try {
     const newCandidateData = req.body;
-    console.log("newCandidate" , newCandidateData)
     const newUser = {
       role: "candidate",
       name: newCandidateData?.name,
@@ -61,11 +59,9 @@ const postCandidateData = async (req, res) => {
       user: insertUser,
       candidate: insertCandidate,
     };
-    console.log(responseData)
     res.status(200).json(responseData);
   } catch (error) {
     res.status(404).json({ message: error.message });
-    console.log(error);
     res.status(404).send({ message: error.message });
   }
 };
@@ -76,7 +72,6 @@ const deleteCandidate = async (req, res) => {
     const deletedCandidate = await allCandidatesCollection.findByIdAndDelete(
       req.params.id
     );
-    console.log('Deleted candidate:', deletedCandidate);
     res.status(200).json(deletedCandidate);
   } catch (err) {
     console.error('Error deleting candidate:', err);
@@ -117,7 +112,6 @@ const candidateStatusUpdate = async (req, res) => {
 const updateCandidateProfilePhoto = async (req, res) => {
   const candidateId = req.params.id;
   const updateData = req.body;
-  console.log(updateData)
   try {
     // Use findByIdAndUpdate to update the document
     const updatedCandidate = await allCandidatesCollection.findByIdAndUpdate(
@@ -129,7 +123,6 @@ const updateCandidateProfilePhoto = async (req, res) => {
       },
       { new: true } // To return the updated document
     );
-    // console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -157,7 +150,6 @@ const updateCandidateProfile = async (req, res) => {
       },
       { new: true } // To return the updated document
     );
-    // console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -172,7 +164,6 @@ const updateCandidateProfile = async (req, res) => {
 const updateCandidateAvailability = async (req, res) => {
   const candidateId = req.params.id;
   const { jobType, hourlyRate } = req.body;
-  console.log(candidateId)
   try {
     // Use findByIdAndUpdate to update the document
     const updatedCandidate = await allCandidatesCollection.findByIdAndUpdate(
@@ -185,7 +176,6 @@ const updateCandidateAvailability = async (req, res) => {
       },
       { new: true } // To return the updated document
     );
-    // console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -211,7 +201,6 @@ const updateCandidateAbout = async (req, res) => {
       },
       { new: true } // To return the updated document
     );
-    // console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -226,7 +215,6 @@ const updateCandidateAbout = async (req, res) => {
 const updateCandidateLocation = async (req, res) => {
   const candidateId = req.params.id;
   const { location, address } = req.body;
-  console.log(candidateId)
   try {
     // Use findByIdAndUpdate to update the document
     const updatedCandidate = await allCandidatesCollection.findByIdAndUpdate(
@@ -239,7 +227,6 @@ const updateCandidateLocation = async (req, res) => {
       },
       { new: true }
     );
-    // console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -261,7 +248,6 @@ const updateCandidateSkills = async (req, res) => {
       { skills: newSkills },
       { new: true }
     );
-    console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -284,7 +270,6 @@ const updateCandidateLanguageSkills = async (req, res) => {
       { languages: newLanguage },
       { new: true }
     );
-    console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -307,7 +292,6 @@ const updateCandidateEducationalQualification = async (req, res) => {
       { education: newEducations },
       { new: true }
     );
-    // console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -330,7 +314,6 @@ const updateCandidateExperience = async (req, res) => {
       { experience: newExperience },
       { new: true }
     );
-    // console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -345,8 +328,6 @@ const updateCandidateExperience = async (req, res) => {
 const candidateViewsCountUpdate = async (req, res) => {
   const bodyData = req.body;
   const id = req.params.id;
-  console.log({ bodyData, id });
-  
   try {
     const data = await allCandidatesCollection.findById(id);
 
@@ -361,8 +342,6 @@ const candidateViewsCountUpdate = async (req, res) => {
         { viewsCount: bodyData.recruiterEmail },
         { new: true }
       );
-
-      console.log("candidate visitor counted");
       // updated data send
       res.status(200).send(updated);
     }

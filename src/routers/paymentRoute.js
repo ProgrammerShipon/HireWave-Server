@@ -12,7 +12,6 @@ const paymentRoute = express.Router();
 paymentRoute.post('/', async (req, res) => {
     try {
         const payment = req.body;
-        console.log(payment)
         const data = {
             total_amount: payment.amount,
             currency: 'USD',
@@ -44,10 +43,8 @@ paymentRoute.post('/', async (req, res) => {
             ship_country: 'Bangladesh',
         };
         const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
-        console.log(sslcz)
         sslcz.init(data).then(apiResponse => {
             // Redirect the user to payment gateway
-            console.log(apiResponse)
             let GatewayPageURL = apiResponse.GatewayPageURL
             const paymentHistory = {
                 recruiterId: payment.recruiterId,
@@ -61,8 +58,6 @@ paymentRoute.post('/', async (req, res) => {
             }
             const storePaymentHistory = paymentCollection(paymentHistory).save();
             res.send({ url: GatewayPageURL })
-            console.log('storePaymentHistory')
-            console.log('Redirecting to: ', GatewayPageURL)
         });
 
     } catch (error) {
@@ -72,7 +67,6 @@ paymentRoute.post('/', async (req, res) => {
 
 paymentRoute.post('/success/:tran_id', async (req, res) => {
     const tran_id = req.params.tran_id;
-    console.log(tran_id)
     const updatePaymentData = await paymentCollection.findOneAndUpdate(
         {
             tran_id: tran_id,
@@ -96,7 +90,6 @@ paymentRoute.get('/history', async (req, res) => {
 paymentRoute.get('/history/:recruiterName', async (req, res) => {
     try {
         const payment = await paymentCollection.find({ recruiterName: req.params.recruiterName }).sort({ purchaseDate: -1 })
-        console.log(payment)
         res.status(200).send(payment)
     } catch (error) {
         res.status(400).send({ message: error.message })
