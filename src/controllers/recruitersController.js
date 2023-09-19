@@ -66,7 +66,6 @@ const getRecruiter = async (req, res) => {
   try {
     recruitersCollection.findById(req.params.id)
       .then(data => {
-        console.log(data);
         res.status(200).send([data]);
       });
   } catch (error) {
@@ -135,7 +134,7 @@ const recruiterViewsCountUpdate = async (req, res) => {
       { $addToSet: { viewsCount: req.body.email } },
       { new: true }
     );
-    console.log(UpdateRecruiterData.viewsCount.length)
+    console.log('viewsCount.length', UpdateRecruiterData.viewsCount.length)
 
     if (!UpdateRecruiterData) {
       return res.status(404).json({ message: 'Recruiter not found or This this user is already exist' });

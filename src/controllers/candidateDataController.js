@@ -354,6 +354,7 @@ const candidateViewsCountUpdate = async (req, res) => {
     const isExist = await data.viewsCount.filter(
       (email) => email == bodyData.recruiterEmail
     );
+    
     if (!isExist) {
       const updated = await allCandidatesCollection.findByIdAndUpdate(
         id,
