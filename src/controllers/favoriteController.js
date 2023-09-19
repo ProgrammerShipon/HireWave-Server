@@ -11,19 +11,54 @@ const getAllFavorite = async (req, res) => {
    }
 }
 
-// Favorite All Data
+// Favorite Store 
 const postFavorite = async (req, res) => {
    const bodyData = req.body;
-   console.log("bodyData", bodyData);
-
    try {
-      const result = await favoriteCollection(bodyData).save();
-      console.log('result -> ', result)
-      res.status(200).send(result);
+      // check all ready exit or not 
+      const isExit = await favoriteCollection.findOne({
+         candidateEmail: bodyData?.candidateEmail,
+         recruiterEmail: bodyData?.recruiterEmail,
+      });
+      if (!isExit) {
+         const result = await favoriteCollection(bodyData).save();
+         res.status(200).send(result);
+      }
+
+      // send to client
+      res.status(201).send({ massage: 'Already exit' });
    } catch (err) {
       console.log("getAllFavorite -> ", err);
       res.status(404).send({ message: "Server Error" });
    }
-}
+};
 
-module.exports = { getAllFavorite, postFavorite };
+// favorite data find by recruiter email
+const recruiterFavorite = async (req, res) => {
+   const emailEmail = req.params.email;
+   try {
+      const result = await favoriteCollection.findOne({
+         recruiterEmail: emailEmail,
+      });
+      res.status(200).send(result);
+   } catch (err) {
+      console.log(err);
+      res.status(404).send({ message: 'Server Error' });
+   }
+};
+
+// favorite data find by candidate email
+const candidateFavorite = async (req, res) => {
+  const emailEmail = req.params.email;
+  try {
+    const result = await favoriteCollection.findOne({
+      candidateEmail: emailEmail,
+    });
+    res.status(200).send(result);
+  } catch (err) {
+    console.log(err);
+    res.status(404).send({ message: "Server Error" });
+  }
+};
+
+module.exports = { getAllFavorite, postFavorite, candidateFavorite, recruiterFavorite };
