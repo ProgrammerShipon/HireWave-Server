@@ -10,7 +10,7 @@ tasksRoute.get("/", allTaskGet);
 // tasksRoute.get('/:id', getACandidate)
 
 // Job Offer Notification or others by candidate
-jobOfferRoute.get("/candidate-email/:email", findByCandidateEmail);
+tasksRoute.get("/candidate-email/:email", findByCandidateEmail);
 
 // Post task Data 
 tasksRoute.post("/", tasksPost);
