@@ -170,7 +170,8 @@ const updateRecruiterProfile = async (req, res) => {
       { email: updateData.email },
       {
         $set: {
-          image: updateData.image
+          image: updateData.image,
+          name: updateData.name,
         },
       },
       { new: true }

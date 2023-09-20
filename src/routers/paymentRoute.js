@@ -73,9 +73,14 @@ paymentRoute.post('/success/:tran_id', async (req, res) => {
     const updatePaymentData = await paymentCollection.findOneAndUpdate(
         {
             tran_id: tran_id,
-            isPaid: true
-        }
+        },
+        {
+            $set: { isPaid: true },
+        },
+        { new: true }
+
     )
+    console.log("updatePaymentData" , updatePaymentData)
     res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
 })
 
@@ -92,7 +97,12 @@ paymentRoute.get('/history', async (req, res) => {
 
 paymentRoute.get('/history/:recruiterName', async (req, res) => {
     try {
-        const payment = await paymentCollection.find({ recruiterName: req.params.recruiterName }).sort({ purchaseDate: -1 })
+        const payment = await paymentCollection.find(
+            {
+                recruiterName: req.params.recruiterName,
+                isPaid: true
+            }).sort({ purchaseDate: -1 })
+        console.log(payment)
         res.status(200).send(payment)
     } catch (error) {
         res.status(400).send({ message: error.message })
