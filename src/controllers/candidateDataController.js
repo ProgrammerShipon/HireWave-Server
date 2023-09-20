@@ -52,14 +52,13 @@ const postCandidateData = async (req, res) => {
 
     const insertUser = await usersCollection(newUser).save();
     const insertCandidate = await allCandidatesCollection(newCandidate).save();
-    
+
     const responseData = {
       user: insertUser,
       candidate: insertCandidate,
     };
     res.status(200).json(responseData);
   } catch (error) {
-    res.status(404).json({ message: error.message });
     res.status(404).send({ message: error.message });
   }
 };
@@ -73,6 +72,7 @@ const deleteCandidate = async (req, res) => {
     res.status(200).json(deletedCandidate);
   } catch (err) {
     console.error('Error deleting candidate:', err);
+    res.status(404).send({message: 'Server Error'})
   }
 };
 
@@ -119,8 +119,19 @@ const updateCandidateProfilePhoto = async (req, res) => {
           image: updateData.url
         },
       },
-      { new: true } // To return the updated document
+      { new: true }
     );
+
+    const updateUserData = await usersCollection.findOneAndUpdate(
+      { email: updateData.email },
+      {
+        $set: {
+          image: updateData.url
+        },
+      },
+      { new: true }
+    )
+    // console.log(updatedCandidate)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -146,8 +157,20 @@ const updateCandidateProfile = async (req, res) => {
           visibility: updateData.visibility
         },
       },
-      { new: true } // To return the updated document
+      { new: true }
     );
+
+    const updateUserData = await usersCollection.findOneAndUpdate(
+      { email: updateData.email },
+      {
+        $set: {
+          title: updateData.title,
+          name: updateData.name,
+        },
+      },
+      { new: true }
+    )
+    // console.log(updateUserData)
     if (!updatedCandidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -321,6 +344,27 @@ const updateCandidateExperience = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+// Update candidate Social Link
+const updateCandidateSocialLink = async (req, res) => {
+  const candidateId = req.params.id;
+ 
+  try {
+    // Use findByIdAndUpdate to update the document
+    const updatedCandidate = await allCandidatesCollection.findByIdAndUpdate(
+      candidateId,
+      { socialLink:  req.body},
+      { new: true }
+    );
+    // console.log(updatedCandidate)
+    if (!updatedCandidate) {
+      return res.status(404).json({ message: 'Candidate not found' });
+    }
+
+    res.status(200).json(updatedCandidate);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
 // Profile visitor Count
 const candidateViewsCountUpdate = async (req, res) => {
@@ -345,10 +389,10 @@ const candidateViewsCountUpdate = async (req, res) => {
     }
 
     // Already data send
-    res.status(201).send({message: 'already Counted'});
+    res.status(201).send({ message: 'already Counted' });
   } catch (error) {
     console.log(error)
-    res.status(404).send({message: 'Server Error !'})
+    res.status(404).send({ message: 'Server Error !' })
   }
 }
 
@@ -367,6 +411,7 @@ module.exports = {
   updateCandidateLanguageSkills,
   updateCandidateEducationalQualification,
   updateCandidateExperience,
+  updateCandidateSocialLink,
   getCandidateByGmail,
   candidateStatusUpdate,
   candidateViewsCountUpdate,
