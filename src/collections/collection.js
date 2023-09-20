@@ -19,6 +19,7 @@ const jobOfferModel = require("../models/jobOfferModel");
 const chatModel = require("../models/chatModel");
 const messageModel = require("../models/messageModel");
 const favoriteModel = require("../models/favoriteModel.js");
+const followModel = require("../models/followModel");
 
 // User Collection
 const usersCollection = new mongoose.model("users", userDataModel);
@@ -74,8 +75,11 @@ const tasks = new mongoose.model("tasks", tasksModel);
 // Job Offer Collection
 const jobOffer = new mongoose.model("jobOffer", jobOfferModel);
 
-// Job Offer Collection
+// Job Offer Collection only recruiter favorite candidate
 const favoriteCollection = new mongoose.model("favorite", favoriteModel);
+
+// Job Offer Collection only candidate follow recruiter
+const followCollection = new mongoose.model("follow", followModel);
 
 // export data base
 module.exports = {
@@ -97,4 +101,5 @@ module.exports = {
   tasks,
   jobOffer,
   favoriteCollection,
+  followCollection,
 };

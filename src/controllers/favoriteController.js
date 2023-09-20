@@ -16,7 +16,7 @@ const getAllFavorite = async (req, res) => {
 // Favorite Store 
 const postFavorite = async (req, res) => {
   const bodyData = req.body;
-  console.log("bodyData ", bodyData);
+  
   try {
     // check already exists or not
     const isExit = await favoriteCollection.findOne({
@@ -36,7 +36,7 @@ const postFavorite = async (req, res) => {
   }
 };
 
-// Favorite Store 
+// Favorite data delete 
 const deleteFavorite = async (req, res) => { 
    console.log(req.params.id);
    try {
@@ -57,7 +57,6 @@ const recruiterFavorite = async (req, res) => {
          recruiterEmail: emailEmail,
       });
 
-      console.log("recruiter_email/:email -> ", result);
       if (result) {
          res.status(200).send(result);
       }

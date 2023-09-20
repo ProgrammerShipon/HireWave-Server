@@ -32,6 +32,7 @@ const chatRoute = require("./routers/chatRoute");
 const tasksRoute = require("./routers/taskRoute");
 const jobOfferRoute = require("./routers/jobOfferRoute");
 const favoriteRoute = require("./routers/favoriteRoute");
+const followRoute = require("./routers/followRoute");
 
 const app = express();
 
@@ -77,6 +78,9 @@ app.use("/api/job_offer", jobOfferRoute);
 
 // any task recruiter & candidate
 app.use("/api/favorite", favoriteRoute);
+
+// any task recruiter & candidate
+app.use("/api/follow", followRoute);
 
 
 //========== All User Route End ==========//
