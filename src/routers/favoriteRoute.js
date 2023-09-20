@@ -1,4 +1,4 @@
-const { getAllFavorite, postFavorite, candidateFavorite, recruiterFavorite } = require('../controllers/favoriteController')
+const { getAllFavorite, postFavorite, candidateFavorite, recruiterFavorite, deleteFavorite } = require('../controllers/favoriteController')
 
 const favoriteRoute = require('express').Router()
 
@@ -13,6 +13,9 @@ favoriteRoute.get("/candidate_email/:email", candidateFavorite);
 
 // favorite data store
 favoriteRoute.post("/", postFavorite);
+
+// favorite delete -> need recruiterEmail + 
+favoriteRoute.delete("/:id", deleteFavorite);
 
 // route export
 module.exports = favoriteRoute

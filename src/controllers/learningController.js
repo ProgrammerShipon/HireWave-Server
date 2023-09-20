@@ -81,7 +81,7 @@ const deleteLearning = async (req, res) => {
   const updateData = req.body;
   console.log('Update Data -> ', updateData);
   try {
-    const updatedLearning = await learningCollection.findByIdAndDelete(
+    const updatedLearning = await learningCollection.findByIdAndUpdate(
       req.params.id,
       updateData,
       { new: true }
