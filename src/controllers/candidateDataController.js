@@ -127,7 +127,7 @@ const updateCandidateProfilePhoto = async (req, res) => {
           image: updateData.url
         },
       },
-      { new: true } 
+      { new: true }
     );
 
     const updateUserData = await usersCollection.findOneAndUpdate(
@@ -361,6 +361,27 @@ const updateCandidateExperience = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+// Update candidate Social Link
+const updateCandidateSocialLink = async (req, res) => {
+  const candidateId = req.params.id;
+ 
+  try {
+    // Use findByIdAndUpdate to update the document
+    const updatedCandidate = await allCandidatesCollection.findByIdAndUpdate(
+      candidateId,
+      { socialLink:  req.body},
+      { new: true }
+    );
+    // console.log(updatedCandidate)
+    if (!updatedCandidate) {
+      return res.status(404).json({ message: 'Candidate not found' });
+    }
+
+    res.status(200).json(updatedCandidate);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
 // Profile visitor Count
 const candidateViewsCountUpdate = async (req, res) => {
@@ -410,6 +431,7 @@ module.exports = {
   updateCandidateLanguageSkills,
   updateCandidateEducationalQualification,
   updateCandidateExperience,
+  updateCandidateSocialLink,
   getCandidateByGmail,
   candidateStatusUpdate,
   candidateViewsCountUpdate,

@@ -44,10 +44,12 @@ const candidateDataModel = new mongoose.Schema({
   ],
   socialLink: [
     {
+      facebook: String,
+      twitter: String,
       linkedin: String,
       github: String,
-      twitter: String,
-      facebook: String,
+      
+      
     },
   ],
   languages: [
