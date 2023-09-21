@@ -2,6 +2,7 @@ const {
   getAllJobOffer,
   postJobOffer,
   findByCandidateEmail,
+  updateJobOfferStatus,
 } = require("../controllers/jobOfferController");
 
 const jobOfferRoute = require("express").Router();
@@ -21,8 +22,8 @@ jobOfferRoute.post("/", postJobOffer);
 // Delete task Data
 // jobOfferRoute.delete('/:id', deleteCandidate)
 
-// Delete task Data
-// jobOfferRoute.patch('/:id', updateJobOfferRead)
+// update task Data
+jobOfferRoute.patch("/candidate-status/:id", updateJobOfferStatus);
 
 // Module or file exports
 module.exports = jobOfferRoute;

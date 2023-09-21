@@ -1,6 +1,5 @@
 const { recruitersCollection, usersCollection } = require("../collections/collection");
 
-
 // One Data insert 
 const postNewRecruiter = async (req, res) => {
   try {

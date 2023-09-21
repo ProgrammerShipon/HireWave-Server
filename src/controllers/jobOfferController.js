@@ -29,9 +29,10 @@ const findByCandidateEmail = async (req, res) => {
    const candidateEmail = req?.params.email;
    
    try {
-      const jobs = await jobOffer.find()
-      const filteredJob = await jobs.filter(job => job?.applicant?.email == candidateEmail);
-      res.status(200).send(filteredJob);
+      const jobs = await jobOffer.find({
+        'applicant.email': candidateEmail,
+      });
+      res.status(200).send(jobs);
    } catch (err) {
       console.log(err)
       res.status(404).send({message: 'Server Error' })
@@ -51,6 +52,30 @@ const updateJobOfferRead = async ( req, res ) => {
    // }
 } 
 
+// Job Offer Candidate Accept or Reject
+const updateJobOfferStatus = async (req, res) => {
+   const updateData = req.body;
+   console.log(updateData);
+  try {
+     const result = await jobOffer.findByIdAndUpdate(
+       req.params.id,
+       {
+         $set: {
+           status: updateData.status,
+         },
+       },
+       {
+         new: true,
+       }
+     );
+     console.log(result)
+    res.status(200).send(result);
+  } catch (error) {
+    console.log("updateJobs -> ", error);
+    res.status(404).send({ message: "Server Broken" });
+  }
+};
+
 
 // 
 module.exports = {
@@ -58,4 +83,5 @@ module.exports = {
   postJobOffer,
   findByCandidateEmail,
   updateJobOfferRead,
+  updateJobOfferStatus,
 };

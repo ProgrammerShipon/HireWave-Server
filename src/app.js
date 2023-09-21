@@ -73,13 +73,13 @@ app.use("/api/appliedCandidate", appliedCandidateRoute);
 // any task recruiter & candidate
 app.use("/api/task", tasksRoute);
 
-// any task recruiter & candidate
+// any Job Offer recruiter & candidate
 app.use("/api/job_offer", jobOfferRoute);
 
-// any task recruiter & candidate
+// any favorite recruiter & candidate
 app.use("/api/favorite", favoriteRoute);
 
-// any task recruiter & candidate
+// any follow recruiter & candidate
 app.use("/api/follow", followRoute);
 
 

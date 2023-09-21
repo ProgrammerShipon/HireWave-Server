@@ -12,5 +12,3 @@ try {
 } catch (error) {
   console.log(error.message)
 }
-
-// exports.api = functions.https.onRequest(app)

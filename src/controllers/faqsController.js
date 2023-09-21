@@ -14,13 +14,14 @@ const insertFaqs = async (req, res) => {
 };
 
 // get all FAQs Data
-const getFaqs = async (req, res) => {
+const getFaqs = async (req, res, next) => {
   try {
     const result = await faqsCollection.find();
     return await res.status(200).send(result);
   } catch (error) {
+    console.log(error)
     res.status(500).send({
-      error: "Data Somethings Wrong!",
+      message: "Data Somethings Wrong!",
     });
   }
 };

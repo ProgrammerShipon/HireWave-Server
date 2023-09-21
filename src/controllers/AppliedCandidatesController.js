@@ -9,17 +9,20 @@ const postAllAppliedInfo = async (req, res) => {
         const newApplicant = await appliedCandidatesCollection.insertMany(newApplicantData);
         res.status(200).send(newApplicant)
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("postAllAppliedInfo -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
+// store applied info
 const storeAppliedInfo = async (req, res) => {
     try {
         const appliedJob = req.body;
         const result = await appliedCandidatesCollection(appliedJob).save()
         res.status(200).send(result)
     } catch (error) {
-        res.status(400).send({ message: error.message })
+      console.log("storeAppliedInfo -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
@@ -29,18 +32,20 @@ const getAllAppliedCandidates = async (req, res) => {
         const Result = await appliedCandidatesCollection.find();
         res.status(200).send(Result);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("getAllAppliedCandidates -> ", error);
+      res.status(404).send({ message: "Server Broken"});
     }
 }
 
 // Get All Applied Candidate Developer route 
 const getAppliedCandidates = async (req, res) => {
     try {
-        const idd = { _id: new ObjectId(req.params.id) }
-        const Result = await appliedCandidatesCollection.findOne(idd);
+        const id = req.params.id
+        const Result = await appliedCandidatesCollection.findById(id);
         res.status(200).send(Result);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("deleteAJobPost -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
@@ -50,7 +55,8 @@ const AppliedCandidateInfo = async (req, res) => {
         const candidateInfo = await allCandidatesCollection.findById(req.params.id);
         res.status(200).send(candidateInfo);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("deleteAJobPost -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
@@ -62,7 +68,8 @@ const getAppliedJobEachCandidate = async (req, res) => {
         const Result = await appliedCandidatesCollection.find(query);
         res.status(200).send(Result);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("getAppliedJobEachCandidate -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
@@ -74,7 +81,8 @@ const cancelApplicationEachCandidate = async (req, res) => {
         const Result = await appliedCandidatesCollection.findOneAndDelete(query);
         res.status(200).send(Result);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("cancelApplicationEachCandidate -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 // Get a applied Candidate
@@ -85,7 +93,8 @@ const getAppliedJobInfo = async (req, res) => {
         const Result = await appliedCandidatesCollection.find(query);
         res.status(200).send(Result);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("getAppliedJobInfo -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 

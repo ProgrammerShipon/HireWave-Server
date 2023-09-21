@@ -59,7 +59,6 @@ const postCandidateData = async (req, res) => {
     };
     res.status(200).json(responseData);
   } catch (error) {
-    res.status(404).json({ message: error.message });
     res.status(404).send({ message: error.message });
   }
 };
