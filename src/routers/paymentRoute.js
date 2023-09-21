@@ -16,10 +16,10 @@ paymentRoute.post('/', async (req, res) => {
             total_amount: payment.amount,
             currency: 'USD',
             tran_id: tran_id,
-            success_url: `http://localhost:3030/api/payment/success/${tran_id}`,
-            fail_url: 'http://localhost:3030/api/payment/fail',
-            cancel_url: 'http://localhost:3030/api/payment/fail',
-            ipn_url: 'http://localhost:3030/ipn',
+            success_url: `https://hire-wave.onrender.com/api/payment/success/${tran_id}`,
+            fail_url: 'https://hire-wave.onrender.com/api/payment/fail',
+            cancel_url: 'https://hire-wave.onrender.com/api/payment/fail',
+            ipn_url: 'https://hire-wave.onrender.com/ipn',
             shipping_method: 'Courier',
             product_name: 'Computer.',
             product_category: 'Electronic',
@@ -49,7 +49,7 @@ paymentRoute.post('/', async (req, res) => {
             const paymentHistory = {
                 recruiterId: payment.recruiterId,
                 amount: payment.amount,
-                package:payment.package,
+                packages: payment.packages,
                 paymentTimeline: payment.paymentTimeline,
                 recruiterName: payment.recruiterName,
                 companyLogo: payment.companyLogo,
@@ -57,6 +57,7 @@ paymentRoute.post('/', async (req, res) => {
                 isPaid: false
             }
             const storePaymentHistory = paymentCollection(paymentHistory).save();
+            // console.log(storePaymentHistory)
             res.send({ url: GatewayPageURL })
         });
 
@@ -70,9 +71,14 @@ paymentRoute.post('/success/:tran_id', async (req, res) => {
     const updatePaymentData = await paymentCollection.findOneAndUpdate(
         {
             tran_id: tran_id,
-            isPaid: true
-        }
+        },
+        {
+            $set: { isPaid: true },
+        },
+        { new: true }
+
     )
+    console.log("updatePaymentData" , updatePaymentData)
     res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
 })
 
@@ -89,14 +95,16 @@ paymentRoute.get('/history', async (req, res) => {
 
 paymentRoute.get('/history/:recruiterName', async (req, res) => {
     try {
-        const payment = await paymentCollection.find({ recruiterName: req.params.recruiterName }).sort({ purchaseDate: -1 })
+        const payment = await paymentCollection.find(
+            {
+                recruiterName: req.params.recruiterName,
+                isPaid: true
+            }).sort({ purchaseDate: -1 })
+        console.log(payment)
         res.status(200).send(payment)
     } catch (error) {
         res.status(400).send({ message: error.message })
     }
 })
-
-
-
 
 module.exports = paymentRoute

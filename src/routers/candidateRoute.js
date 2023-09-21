@@ -16,6 +16,7 @@ const {
   updateCandidateProfilePhoto,
   candidateStatusUpdate,
   candidateViewsCountUpdate,
+  updateCandidateSocialLink,
 } = require("../controllers/candidateDataController");
 
 const candidateRoute = express.Router();
@@ -55,6 +56,9 @@ candidateRoute.patch("/about/:id", updateCandidateAbout);
 
 // Update Candidate Location
 candidateRoute.patch("/location/:id", updateCandidateLocation);
+
+// Update Candidate Location
+candidateRoute.patch("/social/:id", updateCandidateSocialLink);
 
 // Update Candidate Location
 candidateRoute.patch("/skill/:id", updateCandidateSkills);

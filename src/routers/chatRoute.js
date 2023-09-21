@@ -1,5 +1,5 @@
 const express = require('express');
-const { createChat, findUsersChats, findChat, findAllUsersChats } = require('../controllers/chatController');
+const { createChat, findUsersChats, findChat, findAllUsersChats, deleteChat } = require('../controllers/chatController');
 const chatRoute = express.Router()
 
 
@@ -14,5 +14,8 @@ chatRoute.get('/', findAllUsersChats)
 
 //  get all chat 
 chatRoute.get('/find/:firstId/:secondId', findChat)
+
+//  get all chat 
+chatRoute.delete('/delete/:chatId', deleteChat)
 
 module.exports = chatRoute;
