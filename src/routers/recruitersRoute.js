@@ -5,15 +5,16 @@ const {
   getRecruiter,
   deleteRecruiter,
   postNewRecruiters,
-  // updateData,
   getRecruiterByGmail,
   updateRecruiter,
   recruiterViewsCountUpdate,
-  updateRecruiterProfile,
   updateRecruiterAbout,
   updateRecruiterLocation,
   updateRecruiterContact,
   updateRecruiterSpecialties,
+  updateRecruiterProfilePhoto,
+  updateRecruiterBanner,
+  updateRecruiterName,
 } = require("../controllers/recruitersController");
 
 const recruiterRoute = express.Router()
@@ -40,7 +41,13 @@ recruiterRoute.patch('/', updateRecruiter)
 recruiterRoute.patch("/viewsCount/:id", recruiterViewsCountUpdate);
 
 // Update Recruiters profile
-recruiterRoute.patch("/profile/:id", updateRecruiterProfile);
+recruiterRoute.patch("/profilePhoto/:id", updateRecruiterProfilePhoto);
+
+// Update Recruiters profile
+recruiterRoute.patch("/banner/:id", updateRecruiterBanner);
+
+// Update Recruiters profile
+recruiterRoute.patch("/name/:id", updateRecruiterName);
 
 // Update Recruiters Data
 recruiterRoute.patch("/about/:id", updateRecruiterAbout);

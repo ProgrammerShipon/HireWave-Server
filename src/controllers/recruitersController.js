@@ -142,20 +142,18 @@ const recruiterViewsCountUpdate = async (req, res) => {
   }
 }
 
-// Update candidate Profile
-const updateRecruiterProfile = async (req, res) => {
+// Update Recruiter ProfilePhoto
+const updateRecruiterProfilePhoto = async (req, res) => {
   const recruiterId = req.params.id;
   const updateData = req.body;
-  // console.log(updateData)
+  console.log(updateData)
   try {
     //   // Use findByIdAndUpdate to update the document
     const updatedRecruiterProfile = await recruitersCollection.findByIdAndUpdate(
       recruiterId,
       {
         $set: {
-          name: updateData.name,
           image: updateData.image,
-          banner: updateData.banner
         },
       },
       { new: true }
@@ -165,8 +163,7 @@ const updateRecruiterProfile = async (req, res) => {
       { email: updateData.email },
       {
         $set: {
-          image: updateData.image,
-          name: updateData.name,
+          image: updateData.image
         },
       },
       { new: true }
@@ -174,7 +171,72 @@ const updateRecruiterProfile = async (req, res) => {
     console.log(updateUserData)
 
     if (!updatedRecruiterProfile) {
-      return res.status(404).json({ message: 'Candidate not found' });
+      return res.status(404).json({ message: 'Recruiter not found' });
+    }
+
+    console.log(updatedRecruiterProfile)
+    res.status(200).json(updatedRecruiterProfile);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Update Recruiter Company Banner
+const updateRecruiterBanner = async (req, res) => {
+  const recruiterId = req.params.id;
+  const updateData = req.body;
+  console.log(updateData)
+  try {
+    //   // Use findByIdAndUpdate to update the document
+    const updatedRecruiterProfile = await recruitersCollection.findByIdAndUpdate(
+      recruiterId,
+      {
+        $set: {
+          banner: updateData.banner
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedRecruiterProfile) {
+      return res.status(404).json({ message: 'Recruiter not found' });
+    }
+
+    console.log(updatedRecruiterProfile)
+    res.status(200).json(updatedRecruiterProfile);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Update Recruiter Profile
+const updateRecruiterName = async (req, res) => {
+  const recruiterId = req.params.id;
+  const updateData = req.body;
+  console.log(updateData)
+  try {
+    //   // Use findByIdAndUpdate to update the document
+    const updatedRecruiterProfile = await recruitersCollection.findByIdAndUpdate(
+      recruiterId,
+      {
+        $set: {
+          name: updateData.name
+        },
+      },
+      { new: true }
+    );
+    const updateUserData = await usersCollection.findOneAndUpdate(
+      { email: updateData.email },
+      {
+        $set: {
+          name: updateData.name
+        },
+      },
+      { new: true }
+    )
+
+    if (!updatedRecruiterProfile) {
+      return res.status(404).json({ message: 'Recruiter not found' });
     }
 
     console.log(updatedRecruiterProfile)
@@ -235,7 +297,7 @@ const updateRecruiterSpecialties = async (req, res) => {
   }
 };
 
-// Update candidate Location
+// Update Recruiter Location
 const updateRecruiterLocation = async (req, res) => {
   const recruiterId = req.params.id;
   const { location, address } = req.body;
@@ -252,9 +314,9 @@ const updateRecruiterLocation = async (req, res) => {
       },
       { new: true }
     );
-    // console.log(updatedCandidate)
+    // console.log(updated Recruiter)
     if (!updatedRecruiter) {
-      return res.status(404).json({ message: 'Candidate not found' });
+      return res.status(404).json({ message: 'Recruiter not found' });
     }
 
     res.status(200).json(updatedRecruiter);
@@ -262,7 +324,7 @@ const updateRecruiterLocation = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
-// Update candidate Location
+// Update Recruiter Location
 const updateRecruiterContact = async (req, res) => {
   const recruiterId = req.params.id;
   const { phone } = req.body;
@@ -278,9 +340,9 @@ const updateRecruiterContact = async (req, res) => {
       },
       { new: true }
     );
-    // console.log(updatedCandidate)
+    // console.log(updatedRecruiter)
     if (!updatedRecruiter) {
-      return res.status(404).json({ message: 'Candidate not found' });
+      return res.status(404).json({ message: 'Recruiter not found' });
     }
 
     res.status(200).json(updatedRecruiter);
@@ -298,7 +360,9 @@ module.exports = {
   updateRecruiter,
   getAllRecruiters,
   recruiterViewsCountUpdate,
-  updateRecruiterProfile,
+  updateRecruiterProfilePhoto,
+  updateRecruiterBanner,
+  updateRecruiterName,
   updateRecruiterAbout,
   updateRecruiterLocation,
   updateRecruiterContact,
