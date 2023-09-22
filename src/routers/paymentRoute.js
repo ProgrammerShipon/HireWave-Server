@@ -18,14 +18,14 @@ paymentRoute.post('/', async (req, res) => {
             total_amount: payment.amount,
             currency: 'USD',
             tran_id: payment.tran_id,
-            success_url: `http://localhost:3030/api/payment/success/${payment.tran_id}`,
-            fail_url: 'http://localhost:3030/api/payment/fail',
-            cancel_url: 'http://localhost:3030/api/payment/fail',
-            ipn_url: 'http://localhost:3030/ipn',
-            // success_url: `https://hire-wave.onrender.com/api/payment/success/${tran_id}`,
-            // fail_url: 'https://hire-wave.onrender.com/api/payment/fail',
-            // cancel_url: 'https://hire-wave.onrender.com/api/payment/fail',
-            // ipn_url: 'https://hire-wave.onrender.com/ipn',
+            // success_url: `http://localhost:3030/api/payment/success/${payment.tran_id}`,
+            // fail_url: 'http://localhost:3030/api/payment/fail',
+            // cancel_url: 'http://localhost:3030/api/payment/fail',
+            // ipn_url: 'http://localhost:3030/ipn',
+            success_url: `https://hire-wave.onrender.com/api/payment/success/${tran_id}`,
+            fail_url: 'https://hire-wave.onrender.com/api/payment/fail',
+            cancel_url: 'https://hire-wave.onrender.com/api/payment/fail',
+            ipn_url: 'https://hire-wave.onrender.com/ipn',
             shipping_method: 'Courier',
             product_name: 'Computer.',
             product_category: 'Electronic',
@@ -87,8 +87,8 @@ paymentRoute.post('/success/:tran_id', async (req, res) => {
         { new: true }
 
     )
-    res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
-    // res.redirect(`https://hire-wave.web.app/dashboard/payment/successful/${tran_id}`)
+    // res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
+    res.redirect(`https://hire-wave.web.app/dashboard/payment/successful/${tran_id}`)
 })
 
 paymentRoute.post('/fail', async (req, res) => {
