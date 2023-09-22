@@ -16,6 +16,10 @@ paymentRoute.post('/', async (req, res) => {
             total_amount: payment.amount,
             currency: 'USD',
             tran_id: tran_id,
+            // success_url: `http://localhost:3030/api/payment/success/${tran_id}`,
+            // fail_url: 'http://localhost:3030/api/payment/fail',
+            // cancel_url: 'http://localhost:3030/api/payment/fail',
+            // ipn_url: 'http://localhost:3030/ipn',
             success_url: `https://hire-wave.onrender.com/api/payment/success/${tran_id}`,
             fail_url: 'https://hire-wave.onrender.com/api/payment/fail',
             cancel_url: 'https://hire-wave.onrender.com/api/payment/fail',
@@ -47,17 +51,19 @@ paymentRoute.post('/', async (req, res) => {
             // Redirect the user to payment gateway
             let GatewayPageURL = apiResponse.GatewayPageURL
             const paymentHistory = {
+                recruiterEmail: payment.recruiterEmail,
                 recruiterId: payment.recruiterId,
+                applicantEmail: payment.applicantEmail,
+                receiver: payment.receiver,
+                receiverImage: payment.receiverImage,
+                position: payment.position,
                 amount: payment.amount,
-                packages: payment.packages,
-                paymentTimeline: payment.paymentTimeline,
                 recruiterName: payment.recruiterName,
                 companyLogo: payment.companyLogo,
                 tran_id: tran_id,
                 isPaid: false
             }
             const storePaymentHistory = paymentCollection(paymentHistory).save();
-            // console.log(storePaymentHistory)
             res.send({ url: GatewayPageURL })
         });
 
@@ -78,11 +84,12 @@ paymentRoute.post('/success/:tran_id', async (req, res) => {
         { new: true }
 
     )
-    console.log("updatePaymentData", updatePaymentData)
+    // res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
     res.redirect(`https://hire-wave.web.app/dashboard/payment/successful/${tran_id}`)
 })
 
 paymentRoute.post('/fail', async (req, res) => {
+    // res.redirect('http://localhost:5173/dashboard/payment/fail')
     res.redirect('https://hire-wave.web.app/dashboard/payment/fail')
 })
 paymentRoute.get('/history', async (req, res) => {
