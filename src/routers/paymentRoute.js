@@ -65,13 +65,13 @@ paymentRoute.post('/', async (req, res) => {
                 tran_id: payment.tran_id,
                 isPaid: false
             }
+            console.log(paymentHistory)
             const storePaymentHistory = paymentCollection(paymentHistory).save();
             res.send({ url: GatewayPageURL })
         });
 
     } catch (error) {
-        console.log(error)
-        res.status(500).send({ message: 'Server Broken!'})
+        res.status(500).send({ message: error.message })
     }
 })
 
@@ -113,8 +113,7 @@ paymentRoute.get('/history/:recruiterName', async (req, res) => {
         console.log(payment)
         res.status(200).send(payment)
     } catch (error) {
-        console.log(error)
-        res.status(400).send({ message: 'Server Broken'})
+        res.status(400).send({ message: error.message })
     }
 })
 
