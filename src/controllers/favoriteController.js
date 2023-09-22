@@ -67,7 +67,25 @@ const recruiterFavorite = async (req, res) => {
    }
 };
 
-// favorite data find by candidate email
+// favorite data find by recruiter email
+const recruiterFavorites = async (req, res) => {
+   const emailEmail = req?.params?.email;
+   try {
+      const result = await favoriteCollection.find({
+         recruiterEmail: emailEmail,
+      });
+
+      if (result) {
+         res.status(200).send(result);
+      }
+
+   } catch (err) {
+      console.log('recruiterFavorite -> ', err);
+      res.status(404).send({ message: 'Server Error' });
+   }
+};
+
+// favorites data find by candidate email
 const candidateFavorite = async (req, res) => {
   const emailEmail = req.params.email;
   try {
@@ -85,4 +103,11 @@ const candidateFavorite = async (req, res) => {
   }
 };
 
-module.exports = { getAllFavorite, postFavorite, deleteFavorite, candidateFavorite, recruiterFavorite };
+module.exports = {
+  getAllFavorite,
+  postFavorite,
+  deleteFavorite,
+  candidateFavorite,
+  recruiterFavorite,
+  recruiterFavorites,
+};
