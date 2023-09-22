@@ -24,12 +24,23 @@ const allTaskGet = async (req, res) => {
 
 // Post a Job Offer
 const findByCandidateEmail = async (req, res) => {
-   const body = req?.body;
    const candidateEmail = req?.params.email;
    
    try {
-      const jobs = await tasks.findOne({ applicantEmail: candidateEmail });
-      // const filteredJob = await jobs.filter(job => job?.applicant?.email == candidateEmail);
+      const jobs = await tasks.find({ applicantEmail: candidateEmail });
+      res.status(200).send(jobs);
+   } catch (err) {
+      console.log(err)
+      res.status(404).send({message: 'Server Error' })
+   }
+}
+
+// Post a Job Offer
+const findByRecruiterEmail = async (req, res) => {
+   const recruiterEmail = req?.params.email;
+   
+   try {
+      const jobs = await tasks.find({ companyEmail: recruiterEmail });
       res.status(200).send(jobs);
    } catch (err) {
       console.log(err)
@@ -42,4 +53,5 @@ module.exports = {
   allTaskGet,
   tasksPost,
   findByCandidateEmail,
+  findByRecruiterEmail,
 };
