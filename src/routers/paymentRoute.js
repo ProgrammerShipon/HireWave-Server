@@ -78,12 +78,12 @@ paymentRoute.post('/success/:tran_id', async (req, res) => {
         { new: true }
 
     )
-    console.log("updatePaymentData" , updatePaymentData)
-    res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
+    console.log("updatePaymentData", updatePaymentData)
+    res.redirect(`https://hire-wave.web.app/dashboard/payment/successful/${tran_id}`)
 })
 
 paymentRoute.post('/fail', async (req, res) => {
-    res.redirect('http://localhost:5173/dashboard/payment/fail')
+    res.redirect('https://hire-wave.web.app/dashboard/payment/fail')
 })
 paymentRoute.get('/history', async (req, res) => {
     try {
