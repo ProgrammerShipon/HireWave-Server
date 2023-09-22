@@ -150,7 +150,7 @@ app.use((req, res, next) => {
 // server error handling -> all the errors
 app.use((err, req, res, next) => {
   console.log(err);
-  res.status(500).send("Something server broke!");
+  res.status(400).send(err);
 
   return res.status(err.status || 500).json({
     success: false,

@@ -1,28 +1,23 @@
 const express = require('express');
-
+const { ObjectId } = require('bson');
 const SSLCommerzPayment = require('sslcommerz-lts');
 const { paymentCollection } = require('../collections/collection');
 
 const store_id = 'hirew6501a99532e47'
 const store_passwd = 'hirew6501a99532e47@ssl'
 const is_live = false
-
 const paymentRoute = express.Router();
-
+// const tran_id = new ObjectId().toString();
 
 paymentRoute.post('/', async (req, res) => {
+
     try {
         const payment = req.body;
-        console.log("payment" , payment)
         const data = {
             total_amount: payment.amount,
             currency: 'USD',
             tran_id: payment.tran_id,
-            // success_url: `http://localhost:3030/api/payment/success/${payment.tran_id}`,
-            // fail_url: 'http://localhost:3030/api/payment/fail',
-            // cancel_url: 'http://localhost:3030/api/payment/fail',
-            // ipn_url: 'http://localhost:3030/ipn',
-            success_url: `https://hire-wave.onrender.com/api/payment/success/${tran_id}`,
+            success_url: `https://hire-wave.onrender.com/api/payment/success/${payment.tran_id}`,
             fail_url: 'https://hire-wave.onrender.com/api/payment/fail',
             cancel_url: 'https://hire-wave.onrender.com/api/payment/fail',
             ipn_url: 'https://hire-wave.onrender.com/ipn',
@@ -48,6 +43,10 @@ paymentRoute.post('/', async (req, res) => {
             ship_postcode: 1000,
             ship_country: 'Bangladesh',
         };
+        // recruiterEmail: 
+        // recruiterId: 
+        // receiver: receiverImage:position: 
+        // amount:  tran_id: applicantEmail: recruiterName:  companyLogo:  paymentDate: isPaid: 
         const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
         sslcz.init(data).then(apiResponse => {
             // Redirect the user to payment gateway
@@ -65,7 +64,7 @@ paymentRoute.post('/', async (req, res) => {
                 tran_id: payment.tran_id,
                 isPaid: false
             }
-            console.log(paymentHistory)
+            console.log("paymentHistory", paymentHistory)
             const storePaymentHistory = paymentCollection(paymentHistory).save();
             res.send({ url: GatewayPageURL })
         });
@@ -108,6 +107,19 @@ paymentRoute.get('/history/:recruiterName', async (req, res) => {
         const payment = await paymentCollection.find(
             {
                 recruiterName: req.params.recruiterName,
+                isPaid: true
+            }).sort({ purchaseDate: -1 })
+        console.log(payment)
+        res.status(200).send(payment)
+    } catch (error) {
+        res.status(400).send({ message: error.message })
+    }
+})
+paymentRoute.get('/history/:candidateName', async (req, res) => {
+    try {
+        const payment = await paymentCollection.find(
+            {
+                applicantEmail: req.params.applicantEmail,
                 isPaid: true
             }).sort({ purchaseDate: -1 })
         console.log(payment)
