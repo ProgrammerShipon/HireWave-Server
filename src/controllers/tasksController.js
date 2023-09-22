@@ -28,10 +28,11 @@ const findByCandidateEmail = async (req, res) => {
    const candidateEmail = req?.params.email;
    
    try {
-      const jobs = await tasks.find();
-      const filteredJob = await jobs.filter(job => job?.applicant?.email == candidateEmail);
-      res.status(200).send(filteredJob);
+      const jobs = await tasks.findOne({ applicantEmail: candidateEmail });
+      // const filteredJob = await jobs.filter(job => job?.applicant?.email == candidateEmail);
+      res.status(200).send(jobs);
    } catch (err) {
+      console.log(err)
       res.status(404).send({message: 'Server Error' })
    }
 }

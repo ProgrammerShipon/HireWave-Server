@@ -102,7 +102,7 @@ const candidateStatusUpdate = async (req, res) => {
     }
   } catch (error) {
     console.log(error)
-    res.status(400).send({ message: 'Server Error' });
+    res.status(400).send({ message: 'Server Error'});
   }
 };
 
