@@ -1,4 +1,4 @@
-const { recruitersCollection, usersCollection } = require("../collections/collection");
+const { recruitersCollection, usersCollection, paymentCollection } = require("../collections/collection");
 
 // One Data insert 
 const postNewRecruiter = async (req, res) => {
@@ -225,11 +225,21 @@ const updateRecruiterName = async (req, res) => {
       },
       { new: true }
     );
+
     const updateUserData = await usersCollection.findOneAndUpdate(
       { email: updateData.email },
       {
         $set: {
           name: updateData.name
+        },
+      },
+      { new: true }
+    )
+    const updateUserDataPayment = await paymentCollection.findAndUpdate(
+      { recruiterEmail: updateData.email },
+      {
+        $set: {
+          recruiterName: updateData.name
         },
       },
       { new: true }

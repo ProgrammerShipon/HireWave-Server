@@ -1,29 +1,31 @@
 const express = require('express');
-const { ObjectId } = require('bson');
+
 const SSLCommerzPayment = require('sslcommerz-lts');
 const { paymentCollection } = require('../collections/collection');
+
 const store_id = 'hirew6501a99532e47'
 const store_passwd = 'hirew6501a99532e47@ssl'
 const is_live = false
-const tran_id = new ObjectId().toString();
+
 const paymentRoute = express.Router();
 
 
 paymentRoute.post('/', async (req, res) => {
     try {
         const payment = req.body;
+        console.log("payment" , payment)
         const data = {
             total_amount: payment.amount,
             currency: 'USD',
-            tran_id: tran_id,
-            // success_url: `http://localhost:3030/api/payment/success/${tran_id}`,
-            // fail_url: 'http://localhost:3030/api/payment/fail',
-            // cancel_url: 'http://localhost:3030/api/payment/fail',
-            // ipn_url: 'http://localhost:3030/ipn',
-            success_url: `https://hire-wave.onrender.com/api/payment/success/${tran_id}`,
-            fail_url: 'https://hire-wave.onrender.com/api/payment/fail',
-            cancel_url: 'https://hire-wave.onrender.com/api/payment/fail',
-            ipn_url: 'https://hire-wave.onrender.com/ipn',
+            tran_id: payment.tran_id,
+            success_url: `http://localhost:3030/api/payment/success/${payment.tran_id}`,
+            fail_url: 'http://localhost:3030/api/payment/fail',
+            cancel_url: 'http://localhost:3030/api/payment/fail',
+            ipn_url: 'http://localhost:3030/ipn',
+            // success_url: `https://hire-wave.onrender.com/api/payment/success/${tran_id}`,
+            // fail_url: 'https://hire-wave.onrender.com/api/payment/fail',
+            // cancel_url: 'https://hire-wave.onrender.com/api/payment/fail',
+            // ipn_url: 'https://hire-wave.onrender.com/ipn',
             shipping_method: 'Courier',
             product_name: 'Computer.',
             product_category: 'Electronic',
@@ -60,9 +62,10 @@ paymentRoute.post('/', async (req, res) => {
                 amount: payment.amount,
                 recruiterName: payment.recruiterName,
                 companyLogo: payment.companyLogo,
-                tran_id: tran_id,
+                tran_id: payment.tran_id,
                 isPaid: false
             }
+            console.log(paymentHistory)
             const storePaymentHistory = paymentCollection(paymentHistory).save();
             res.send({ url: GatewayPageURL })
         });
@@ -84,8 +87,8 @@ paymentRoute.post('/success/:tran_id', async (req, res) => {
         { new: true }
 
     )
-    // res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
-    res.redirect(`https://hire-wave.web.app/dashboard/payment/successful/${tran_id}`)
+    res.redirect(`http://localhost:5173/dashboard/payment/successful/${tran_id}`)
+    // res.redirect(`https://hire-wave.web.app/dashboard/payment/successful/${tran_id}`)
 })
 
 paymentRoute.post('/fail', async (req, res) => {
