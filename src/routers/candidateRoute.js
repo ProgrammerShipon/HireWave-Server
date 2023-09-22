@@ -1,20 +1,75 @@
-const express = require('express')
-const { getAllCandidatesData, getACandidate, postCandidateData, deleteCandidate, updateCandidate } = require('../controllers/candidateDataController');
-const candidateRoute = express.Router()
+const express = require("express");
+const {
+  getAllCandidatesData,
+  getACandidate,
+  postCandidateData,
+  deleteCandidate,
+  updateCandidateAvailability,
+  getCandidateByGmail,
+  updateCandidateLocation,
+  updateCandidateSkills,
+  updateCandidateLanguageSkills,
+  updateCandidateEducationalQualification,
+  updateCandidateExperience,
+  updateCandidateAbout,
+  updateCandidateProfile,
+  updateCandidateProfilePhoto,
+  candidateStatusUpdate,
+  candidateViewsCountUpdate,
+  updateCandidateSocialLink,
+} = require("../controllers/candidateDataController");
 
-// Get All candidate 
-candidateRoute.get('/', getAllCandidatesData)
+const candidateRoute = express.Router();
+
+// Get All candidate
+candidateRoute.get("/", getAllCandidatesData);
 
 // Get candidate by id
-candidateRoute.get('/:id', getACandidate)
+candidateRoute.get("/:id", getACandidate);
 
-// Post Candidate Data 
-candidateRoute.post('/', postCandidateData)
+// Get candidate by id
+candidateRoute.get("/email/:email", getCandidateByGmail);
+
+// Post Candidate Data
+candidateRoute.post("/", postCandidateData);
 
 // Delete Candidate Data
-candidateRoute.delete('/:id', deleteCandidate)
+candidateRoute.delete("/:id", deleteCandidate);
 
-// Delete Candidate Data
-candidateRoute.patch('/:id', updateCandidate)
+// Update Candidate Data
+candidateRoute.patch("/", candidateStatusUpdate);
+
+// Update Candidate Data
+candidateRoute.patch("/viewsCount/:id", candidateViewsCountUpdate);
+
+// Update Candidate Data
+candidateRoute.patch("/profilePhoto/:id", updateCandidateProfilePhoto);
+
+// Update Candidate Data
+candidateRoute.patch("/profile/:id", updateCandidateProfile);
+
+// Update Candidate Data
+candidateRoute.patch("/availability/:id", updateCandidateAvailability);
+
+// Update Candidate Data
+candidateRoute.patch("/about/:id", updateCandidateAbout);
+
+// Update Candidate Location
+candidateRoute.patch("/location/:id", updateCandidateLocation);
+
+// Update Candidate Location
+candidateRoute.patch("/social/:id", updateCandidateSocialLink);
+
+// Update Candidate Location
+candidateRoute.patch("/skill/:id", updateCandidateSkills);
+
+// Update Candidate Language Skills
+candidateRoute.patch("/language/:id", updateCandidateLanguageSkills);
+
+// Update Candidate Educational Qualification
+candidateRoute.patch("/education/:id", updateCandidateEducationalQualification);
+
+// Update Candidate Experience
+candidateRoute.patch("/experience/:id", updateCandidateExperience);
 
 module.exports = candidateRoute;

@@ -17,11 +17,11 @@ const candidateDataModel = new mongoose.Schema({
   },
   image: String,
   title: String,
-  phone: [String],
+  phone: String,
   category: String,
   hourlyRate: String,
   jobType: String,
-  location: [String],
+  location: String,
   address: String,
   skills: [String],
   about: [String],
@@ -44,10 +44,12 @@ const candidateDataModel = new mongoose.Schema({
   ],
   socialLink: [
     {
+      facebook: String,
+      twitter: String,
       linkedin: String,
       github: String,
-      twitter: String,
-      facebook: String,
+      
+      
     },
   ],
   languages: [
@@ -63,17 +65,11 @@ const candidateDataModel = new mongoose.Schema({
   },
   recommendations: Number,
   active: Boolean,
+  earning: Number,
+  viewsCount: [String],
+  following: [String],
   visibility: String,
   joinDate: String,
 });
-
-
-  // rating: {
-  //   type: Number,
-  //   min: 0,
-  //   max: 5,
-  // },
-  // salaryRange: String,
-
 
 module.exports = candidateDataModel;

@@ -1,29 +1,19 @@
-const { allCandidatesCollection, usersCollection } = require("../collections/collection");
+const { usersCollection, recruitersCollection, allCandidatesCollection } = require("../collections/collection");
 
 // Add A User On DataBase
 const postUser = async (req, res) => {
   try {
     const newUserData = req.body;
-    const data = {
-      role: 'candidate',
-      name: 'shipon',
-      email: 'shipon234@gmail.com',
-      image: '',
-    }
-
-    console.log('post user -> ', newUserData)
 
     const query = { email: newUserData.email };
     const isExist = await usersCollection.findOne(query);
-    console.log(isExist)
-    
+
     if (isExist) {
       return res.status(201).send({ isExist, message: "user exist" });
     } else {
       const insert = await usersCollection(newUserData).save();
       return res.status(200).send({ insert})
     }
-
   } catch (error) {
     console.error(error);
     res.status(404).send({ message: "Server Problem",});
@@ -33,20 +23,17 @@ const postUser = async (req, res) => {
 // Get a user by email
 const getUserByEmail = async (req, res) => {
   try {
-    const email = req.params.email;
-    const query = { email: email };
-    const user = await usersCollection.findOne(query);
+    const user = await usersCollection.findOne({email: req.params.email});
     res.status(200).send(user);
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
 };
+
 // Get a user by Id
 const getUserById = async (req, res) => {
   try {
-    const id = req.params.id;
-    const user = await usersCollection.findById(id);
-    // console.log(user)
+    const user = await usersCollection.findById(req.params.id);
     res.status(200).json(user);
   } catch (error) {
     res.status(404).send({ message: error.message });
@@ -76,16 +63,47 @@ const deleteUser = async (req, res) => {
 // User Update by ID
 const updateUser = async (req, res) => {
   const updateData = req.body;
-  console.log('update user -> ', updateData)
+
   try {
-    const updatedUser = await usersCollection.findByIdAndUpdate(
-      req.params.id,
-      updateData,
+    const emailQuery = { email: updateData?.email };
+
+    // updated json success
+    let sendData;
+
+    // only user collection status update
+    const usersClnUpdate = await usersCollection.findOneAndUpdate(
+      emailQuery,
+      { status: updateData?.status },
       { new: true }
     );
-    res.status(200).send(updatedUser);
-  } catch (err) {
-    res.send('Error updating candidate:', err.message);
+    sendData = { usersClnUpdate };
+    
+    // only recruiter collection status update
+    let recruiterClnUpdate
+    if (usersClnUpdate?.role == "recruiter") {
+       recruiterClnUpdate = await recruitersCollection.findOneAndUpdate(
+        emailQuery,
+        { status: updateData?.status },
+        { new: true }
+      );
+      sendData = { ...sendData, recruiterClnUpdate };
+    }
+
+    // only recruiter collection status update
+    let candidateClnUpdate;
+    if (usersClnUpdate?.role == "candidate") {
+      candidateClnUpdate = await allCandidatesCollection.findOneAndUpdate(
+        emailQuery,
+        { status: updateData?.status },
+        { new: true }
+      );
+      sendData = { ...sendData, candidateClnUpdate };
+    }
+
+    // send data client site
+    res.status(200).send({ sendData });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
   }
 };
 

@@ -21,6 +21,9 @@ const learningModel = new mongoose.Schema(
     authorImg: String,
     comments: [commentSchema],
     readTime: Number,
+    like: Number,
+    disLike: Number,
+    views: Number,
     description: String,
   },
   { timestamps: true }

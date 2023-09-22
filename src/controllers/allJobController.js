@@ -1,20 +1,14 @@
-const { ObjectId } = require('bson');
 const { allJobCollection } = require('../collections/collection');
-
 
 // Post a Job (todo: only developer)
 const postAllJob = async (req, res) => {
    try {
       const newJobPostData = req.body;
-      console.log("new Job Data -> ", newJobPostData);
-
       const newJobPost = await allJobCollection.insertMany(newJobPostData);
-
-      console.log('Inserted data -> ', newJobPost);
-
       res.status(200).send(newJobPost)
    } catch (error) {
-      res.status(404).send({ message: error.message })
+      console.log('postAllJob -> ', error)
+      res.status(404).send({ message: 'Server Error'})
    }
 }
 
@@ -23,10 +17,10 @@ const postOneJob = async (req, res) => {
    try {
       const newJobPostData = req.body;
       const newJobPost = await allJobCollection(newJobPostData).save();
-      console.log(newJobPost)
       res.status(200).send(newJobPost)
    } catch (error) {
-      res.status(404).send({ message: error.message })
+      console.log('postOneJob -> ', error)
+      res.status(404).send({ message: 'Server Brocken'})
    }
 }
 
@@ -36,7 +30,8 @@ const getAllJob = async (req, res) => {
       const allJobs = await allJobCollection.find();
       res.status(200).send(allJobs);
    } catch (error) {
-      res.status(404).send({ message: error.message })
+      console.log("getAllJob -> ", error);
+      res.status(404).send({ message: 'Server Broken'});
    }
 }
 
@@ -47,22 +42,58 @@ const getAJob = async (req, res) => {
       const Result = await allJobCollection.findById(id);
       res.status(200).send(Result);
    } catch (error) {
-      res.status(404).send({ message: error.message })
+      console.log("getAJob -> ", error);
+      res.status(404).send({ message: 'Server Broken'})
    }
 }
+
+// Get a Jobs Post
+const getEmail = async (req, res) => {
+   try {
+      const email = {companyEmail: req.params.email};
+      const Result = await allJobCollection.find(email);
+      res.status(200).send(Result);
+   } catch (error) {
+      console.log("getEmail -> ", error);
+      res.status(404).send({ message: 'Server Broken'})
+   }
+}
+
+// Update A Job Data
+const updateJobs = async (req, res) => {
+   const updateData = req.body;
+  try {
+    const result = await allJobCollection.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+    res.status(200).send(result);
+  } catch (error) {
+      console.log("updateJobs -> ", error);
+      res.status(404).send({ message: 'Server Broken'});
+  }
+};
 
 // Delete A Job Post
 const deleteAJobPost = async (req, res) => {
    try {
       const id = req.params.id;
-      const query = { _id: new ObjectId(id) }
-      const deleteJobPost = await allJobCollection.findOneAndDelete(query)
+      const deleteJobPost = await allJobCollection.findByIdAndDelete(id);
       res.status(200).send(deleteJobPost)
    } catch (error) {
-      res.status(404).send({ message: error.message })
+      console.log("deleteAJobPost -> ", error);
+      res.status(404).send({ message: "Server Broken" });
    }
 }
 
-
-
-module.exports = { postAllJob, postOneJob, getAllJob, getAJob, deleteAJobPost };
+// job controller exports
+module.exports = {
+   postAllJob,
+   postOneJob,
+   getAllJob,
+   getAJob,
+   updateJobs,
+   deleteAJobPost,
+   getEmail
+};

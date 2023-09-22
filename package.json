@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "firebase deploy --only functions:api"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +20,14 @@
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",
+    "sslcommerz-lts": "^1.1.0",
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": "18"
   }
 }

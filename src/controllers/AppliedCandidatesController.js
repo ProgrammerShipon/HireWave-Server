@@ -1,5 +1,5 @@
 const { ObjectId } = require('bson');
-const { appliedCandidatesCollection, allJobCollection, allCandidatesCollection } = require('../collections/collection');
+const { appliedCandidatesCollection, allCandidatesCollection } = require('../collections/collection');
 
 
 // Post a applied Candidate (todo: only developer)
@@ -9,47 +9,54 @@ const postAllAppliedInfo = async (req, res) => {
         const newApplicant = await appliedCandidatesCollection.insertMany(newApplicantData);
         res.status(200).send(newApplicant)
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("postAllAppliedInfo -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
-// Post applied Candidate - 
-const postOneAppliedInfo = async (req, res) => {
-    const appliedJob = req.body
-    const appliedJobId = appliedJob.appliedJobId;
-    const applicantEmail = appliedJob.applicantEmail;
-    const query = { appliedJobId: appliedJobId, applicantEmail: applicantEmail };
-    const isExist = await appliedCandidatesCollection.findOne(query);
+// store applied info
+const storeAppliedInfo = async (req, res) => {
     try {
-        if (isExist) {
-            return res.status(202).send({ isExist, message: "Already  Applied" });
-        } else {
-            const newApplicant = await appliedCandidatesCollection(appliedJob).save();
-            res.status(200).send(newApplicant)
-        }
+        const appliedJob = req.body;
+        const result = await appliedCandidatesCollection(appliedJob).save()
+        res.status(200).send(result)
     } catch (error) {
-        res.status(400).send({ error: error?.message });
+      console.log("storeAppliedInfo -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
+
 // Get All Applied Candidate Developer route 
 const getAllAppliedCandidates = async (req, res) => {
     try {
         const Result = await appliedCandidatesCollection.find();
         res.status(200).send(Result);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("getAllAppliedCandidates -> ", error);
+      res.status(404).send({ message: "Server Broken"});
+    }
+}
+
+// Get All Applied Candidate Developer route 
+const getAppliedCandidates = async (req, res) => {
+    try {
+        const id = req.params.id
+        const Result = await appliedCandidatesCollection.findById(id);
+        res.status(200).send(Result);
+    } catch (error) {
+      console.log("deleteAJobPost -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
 // Get all applied Info -for Candidate
-const getAllAppliedCandidateInfo = async (req, res) => {
+const AppliedCandidateInfo = async (req, res) => {
     try {
-        const applicantId = req.params.id;
-        const query = { _id: new ObjectId(applicantId) }
-        const allApplicant = await allCandidatesCollection.find(query);
-        res.status(200).send(allApplicant);
+        const candidateInfo = await allCandidatesCollection.findById(req.params.id);
+        res.status(200).send(candidateInfo);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("deleteAJobPost -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
@@ -61,7 +68,8 @@ const getAppliedJobEachCandidate = async (req, res) => {
         const Result = await appliedCandidatesCollection.find(query);
         res.status(200).send(Result);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("getAppliedJobEachCandidate -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
@@ -73,7 +81,8 @@ const cancelApplicationEachCandidate = async (req, res) => {
         const Result = await appliedCandidatesCollection.findOneAndDelete(query);
         res.status(200).send(Result);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("cancelApplicationEachCandidate -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 // Get a applied Candidate
@@ -84,15 +93,16 @@ const getAppliedJobInfo = async (req, res) => {
         const Result = await appliedCandidatesCollection.find(query);
         res.status(200).send(Result);
     } catch (error) {
-        res.status(404).send({ message: error.message })
+      console.log("getAppliedJobInfo -> ", error);
+      res.status(404).send({ message: "Server Broken" });
     }
 }
 
 // Get a Specific Company's applied Candidate  for recruiters
 const getAppliedCandidateByCompany = async (req, res) => {
     try {
-        const company = req.params.company;
-        const query = { companyName: company };
+        const recruiterEmail = req.params.recruiterEmail;
+        const query = { companyEmail: recruiterEmail };
         const Result = await appliedCandidatesCollection.find(query);
         res.status(200).send(Result);
     } catch (error) {
@@ -102,9 +112,7 @@ const getAppliedCandidateByCompany = async (req, res) => {
 // Get a Specific Company's applied Candidate  for recruiters
 const getAppliedCandidatesDetails = async (req, res) => {
     try {
-        const id = req.params.id;
-        const query = { _id: new ObjectId(id) };
-        const Result = await allCandidatesCollection.find(query);
+        const Result = await allCandidatesCollection.find();
         res.status(200).send(Result);
     } catch (error) {
         res.status(404).send({ message: error.message })
@@ -125,4 +133,4 @@ const deleteOneAppliedInfo = async (req, res) => {
 
 
 
-module.exports = { postAllAppliedInfo, getAllAppliedCandidates, getAppliedJobEachCandidate, cancelApplicationEachCandidate, getAllAppliedCandidateInfo, postOneAppliedInfo, getAppliedJobInfo, getAppliedCandidateByCompany, getAppliedCandidatesDetails, deleteOneAppliedInfo };
+module.exports = { postAllAppliedInfo, getAllAppliedCandidates, getAppliedJobEachCandidate, cancelApplicationEachCandidate, AppliedCandidateInfo, storeAppliedInfo, getAppliedJobInfo, getAppliedCandidateByCompany, getAppliedCandidatesDetails,getAppliedCandidates, deleteOneAppliedInfo };

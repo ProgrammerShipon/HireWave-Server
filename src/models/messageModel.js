@@ -1,20 +1,20 @@
 const { default: mongoose } = require("mongoose");
 
 const messageModel = new mongoose.Schema(
-  {
-    chatId: {
-      type: String,
+    {
+        chatId: {
+            type: String,
+            required: true
+        },
+        senderId: {
+            type: String,
+            required: true
+        },
+        text: String
     },
-    senderId: {
-      type: String,
-    },
-    text: {
-      type: String,
-    },
-  },
-  {
-    timestamps: true,
-  }
+    {
+        timestamps: true
+    }
 );
 
-module.exports = messageModel;
+module.exports = messageModel

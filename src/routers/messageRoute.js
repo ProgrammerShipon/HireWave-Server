@@ -1,12 +1,8 @@
 const express = require("express");
-const {
-  addMessage,
-  getMessages,
-  getAllMessages,
-} = require("../controllers/messageController");
+const {getMessages,getAllMessages, createMessage,} = require("../controllers/messageController");
 const messageRoute = express.Router();
 
-messageRoute.post("/", addMessage);
+messageRoute.post("/", createMessage);
 
 messageRoute.get("/", getAllMessages);
 
