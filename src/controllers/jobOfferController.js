@@ -30,7 +30,7 @@ const findByRecruiterEmail = async (req, res) => {
    
    try {
       const jobs = await jobOffer.find({
-        "applicant.email": companyEmail,
+        "company.email": companyEmail,
       });
       res.status(200).send(jobs);
    } catch (err) {
