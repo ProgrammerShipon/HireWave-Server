@@ -24,7 +24,7 @@ const getACandidate = async (req, res) => {
 const getCandidateByGmail = async (req, res) => {
   try {
     const query = { email: req.params.email }
-    const result = await allCandidatesCollection.findOne(query)
+    const result = await allCandidatesCollection.find(query)
     res.status(200).json(result);
   } catch (error) {
     res.status(404).json({ message: error.message });

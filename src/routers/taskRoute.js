@@ -1,6 +1,6 @@
 const tasksRoute = require("express").Router();
 
-const { tasksPost, allTaskGet, findByCandidateEmail } = require("../controllers/tasksController");
+const { tasksPost, allTaskGet, findByCandidateEmail, findByRecruiterEmail } = require("../controllers/tasksController");
 
 
 // Get All task 
@@ -12,14 +12,11 @@ tasksRoute.get("/", allTaskGet);
 // Job Offer Notification or others by candidate
 tasksRoute.get("/candidate-email/:email", findByCandidateEmail);
 
+// Job Offer Notification or others by candidate
+tasksRoute.get("/recruiter-email/:email", findByRecruiterEmail);
+
 // Post task Data 
 tasksRoute.post("/", tasksPost);
-
-// Delete task Data
-// tasksRoute.delete('/:id', deleteCandidate)
-
-// Delete task Data
-// tasksRoute.patch('/:id', updateCandidate)
 
 
 
