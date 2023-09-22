@@ -24,6 +24,22 @@ const postJobOffer = async (req, res) => {
 }
 
 // Post a Job Offer
+const findByRecruiterEmail = async (req, res) => {
+   const body = req?.body;
+   const companyEmail = req?.params.email;
+   
+   try {
+      const jobs = await jobOffer.find({
+        "applicant.email": companyEmail,
+      });
+      res.status(200).send(jobs);
+   } catch (err) {
+      console.log(err)
+      res.status(404).send({message: 'Server Error' })
+   }
+}
+
+// Post a Job Offer
 const findByCandidateEmail = async (req, res) => {
    const body = req?.body;
    const candidateEmail = req?.params.email;
@@ -84,4 +100,5 @@ module.exports = {
   findByCandidateEmail,
   updateJobOfferRead,
   updateJobOfferStatus,
+  findByRecruiterEmail,
 };
