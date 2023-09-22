@@ -23,9 +23,8 @@ const postJobOffer = async (req, res) => {
    }
 }
 
-// Post a Job Offer
+// find by recruiter email Job Offer
 const findByRecruiterEmail = async (req, res) => {
-   const body = req?.body;
    const companyEmail = req?.params.email;
    
    try {
@@ -39,11 +38,10 @@ const findByRecruiterEmail = async (req, res) => {
    }
 }
 
-// Post a Job Offer
+// find by candidate email Job Offer
 const findByCandidateEmail = async (req, res) => {
-   const body = req?.body;
    const candidateEmail = req?.params.email;
-   
+
    try {
       const jobs = await jobOffer.find({
         'applicant.email': candidateEmail,
