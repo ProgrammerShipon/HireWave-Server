@@ -51,7 +51,7 @@ const getAJob = async (req, res) => {
 const getEmail = async (req, res) => {
    try {
       const email = {companyEmail: req.params.email};
-      const Result = await allJobCollection.findOne(email);
+      const Result = await allJobCollection.find(email);
       res.status(200).send(Result);
    } catch (error) {
       console.log("getEmail -> ", error);
