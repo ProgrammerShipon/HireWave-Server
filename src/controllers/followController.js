@@ -81,4 +81,27 @@ const candidateFollow = async (req, res) => {
   }
 };
 
-module.exports = { getAllFollow, postFollow, deleteFollow, candidateFollow, recruiterFollow };
+// Follow data find by candidate email
+const candidateFollows = async (req, res) => {
+  const emailEmail = req.params.email;
+  try {
+    const result = await followCollection.find({
+      candidateEmail: emailEmail,
+    });
+    if (result) {
+      res.status(200).send(result);
+    }
+  } catch (err) {
+    console.log("candidateFollow -> ", err);
+    res.status(404).send({ message: "Server Error" });
+  }
+};
+
+module.exports = {
+  getAllFollow,
+  postFollow,
+  deleteFollow,
+  candidateFollow,
+  recruiterFollow,
+  candidateFollows,
+};

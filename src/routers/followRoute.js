@@ -1,4 +1,4 @@
-const { getAllFollow, recruiterFollow, candidateFollow, postFollow, deleteFollow } = require("../controllers/followController");
+const { getAllFollow, recruiterFollow, candidateFollow, postFollow, deleteFollow, candidateFollows } = require("../controllers/followController");
 
 
 const followRoute = require("express").Router();
@@ -11,6 +11,9 @@ followRoute.get("/recruiter_email/:email", recruiterFollow);
 
 // favorite data store
 followRoute.get("/candidate_email/:email", candidateFollow);
+
+// favorite data store
+followRoute.get("/candidates_email/:email", candidateFollows);
 
 // favorite data store
 followRoute.post("/", postFollow);
