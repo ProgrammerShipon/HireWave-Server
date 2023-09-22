@@ -1,7 +1,23 @@
 const mongoose = require("mongoose");
 const paymentDataModel = new mongoose.Schema({
     // recruiterId receiver amount paymentTimeline recruiterName companyLogo
+    recruiterEmail: {
+        type: String,
+        require: true,
+    },
     recruiterId: {
+        type: String,
+        require: true,
+    },
+    receiver: {
+        type: String,
+        require: true,
+    },
+    receiverImage: {
+        type: String,
+        require: true,
+    },
+    position: {
         type: String,
         require: true,
     },
@@ -13,7 +29,7 @@ const paymentDataModel = new mongoose.Schema({
         type: String,
         require: true,
     },
-    packages: {
+    applicantEmail: {
         type: String,
         require: true,
     },
@@ -25,8 +41,7 @@ const paymentDataModel = new mongoose.Schema({
         type: String,
         require: true,
     },
-    
-    purchaseDate: {
+    paymentDate: {
         type: Date,
         default: Date.now
     },
@@ -34,6 +49,7 @@ const paymentDataModel = new mongoose.Schema({
         type: Boolean,
         required: true
     }
+
 
 });
 
